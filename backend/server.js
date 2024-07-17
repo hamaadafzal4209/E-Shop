@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDatabase from "./db/Database.js";
 import dotenv from "dotenv";
 import errorHandler from "./middleware/error.js";
+import userRouter from "./routes/userRoute.js";
 
 // config
 const app = express();
@@ -17,11 +18,13 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+app.use("/", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
 connectDatabase();
 
 // import routes
+app.use("/api/user", userRouter);
 
 // unhandled promise rejection
 process.on("unhandledRejection", (err) => {
