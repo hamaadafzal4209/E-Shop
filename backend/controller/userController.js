@@ -5,6 +5,7 @@ import sendMail from "../utils/sendMail.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import sendToken from "../utils/jwtToken.js";
 
+// register user
 export const createUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -34,15 +35,15 @@ export const createUser = async (req, res, next) => {
     const activationUrl = `http://localhost:5173/activation/${activationToken}`;
 
     try {
-        await sendMail({
-            email: user.email,
-            subject: "Activate your account",
-            message: `Hello ${user.name}, please click on the link to activate your account ${activationUrl}`
-        })
-        res.status(200).json({
-            success: true,
-            message: `please check your email:- ${user.email} to activate your account`
-        })
+      await sendMail({
+        email: user.email,
+        subject: "Activate your account",
+        message: `Hello ${user.name}, please click on the link to activate your account ${activationUrl}`,
+      });
+      res.status(200).json({
+        success: true,
+        message: `please check your email:- ${user.email} to activate your account`,
+      });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
@@ -60,28 +61,54 @@ const createActivationToken = (user) => {
 };
 
 // activate user
-export const activateUser = catchAsyncErrors(async(req,res,next) => {
-    try {
-        const {activation_token} = req.body;
+export const activateUser = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const { activation_token } = req.body;
 
-        const newUser = jwt.verify(activation_token, process.env.ACTIVATION_SECRET);
+    const newUser = jwt.verify(activation_token, process.env.ACTIVATION_SECRET);
 
-        if(!newUser) {
-            return next(new ErrorHandler("Invalid Token", 400))            
-        }
-
-        const {name,email,password,avatar} = newUser;
-
-        await userModel.create({
-            name,
-            email,
-            password,
-            avatar,
-        })
-
-        sendToken(newUser,201,res)
-        
-    } catch (error) {
-        return next(new ErrorHandler(error.message,500));
+    if (!newUser) {
+      return next(new ErrorHandler("Invalid Token", 400));
     }
-})
+
+    const { name, email, password, avatar } = newUser;
+
+    await userModel.create({
+      name,
+      email,
+      password,
+      avatar,
+    });
+
+    sendToken(newUser, 201, res);
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+// login user
+export const loginUser = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return next(new ErrorHandler("Please provide all fields"));
+    }
+
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    const isPasswordValid = await user.comparePassword(password);
+
+    if (!isPasswordValid) {
+      return next(new ErrorHandler("Wrong Cradientials", 404));
+    }
+
+    sendToken(user, 200, res);
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 404));
+  }
+});

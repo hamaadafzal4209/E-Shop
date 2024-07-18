@@ -1,5 +1,5 @@
 import express from "express";
-import { activateUser, createUser } from "../controller/userController.js";
+import { activateUser, createUser, loginUser } from "../controller/userController.js";
 import multer from "multer";
 const userRouter = express.Router();
 
@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 userRouter.post("/create-user", upload.single("file"), createUser);
-userRouter.post("/activation", activateUser)
+userRouter.post("/activation", activateUser);
+userRouter.post("/login", loginUser)
 
 export default userRouter;
