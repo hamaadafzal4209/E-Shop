@@ -48,6 +48,10 @@ function Register() {
 
       if (response.data.success) {
         toast.success(response.data.message);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setAvatar();
       } else {
         toast.error(response.data.message);
       }
