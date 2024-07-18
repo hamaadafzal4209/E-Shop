@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { server } from "../server";
 import { toast } from "react-toastify";
 
@@ -13,16 +13,12 @@ function Register() {
   const [avatar, setAvatar] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+  const navigate = useNavigate();
+  
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setAvatar(reader.result); // Set avatar to data URL
-        }
-      };
-      reader.readAsDataURL(file);
+      setAvatar(file);
     }
   };
 
@@ -37,7 +33,7 @@ function Register() {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
-    formData.append("file", avatar); // Make sure "avatar" is appended correctly
+    formData.append("file", avatar);
 
     try {
       const config = {
@@ -54,6 +50,7 @@ function Register() {
 
       if (response.data.success) {
         toast.success("User created successfully!");
+        navigate("/")
       } else {
         toast.error(response.data.message);
       }
