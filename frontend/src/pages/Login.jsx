@@ -19,7 +19,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${server}/user/login`, { email, password });
+      const res = await axios.post(`${server}/user/login`, { email, password }, {withCredentials: true});
       if (res.data.success) {
         toast.success("User successfully logged in");
         navigate("/");
