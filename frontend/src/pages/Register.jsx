@@ -13,8 +13,6 @@ function Register() {
   const [avatar, setAvatar] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const navigate = useNavigate();
-  
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -49,17 +47,12 @@ function Register() {
       );
 
       if (response.data.success) {
-        toast.success("User created successfully!");
-        navigate("/")
+        toast.success(response.data.message);
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.error(
-        "Error creating user:",
-        error.response?.data || error.message
-      );
-      toast.error("Failed to create user. Please try again later.");
+      toast.error(error.response.data.message);
     }
   };
 

@@ -2,6 +2,8 @@ import ErrorHandler from "../utils/ErrorHandler.js";
 import userModel from "../model/userModel.js";
 import jwt from "jsonwebtoken";
 import sendMail from "../utils/sendMail.js";
+import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
+import sendToken from "../utils/jwtToken.js";
 
 export const createUser = async (req, res, next) => {
   try {
@@ -29,7 +31,7 @@ export const createUser = async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `http://localhost:8000/activation/${activationToken}`;
+    const activationUrl = `http://localhost:5173/activation/${activationToken}`;
 
     try {
         await sendMail({
@@ -58,3 +60,28 @@ const createActivationToken = (user) => {
 };
 
 // activate user
+export const activateUser = catchAsyncErrors(async(req,res,next) => {
+    try {
+        const {activation_token} = req.body;
+
+        const newUser = jwt.verify(activation_token, process.env.ACTIVATION_SECRET);
+
+        if(!newUser) {
+            return next(new ErrorHandler("Invalid Token", 400))            
+        }
+
+        const {name,email,password,avatar} = newUser;
+
+        await userModel.create({
+            name,
+            email,
+            password,
+            avatar,
+        })
+
+        sendToken(newUser,201,res)
+        
+    } catch (error) {
+        return next(new ErrorHandler(error.message,500));
+    }
+})
