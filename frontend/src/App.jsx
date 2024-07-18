@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ActivationUser from "./pages/ActivationUser";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -11,9 +12,13 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/activation/:activation_token" element={<ActivationUser />} />
+          <Route
+            path="/activation/:activation_token"
+            element={<ActivationUser />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
