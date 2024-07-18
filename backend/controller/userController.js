@@ -104,9 +104,7 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
     const isPasswordValid = await user.comparePassword(password);
 
     if (!isPasswordValid) {
-      return next(
-        new ErrorHandler("Please provide the correct information", 400)
-      );
+      return next(new ErrorHandler("Wrong Cradientials", 400));
     }
 
     sendToken(user, 201, res);
