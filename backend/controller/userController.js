@@ -1,26 +1,39 @@
-import errorHandler from "../middleware/error.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
 import userModel from "../model/userModel.js";
-import bcrypt from "bcryptjs";
 
 export const createUser = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  try {
+    const { name, email, password } = req.body;
 
-  const userEmail = await userModel.findOne({ email });
+    // Check if user with the provided email already exists
+    const userEmail = await userModel.findOne({ email });
+    if (userEmail) {
+      return next(new ErrorHandler("User already exists", 400));
+    }
 
-  if (userEmail) {
-    return next(new errorHandler("User already exists", 400));
+    // Check if file is provided
+    if (!req.file) {
+      return next(new ErrorHandler("Avatar file is required", 400));
+    }
+
+    const image_filename = `${req.file.filename}`;
+
+    const user = {
+      name,
+      email,
+      password,
+      avatar: image_filename,
+    };
+
+    // Create new user
+    const newUser = await userModel.create(user);
+
+    res.status(201).json({
+      success: true,
+      newUser,
+    });
+    console.log(newUser);
+  } catch (error) {
+    next(new ErrorHandler("Error creating user", 500));
   }
-
-  const image_filename = `${req.file.filename}`;
-
-  const hashedPassword = bcrypt.hash(password, 10);
-
-  const user = {
-    name,
-    email,
-    password: hashedPassword,
-    avatar: image_filename,
-  };
-
-  res.json(user);
 };

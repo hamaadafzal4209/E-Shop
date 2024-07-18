@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import connectDatabase from "./db/Database.js";
 import dotenv from "dotenv";
-import errorHandler from "./middleware/error.js";
+import { errorHandlerMiddleware } from "./middleware/error.js";
 import userRouter from "./routes/userRoute.js";
 
 // config
@@ -29,15 +29,11 @@ app.use("/api/user", userRouter);
 // unhandled promise rejection
 process.on("unhandledRejection", (err) => {
   console.log(`Shutting down the server for ${err.message}`);
-  console.log(`shutting down the server for unhandle promise rejection`);
-
-  server.close(() => {
-    process.exit(1);
-  });
+  console.log(`shutting down the server for unhandled promise rejection`);
 });
 
-// it's for ErrorHandling
-app.use(errorHandler);
+// Error handling middleware
+app.use(errorHandlerMiddleware);
 
 // create server
 app.listen(process.env.PORT, () => {

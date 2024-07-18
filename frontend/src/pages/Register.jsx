@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import {RxAvatar} from 'react-icons/rx'
+import { RxAvatar } from "react-icons/rx";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { server } from "../server";
+import { toast } from "react-toastify";
 
 function Register() {
   const [name, setName] = useState("");
@@ -11,19 +14,56 @@ function Register() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleFileInputChange = (e) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setAvatar(reader.result);
-      }
-    };
-
-    reader.readAsDataURL(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatar(reader.result); // Set avatar to data URL
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("file", avatar); // Make sure "avatar" is appended correctly
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const response = await axios.post(
+        `${server}/user/create-user`,
+        formData,
+        config
+      );
+
+      if (response.data.success) {
+        toast.success("User created successfully!");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error(
+        "Error creating user:",
+        error.response?.data || error.message
+      );
+      toast.error("Failed to create user. Please try again later.");
+    }
   };
 
   return (
@@ -35,10 +75,14 @@ function Register() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Create an account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4 md:space-y-6"
+                action="#"
+              >
                 <div>
                   <label
-                    htmlFor="username"
+                    htmlFor="name"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Username
@@ -106,39 +150,39 @@ function Register() {
                 </div>
 
                 <div>
-              <label
-                htmlFor="avatar"
-                className="block text-sm font-medium text-gray-700"
-              ></label>
-              <div className="mt-2 flex items-center">
-                <span className="inline-block h-8 w-8 rounded-full overflow-hidden">
-                  {avatar ? (
-                    <img
-                      src={avatar}
-                      alt="avatar"
-                      className="h-full w-full object-cover rounded-full"
-                    />
-                  ) : (
-                    <RxAvatar className="h-8 w-8" />
-                  )}
-                </span>
-                <label
-                  htmlFor="file-input"
-                  className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                >
-                  <span>Upload a file</span>
-                  <input
-                    type="file"
-                    name="avatar"
-                    id="file-input"
-                    accept=".jpg,.jpeg,.png"
-                    onChange={handleFileInputChange}
-                    className="sr-only"
-                  />
-                </label>
-              </div>
-            </div>
-                
+                  <div className="mt-2 flex items-center">
+                    <span className="inline-block h-8 w-8 rounded-full overflow-hidden">
+                      {avatar ? (
+                        typeof avatar === "string" ? (
+                          <img
+                            src={avatar}
+                            alt="avatar"
+                            className="h-full w-full object-cover rounded-full"
+                          />
+                        ) : (
+                          <RxAvatar className="h-8 w-8" />
+                        )
+                      ) : (
+                        <RxAvatar className="h-8 w-8" />
+                      )}
+                    </span>
+                    <label
+                      htmlFor="file-input"
+                      className="ml-3 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                    >
+                      <span>Upload a file</span>
+                      <input
+                        type="file"
+                        name="avatar"
+                        id="file-input"
+                        accept=".jpg,.jpeg,.png"
+                        onChange={handleFileInputChange}
+                        className="sr-only"
+                      />
+                    </label>
+                  </div>
+                </div>
+
                 <button
                   type="submit"
                   className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -146,7 +190,7 @@ function Register() {
                   Sign up
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Already have an account? {" "}
+                  Already have an account?{" "}
                   <Link
                     to="/login"
                     className="font-medium text-blue-600 hover:underline dark:text-blue-500"
