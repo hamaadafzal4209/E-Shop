@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default  {
+export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   mode: "jit",
   theme: {
@@ -9,11 +9,12 @@ export default  {
     },
     extend: {
       screens: {
-        "1000px": "1050px",
-        "1100px": "1110px",
-        "800px": "800px",
-        "1300px": "1300px",
-        "400px": "400px",
+        xs: "400px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
       },
     },
   },
