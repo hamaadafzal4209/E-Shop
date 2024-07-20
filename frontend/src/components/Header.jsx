@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import { productData, categoriesData } from "../static/data";
 import { Link } from "react-router-dom";
-import { AiOutlineSearch } from "react-icons/ai";
+import {
+  AiOutlineHeart,
+  AiOutlineSearch,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
 import classNames from "classnames";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
@@ -118,7 +123,10 @@ function Header() {
       >
         <div className="section flex items-center justify-between">
           {/* categories */}
-          <div onClick={() => setDropDown(!dropDown)} className="w-[270px] h-[70px] relative flex items-center">
+          <div
+            onClick={() => setDropDown(!dropDown)}
+            className="w-[270px] h-[70px] relative flex items-center"
+          >
             <BiMenuAltLeft
               size={30}
               className="absolute top-1/2 -translate-y-1/2 mt-1.5 left-2"
@@ -141,7 +149,32 @@ function Header() {
           </div>
           {/* nav links */}
           <div>
-           <Navbar/>
+            <Navbar />
+          </div>
+          {/* nav icons */}
+          <div>
+            <div className="flex items-center">
+              <div className="relative cursor-pointer mr-4">
+                <AiOutlineHeart size={30} className="text-white opacity-75" />
+                <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 text-white flex items-center justify-center font-mono text-xs leading-tight">
+                  0
+                </span>
+              </div>
+              <div className="relative cursor-pointer mr-4">
+                <AiOutlineShoppingCart
+                  size={30}
+                  className="text-white opacity-75"
+                />
+                <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 text-white flex items-center justify-center font-mono text-xs leading-tight">
+                  0
+                </span>
+              </div>
+              <div className="cursor-pointer">
+                <Link to="/login">
+                  <CgProfile size={30} className="text-white opacity-75" />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
