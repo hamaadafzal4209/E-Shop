@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { productData, navItems, categoriesData } from "../static/data";
+import { productData, categoriesData } from "../static/data";
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import classNames from "classnames";
 import DropDown from "./DropDown";
+import Navbar from "./Navbar";
 
 function Header() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -140,15 +141,7 @@ function Header() {
           </div>
           {/* nav links */}
           <div>
-            <div className="flex items-center gap-12">
-              {navItems.map((item, index) => (
-                <p key={index}>
-                  <Link to={item.url} className="text-white font-semibold">
-                    {item.title}
-                  </Link>
-                </p>
-              ))}
-            </div>
+           <Navbar/>
           </div>
         </div>
       </div>
