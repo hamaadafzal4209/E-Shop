@@ -8,6 +8,7 @@ import {
   AiOutlineShoppingCart,
   AiOutlineStar,
 } from "react-icons/ai";
+import ProductDetailsPopup from "./ProductDetailsPopup";
 
 function ProductCard({ data }) {
   const [click, setClick] = useState(false);
@@ -35,9 +36,18 @@ function ProductCard({ data }) {
           </h5>
           <div className="flex items-center">
             {[...Array(4)].map((_, i) => (
-              <AiFillStar key={i} className="mr-1 cursor-pointer" color="#F6BA00" size={20} />
+              <AiFillStar
+                key={i}
+                className="mr-1 cursor-pointer"
+                color="#F6BA00"
+                size={20}
+              />
             ))}
-            <AiOutlineStar className="mr-1 cursor-pointer" color="#F6BA00" size={20} />
+            <AiOutlineStar
+              className="mr-1 cursor-pointer"
+              color="#F6BA00"
+              size={20}
+            />
           </div>
           <div className="py-2 flex items-center justify-between">
             <div className="flex items-center">
@@ -87,6 +97,7 @@ function ProductCard({ data }) {
           color="#444"
           title="Add to cart"
         />
+        {open && <ProductDetailsPopup setOpen={setOpen} data={data} />}
       </div>
     </>
   );
