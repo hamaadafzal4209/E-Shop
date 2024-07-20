@@ -10,11 +10,10 @@ import store from "./redux/store";
 import { loadUser } from "./redux/actions/user";
 
 function App() {
-
   useEffect(() => {
     store.dispatch(loadUser());
-  })
-  
+  });
+
   return (
     <div>
       <BrowserRouter>
