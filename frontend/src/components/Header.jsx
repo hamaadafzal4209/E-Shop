@@ -116,7 +116,7 @@ function Header() {
       </div>
       {/* bottom navbar */}
       <div
-        className={classNames("w-full h-[70px]", {
+        className={classNames("w-full z-50 h-[70px]", {
           "shadow-md sticky top-0 bg-[#3321c8]": active,
           "bg-[#3321c8]": !active,
         })}

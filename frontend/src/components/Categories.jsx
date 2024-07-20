@@ -9,7 +9,7 @@ function Categories() {
     <div className="my-12">
       {/* Branding products */}
       <div className="section bg-white shadow-sm">
-        <div className="category-grid-container p-6 rounded-md mb-12">
+        <div className="grid-container p-6 rounded-md mb-12">
           {brandingData &&
             brandingData.map((item, index) => (
               <div className="flex items-start" key={index}>
@@ -26,7 +26,7 @@ function Categories() {
       </div>
       {/* product categories */}
       <div className="section bg-white shadow-sm">
-        <div className="category-grid-container p-6 rounded-md">
+        <div className="grid-container p-6 rounded-md">
         {categoriesData &&
             categoriesData.map((item) => {
               const handleSubmit = (item) => {

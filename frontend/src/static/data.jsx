@@ -271,11 +271,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
     ],
     shop: {
@@ -322,7 +322,7 @@ export const productData = [
     stock: 10,
   },
   {
-    id: 1,
+    id: 3,
     category: "Computers and Laptop",
     name: "MacBook pro M2 chipset 256gb ssd 8gb ram space gray color with apple 1 year warranty",
     description:
@@ -330,11 +330,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
     ],
     shop: {
@@ -360,11 +360,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://i0.wp.com/eccocibd.com/wp-content/uploads/2022/01/1802NL02_1.png?fit=550%2C550&ssl=1",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
       {
         public_id: "test",
-        url: "https://i0.wp.com/eccocibd.com/wp-content/uploads/2022/01/1802NL02_1.png?fit=550%2C550&ssl=1",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
     ],
     shop: {
@@ -385,17 +385,17 @@ export const productData = [
   {
     id: 5,
     category: "Shoes",
-    name: "New Trend shoes for gents with all sizes",
+    name: "New Fashionable Watch for men 2023 with multiple colors",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
     image_Url: [
       {
         public_id: "test",
-        url: "https://mirzacdns3.s3.ap-south-1.amazonaws.com/cache/catalog/RLV0015/2-800x800.jpg",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
       {
         public_id: "test",
-        url: "https://mirzacdns3.s3.ap-south-1.amazonaws.com/cache/catalog/RLV0015/2-800x800.jpg",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
     ],
     shop: {
@@ -413,7 +413,7 @@ export const productData = [
     stock: 10,
   },
   {
-    id: 1,
+    id: 6,
     name: "Gaming Headphone Asus with mutiple color and free delivery",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -424,7 +424,7 @@ export const productData = [
       },
       {
         public_id: "test",
-        url: "https://eratablet.com/wp-content/uploads/2022/08/H51ba6537405f4948972e293927673546u.jpg",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
     ],
     shop: {
@@ -452,18 +452,18 @@ export const productData = [
     category: "Music and Gaming",
   },
   {
-    id: 4,
+    id: 7,
     name: "New Fashionable Watch for men 2023 with multiple colors",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
     image_Url: [
       {
         public_id: "test",
-        url: "https://i0.wp.com/eccocibd.com/wp-content/uploads/2022/01/1802NL02_1.png?fit=550%2C550&ssl=1",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
       {
         public_id: "test",
-        url: "https://i0.wp.com/eccocibd.com/wp-content/uploads/2022/01/1802NL02_1.png?fit=550%2C550&ssl=1",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
     ],
     shop: {
@@ -481,7 +481,7 @@ export const productData = [
     stock: 10,
   },
   {
-    id: 1,
+    id: 8,
     name: "Gaming Headphone Asus with mutiple color and free delivery",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -492,7 +492,7 @@ export const productData = [
       },
       {
         public_id: "test",
-        url: "https://eratablet.com/wp-content/uploads/2022/08/H51ba6537405f4948972e293927673546u.jpg",
+        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
       },
     ],
     shop: {
@@ -519,7 +519,7 @@ export const productData = [
     stock: 10,
   },
   {
-    id: 2,
+    id: 9,
     category: "Mobile and Tablets",
     name: "Iphone 14 pro max 256 gb ssd and 8 gb ram silver colour",
     description:
@@ -548,7 +548,7 @@ export const productData = [
     stock: 10,
   },
   {
-    id: 1,
+    id: 10,
     category: "Music and Gaming",
     name: "Gaming Headphone Asus with mutiple color and free delivery",
     description:
@@ -560,7 +560,7 @@ export const productData = [
       },
       {
         public_id: "test",
-        url: "https://eratablet.com/wp-content/uploads/2022/08/H51ba6537405f4948972e293927673546u.jpg",
+        url: "https://m.media-amazon.com/images/I/61d7SqbK2UL._AC_UY327_FMwebp_QL65_.jpg",
       },
     ],
     shop: {

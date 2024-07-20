@@ -23,6 +23,19 @@ body {
   margin: 0 auto;
 }
 
+.heading{
+  font-size: 27px;
+  text-align: start;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+
+@media (max-width:800px) {
+  .heading{
+    text-align: center;
+  }
+}
+
 input,
 select {
   outline: none;
@@ -54,8 +67,14 @@ input[type="number"] {
   --moz-appearance: textfield;
 }
 
-.category-grid-container{
+.grid-container{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
+}
+
+@media (max-width: 400px) {
+  .grid-container{
+    grid-template-columns: 1fr;
+  }
 }
