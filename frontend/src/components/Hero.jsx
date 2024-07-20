@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Hero() {
   return (
     <div
-      className="min-h-[70vh] md:min-h-[80vh] py-12 w-full bg-cover bg-no-repeat flex items-center"
+      className="min-h-[70vh] md:min-h-[90vh] py-12 w-full bg-cover bg-no-repeat flex items-center"
       style={{
         backgroundImage:
           "url(https://themes.rslahmed.dev/rafcart/assets/images/banner-2.jpg)",

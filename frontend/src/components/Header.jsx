@@ -33,7 +33,7 @@ function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 150) {
+      if (window.scrollY > 120) {
         setActive(true);
       } else {
         setActive(false);
@@ -117,7 +117,7 @@ function Header() {
       {/* bottom navbar */}
       <div
         className={classNames("w-full h-[70px]", {
-          "shadow-md sticky top-0 bg-[#3327e9]": active,
+          "shadow-md sticky top-0 bg-[#3321c8]": active,
           "bg-[#3321c8]": !active,
         })}
       >

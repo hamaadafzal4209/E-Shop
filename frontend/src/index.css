@@ -53,3 +53,9 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   --moz-appearance: textfield;
 }
+
+.category-grid-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
