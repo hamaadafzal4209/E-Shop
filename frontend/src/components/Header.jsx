@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import { productData, navItems } from "../static/data";
+import { productData, navItems, categoriesData } from "../static/data";
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import classNames from "classnames";
+import DropDown from "./DropDown";
 
 function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -109,13 +111,13 @@ function Header() {
       {/* bottom navbar */}
       <div
         className={classNames("w-full h-[70px]", {
-          "shadow-2xl sticky top-0 bg-[#3327e9]": active,
+          "shadow-md sticky top-0 bg-[#3327e9]": active,
           "bg-[#3321c8]": !active,
         })}
       >
         <div className="section flex items-center justify-between">
           {/* categories */}
-          <div className="w-[250px] h-[70px] relative flex items-center">
+          <div onClick={() => setDropDown(!dropDown)} className="w-[270px] h-[70px] relative flex items-center">
             <BiMenuAltLeft
               size={30}
               className="absolute top-1/2 -translate-y-1/2 mt-1.5 left-2"
@@ -129,6 +131,12 @@ function Header() {
               size={20}
               className="absolute right-2 top-1/2 mt-1.5 -translate-y-1/2 cursor-pointer"
             />
+            {dropDown && (
+              <DropDown
+                categoriesData={categoriesData}
+                setDropDown={setDropDown}
+              />
+            )}
           </div>
           {/* nav links */}
           <div>

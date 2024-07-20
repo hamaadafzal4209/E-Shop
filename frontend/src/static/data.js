@@ -64,13 +64,13 @@ export const categoriesData = [
     title: "Gifts",
     subTitle: "",
     image_Url:
-      "https://securecdn.pymnts.com/wp-content/uploads/2014/11/Gifts-Photo-700x489.jpg",
+      "https://cdn-icons-png.flaticon.com/128/1139/1139982.png",
   },
   {
     id: 7,
     title: "Pet Care",
     subTitle: "",
-    image_Url: "https://cdn.openpr.com/T/c/Tc15444071_g.jpg",
+    image_Url: "https://cdn-icons-png.flaticon.com/128/3737/3737726.png",
   },
   {
     id: 8,
