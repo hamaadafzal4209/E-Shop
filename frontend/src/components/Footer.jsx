@@ -82,10 +82,10 @@ function Footer() {
         </div>
       </div>
 
-      <div className="section border-t border-gray-700 py-4 text-center sm:text-left">
-        <div className="flex flex-col sm:flex-row justify-between items-center max-w-7xl mx-auto px-5">
+      <div className="section border-t border-gray-500 py-4 text-center sm:text-left">
+        <div className="flex flex-col sm:flex-row justify-between items-center max-w-7xl ">
           <span className="text-gray-400 text-sm mb-2 sm:mb-0">
-            © 2020 Becodemy. All rights reserved.
+            © 2024 E-Shop. All rights reserved.
           </span>
           <span className="text-gray-400 text-sm mb-2 sm:mb-0">
             Terms · Privacy Policy
