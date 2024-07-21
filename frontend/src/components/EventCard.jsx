@@ -27,7 +27,7 @@ function EventCard() {
           product, as well as customer reviews and ratings.
         </p>
         <div className="flex py-2 justify-between">
-          <div className="flex">
+          <div className="flex items-center">
             <h5 className="font-medium text-lg text-[#d55b45] pr-3 line-through">
               1099$
             </h5>

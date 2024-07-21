@@ -49,7 +49,7 @@ function ProductCard({ data }) {
               size={20}
             />
           </div>
-          <div className="py-2 flex items-center justify-between">
+          <div className="pt-4 flex items-center justify-between">
             <div className="flex items-center">
               <h5 className="font-bold text-[18px] text-[#333] font-Roboto">
                 {data.discount_price ? data.discount_price : data.price}$

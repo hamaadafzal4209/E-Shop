@@ -15,7 +15,7 @@ function Footer() {
   return (
     <div className="bg-black">
       <div className="section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-16 text-center sm:text-left">
-        <div className="flex flex-col items-center sm:items-start px-5">
+        <div className="flex flex-col items-center sm:items-start">
           <img
             src="https://shopo.quomodothemes.website/assets/images/logo.svg"
             alt="Logo"

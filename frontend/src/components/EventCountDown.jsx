@@ -40,7 +40,7 @@ function EventCountDown() {
   });
 
   return (
-    <div>
+    <div className="mt-4">
       {timerComponent.length ? (
         timerComponent
       ) : (
