@@ -4,6 +4,7 @@ import Events from "../components/Events";
 import FeaturedProduct from "../components/FeaturedProduct";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
+import Sponsored from "../components/Sponsored";
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
       <Bestdeals />
       <Events />
       <FeaturedProduct />
+      <Sponsored />
     </div>
   );
 }

@@ -38,6 +38,7 @@ function EventCard() {
           </div>
         </div>
         <EventCountDown />
+        <div className="mb-4"></div>
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ function EventCountDown() {
     }
 
     return (
-      <span className="text-[25px] text-[#475eda]" key={interval}>
+      <span className="text-base md:text-[25px] text-[#475eda] font-semibold" key={interval}>
         {value} {interval}{" "}
       </span>
     );
