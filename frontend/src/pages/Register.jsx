@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { server } from "../server";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function Register() {
+  const { isAuthenticated } = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  });
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];

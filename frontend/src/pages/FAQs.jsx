@@ -7,7 +7,7 @@ function FAQs() {
   return (
     <div>
       <Header />
-      <div className="pt-6 pb-12">
+      <div className="pt-8 pb-12">
       <Faq />
       </div>
       <NewsLetter/>
@@ -29,7 +29,7 @@ const Faq = () => {
 
   return (
     <div className={`section my-8`}>
-      <h2 className="text-3xl font-bold text-gray-900 mb-8">FAQ</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">FAQ</h2>
       <div className="mx-auto space-y-4">
         {/* single Faq */}
 

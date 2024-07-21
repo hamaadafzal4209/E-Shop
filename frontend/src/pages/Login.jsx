@@ -1,16 +1,23 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { server } from "../server";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function Login() {
+  const { isAuthenticated } = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  });
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -19,7 +26,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${server}/user/login`, { email, password }, {withCredentials: true});
+      const res = await axios.post(
+        `${server}/user/login`,
+        { email, password },
+        { withCredentials: true }
+      );
       if (res.data.success) {
         toast.success("User successfully logged in");
         navigate("/");

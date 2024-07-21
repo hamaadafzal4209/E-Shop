@@ -1,9 +1,9 @@
 function NewsLetter() {
     return (
       <div className="bg-[#3321c8] w-full py-12">
-        <div className="section max-w-7xl mx-auto text-white flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="section text-white flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="w-full md:w-1/2 text-center md:text-left">
-            <h1 className="text-3xl md:text-4xl font-bold leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold leading-tight text-balance">
               <span className="text-[#17dd1f]">Subscribe</span> to get news,
               events, and more
             </h1>
