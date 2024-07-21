@@ -16,7 +16,7 @@ function Bestdeals() {
     <div>
       <div className="section">
         <h1 className="heading">Best Deals</h1>
-        <div className="grid-container mb-12">
+        <div className="product-grid-container mb-12">
           {data &&
             data.map((item, index) => (
               <ProductCard data={item} key={index} />

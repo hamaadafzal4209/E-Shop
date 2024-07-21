@@ -330,7 +330,7 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
+        url: "https://m.media-amazon.com/images/I/61ZtqtvoD2L._AC_SY200_.jpg",
       },
       {
         public_id: "test",

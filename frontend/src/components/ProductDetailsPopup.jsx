@@ -35,10 +35,12 @@ function ProductDetailsPopup({ setOpen, data }) {
               onClick={() => setOpen(false)}
             />
 
-            <div className="block w-full md:flex">
+            <div className="block w-full md:flex gap-6">
               {/* left */}
               <div className="w-full md:w-1/2">
-                <img src={data.image_Url[0]?.url} alt={data.name} />
+                <div className="flex items-center justify-center my-4">
+                <img src={data.image_Url[0]?.url} className="w-60 " alt={data.name} />
+                </div>
                 <div className="flex items-center gap-2">
                   <div>
                     <img

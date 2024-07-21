@@ -73,8 +73,20 @@ input[type="number"] {
   gap: 1rem;
 }
 
+.product-grid-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
 @media (max-width: 400px) {
   .grid-container{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .product-grid-container{
     grid-template-columns: 1fr;
   }
 }
