@@ -10,7 +10,7 @@ export default {
     extend: {
       screens: {
         xs: "400px",
-        sm: "640px",
+        sm: "580px",
         md: "768px",
         lg: "1024px",
         xl: "1200px",

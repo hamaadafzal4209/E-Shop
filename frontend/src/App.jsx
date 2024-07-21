@@ -9,9 +9,9 @@ import { useEffect } from "react";
 import store from "./redux/store";
 import { loadUser } from "./redux/actions/user";
 import ProductsPage from "./pages/ProductsPage";
-import BesrSelling from "./pages/BesrSelling";
 import FAQs from "./pages/FAQs";
 import EventsPage from "./pages/EventsPage";
+import BestSelling from "./pages/BestSelling";
 
 function App() {
   useEffect(() => {
@@ -31,7 +31,7 @@ function App() {
             element={<ActivationUser />}
           />
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/best-selling" element={<BesrSelling />} />
+          <Route path="/best-selling" element={<BestSelling />} />
           <Route path="/faq" element={<FAQs />} />
           <Route path="/events" element={<EventsPage />} />
         </Routes>

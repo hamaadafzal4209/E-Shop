@@ -2,15 +2,15 @@ import EventCountDown from "./EventCountDown";
 
 function EventCard() {
   return (
-    <div className="w-full bg-white rounded-lg lg:flex p-4 shadow-sm">
-      <div className="w-full lg:w-1/2 flex items-center justify-center">
+    <div className="px-20 md:px-12 bg-white rounded-lg lg:flex p-4 shadow-sm">
+      <div className="w-full lg:w-2/5 flex items-center justify-center">
         <img
           className="max-w-[450px] object-contain"
           src="https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg"
           alt=""
         />
       </div>
-      <div className="w-full lg:w-1/2 flex flex-col justify-center">
+      <div className="w-full lg:w-3/5 flex flex-col justify-center">
         <h2 className="text-[25px] font-[600] text-[#333]">
           MacBook pro M2 chipset 256gb ssd 8gb ram space gray color{" "}
         </h2>

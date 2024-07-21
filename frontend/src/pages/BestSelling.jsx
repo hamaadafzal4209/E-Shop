@@ -1,28 +1,16 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { useSearchParams } from "react-router-dom";
 import { productData } from "../static/data";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 
-function ProductsPage() {
-  const [searchParams] = useSearchParams();
-  const categoryData = searchParams.get("category");
+function BestSelling() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (!categoryData) {
-      const d =
-        productData && productData.sort((a, b) => b.total_sell - a.total_sell);
-      setData(d);
-    } else {
-      const d =
-        productData &&
-        productData.filter((item) => item.category === categoryData);
-      setData(d);
-    }
-    window.scrollTo(0, 0);
-  }, [categoryData]);
+    const d = productData && productData.sort((a, b) => b.total_sell - a.total_sell);
+    setData(d);
+  }, []);
 
   return (
     <div>
@@ -43,4 +31,4 @@ function ProductsPage() {
   );
 }
 
-export default ProductsPage;
+export default BestSelling;
