@@ -2,6 +2,7 @@ import Bestdeals from "../components/Bestdeals";
 import Categories from "../components/Categories";
 import Events from "../components/Events";
 import FeaturedProduct from "../components/FeaturedProduct";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import NewsLetter from "../components/NewsLetter";
@@ -17,7 +18,8 @@ function Home() {
       <Events />
       <FeaturedProduct />
       <Sponsored />
-      <NewsLetter/>
+      <NewsLetter />
+      <Footer />
     </div>
   );
 }
