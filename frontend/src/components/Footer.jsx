@@ -26,10 +26,10 @@ function Footer() {
             The home and elements needed to create beautiful products.
           </p>
           <div className="flex items-center space-x-4">
-            <AiFillFacebook size={25} className="cursor-pointer" />
-            <AiOutlineTwitter size={25} className="cursor-pointer" />
-            <AiFillInstagram size={25} className="cursor-pointer" />
-            <AiFillYoutube size={25} className="cursor-pointer" />
+            <AiFillFacebook size={25} className="text-gray-400 cursor-pointer" />
+            <AiOutlineTwitter size={25} className="text-gray-400 cursor-pointer" />
+            <AiFillInstagram size={25} className="text-gray-400 cursor-pointer" />
+            <AiFillYoutube size={25} className="text-gray-400 cursor-pointer" />
           </div>
         </div>
 
