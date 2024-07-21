@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { productData } from "../static/data";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
+import NewsLetter from "../components/NewsLetter";
 
 function ProductsPage() {
   const [searchParams] = useSearchParams();
@@ -38,6 +39,7 @@ function ProductsPage() {
           </h1>
         ) : null}
       </div>
+      <NewsLetter/>
       <Footer />
     </div>
   );

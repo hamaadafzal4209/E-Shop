@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { productData } from "../static/data";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
+import NewsLetter from "../components/NewsLetter";
 
 function BestSelling() {
   const [data, setData] = useState([]);
@@ -26,6 +27,7 @@ function BestSelling() {
           </h1>
         ) : null}
       </div>
+      <NewsLetter/>
       <Footer />
     </div>
   );

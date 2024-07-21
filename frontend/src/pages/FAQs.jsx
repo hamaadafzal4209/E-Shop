@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import NewsLetter from "../components/NewsLetter";
 
 function FAQs() {
   return (
@@ -9,6 +10,7 @@ function FAQs() {
       <div className="pt-6 pb-12">
       <Faq />
       </div>
+      <NewsLetter/>
       <Footer />
     </div>
   );
