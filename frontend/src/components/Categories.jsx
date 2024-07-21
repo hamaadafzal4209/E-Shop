@@ -1,10 +1,9 @@
 import { brandingData, categoriesData } from "../static/data";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Categories() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate(); 
-    
   return (
     <div className="my-12">
       {/* Branding products */}
@@ -27,7 +26,7 @@ function Categories() {
       {/* product categories */}
       <div className="section bg-white shadow-sm">
         <div className="grid-container p-6 rounded-md">
-        {categoriesData &&
+          {categoriesData &&
             categoriesData.map((item) => {
               const handleSubmit = (item) => {
                 navigate(`/products?category=${item.title}`);
