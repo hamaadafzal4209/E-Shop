@@ -12,8 +12,11 @@ import { CgProfile } from "react-icons/cg";
 import classNames from "classnames";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
+import { useSelector } from "react-redux";
+import { backend_url } from "../server";
 
 function Header() {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
@@ -170,9 +173,15 @@ function Header() {
                 </span>
               </div>
               <div className="cursor-pointer">
-                <Link to="/login">
-                  <CgProfile size={30} className="text-white opacity-75" />
-                </Link>
+                {isAuthenticated ? (
+                  <Link to="/profile">
+                  <img src={`${backend_url}/${user.avatar}`} className="w-8 h-8 rounded-full object-cover" alt="" />
+                  </Link>
+                ) : (
+                  <Link to="/login">
+                    <CgProfile size={30} className="text-white opacity-75" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -23,6 +23,7 @@ function Login() {
       if (res.data.success) {
         toast.success("User successfully logged in");
         navigate("/");
+        window.location.reload();
       }
     } catch (error) {
       if (error.response && error.response.data.message) {

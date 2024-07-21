@@ -12,31 +12,38 @@ import ProductsPage from "./pages/ProductsPage";
 import FAQs from "./pages/FAQs";
 import EventsPage from "./pages/EventsPage";
 import BestSelling from "./pages/BestSelling";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { loading } = useSelector((state) => state.user);
+
   useEffect(() => {
     store.dispatch(loadUser());
-  });
+  }, []);
 
   return (
-    <div>
-      <BrowserRouter>
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/activation/:activation_token"
-            element={<ActivationUser />}
-          />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/best-selling" element={<BestSelling />} />
-          <Route path="/faq" element={<FAQs />} />
-          <Route path="/events" element={<EventsPage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <>
+      {loading ? null : (
+        <div>
+          <BrowserRouter>
+            <ToastContainer />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route
+                path="/activation/:activation_token"
+                element={<ActivationUser />}
+              />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/best-selling" element={<BestSelling />} />
+              <Route path="/faq" element={<FAQs />} />
+              <Route path="/events" element={<EventsPage />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      )}
+    </>
   );
 }
 
