@@ -10,7 +10,6 @@ import {
 function ProductDetailsPopup({ setOpen, data }) {
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
-  const [select, setSelect] = useState(false);
 
   const handleMessageSubmit = () => {};
 
@@ -39,7 +38,11 @@ function ProductDetailsPopup({ setOpen, data }) {
               {/* left */}
               <div className="w-full md:w-1/2">
                 <div className="flex items-center justify-center my-4">
-                <img src={data.image_Url[0]?.url} className="w-60 " alt={data.name} />
+                  <img
+                    src={data.image_Url[0]?.url}
+                    className="w-60 "
+                    alt={data.name}
+                  />
                 </div>
                 <div className="flex items-center gap-2">
                   <div>
