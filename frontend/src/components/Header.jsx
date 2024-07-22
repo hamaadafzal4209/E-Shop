@@ -14,6 +14,8 @@ import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 import { backend_url } from "../server";
+import CartPopUp from "./CartPopUp";
+import WhishListPopUp from "./WhishListPopUp";
 
 function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -21,6 +23,8 @@ function Header() {
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
   const [dropDown, setDropDown] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
+  const [openWhishlist, setOpenWhishlist] = useState(false);
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -157,13 +161,19 @@ function Header() {
           {/* nav icons */}
           <div>
             <div className="flex items-center">
-              <div className="relative cursor-pointer mr-4">
+              <div
+                onClick={() => setOpenWhishlist(true)}
+                className="relative cursor-pointer mr-4"
+              >
                 <AiOutlineHeart size={30} className="text-white opacity-75" />
                 <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 text-white flex items-center justify-center font-mono text-xs leading-tight">
                   0
                 </span>
               </div>
-              <div className="relative cursor-pointer mr-4">
+              <div
+                onClick={() => setOpenCart(true)}
+                className="relative cursor-pointer mr-4"
+              >
                 <AiOutlineShoppingCart
                   size={30}
                   className="text-white opacity-75"
@@ -175,7 +185,11 @@ function Header() {
               <div className="cursor-pointer">
                 {isAuthenticated ? (
                   <Link to="/profile">
-                  <img src={`${backend_url}/${user.avatar}`} className="w-8 h-8 rounded-full object-cover" alt="" />
+                    <img
+                      src={`${backend_url}/${user.avatar}`}
+                      className="w-8 h-8 rounded-full object-cover"
+                      alt=""
+                    />
                   </Link>
                 ) : (
                   <Link to="/login">
@@ -183,6 +197,13 @@ function Header() {
                   </Link>
                 )}
               </div>
+
+              {/* cart popup */}
+              {openCart && <CartPopUp setOpenCart={setOpenCart} />}
+              {/* whishlist popup */}
+              {openWhishlist && (
+                <WhishListPopUp setOpenWhishlist={setOpenWhishlist} />
+              )}
             </div>
           </div>
         </div>

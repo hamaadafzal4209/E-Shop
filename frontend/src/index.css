@@ -23,15 +23,15 @@ body {
   margin: 0 auto;
 }
 
-.heading{
+.heading {
   font-size: 27px;
   text-align: start;
   font-weight: 600;
   padding-bottom: 20px;
 }
 
-@media (max-width:800px) {
-  .heading{
+@media (max-width: 800px) {
+  .heading {
     text-align: center;
   }
 }
@@ -67,26 +67,35 @@ input[type="number"] {
   --moz-appearance: textfield;
 }
 
-.grid-container{
+.grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 }
 
-.product-grid-container{
+.product-grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @media (max-width: 400px) {
-  .grid-container{
+  .grid-container {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 500px) {
-  .product-grid-container{
+  .product-grid-container {
     grid-template-columns: 1fr;
   }
 }
