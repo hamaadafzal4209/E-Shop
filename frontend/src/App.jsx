@@ -13,6 +13,7 @@ import FAQs from "./pages/FAQs";
 import EventsPage from "./pages/EventsPage";
 import BestSelling from "./pages/BestSelling";
 import { useSelector } from "react-redux";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const { loading } = useSelector((state) => state.user);
@@ -36,6 +37,7 @@ function App() {
                 element={<ActivationUser />}
               />
               <Route path="/products" element={<ProductsPage />} />
+              <Route path="/product/:name" element={<ProductDetails />} />
               <Route path="/best-selling" element={<BestSelling />} />
               <Route path="/faq" element={<FAQs />} />
               <Route path="/events" element={<EventsPage />} />

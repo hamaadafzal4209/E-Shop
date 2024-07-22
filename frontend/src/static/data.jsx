@@ -305,7 +305,7 @@ export const productData = [
       },
       {
         public_id: "test",
-        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
+        url: "https://m.media-amazon.com/images/I/61SLbGJa0YL._AC_UY327_FMwebp_QL65_.jpg",
       },
     ],
     shop: {
