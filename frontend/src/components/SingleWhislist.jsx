@@ -21,7 +21,7 @@ function SingleWhislist({ data }) {
           </h3>
         </div>
         <div className="cursor-pointer">
-          <IoCartOutline size={22} />
+          <IoCartOutline size={22} title="Add to cart" />
         </div>
       </div>
     </div>
