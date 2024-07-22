@@ -5,6 +5,7 @@ import NewsLetter from "../components/NewsLetter";
 import ProductDetail from "../components/ProductDetail";
 import { useParams } from "react-router-dom";
 import { productData } from "../static/data";
+import SuggestedProducts from "../components/SuggestedProducts";
 
 function ProductDetails() {
   const [data, setData] = useState(null);
@@ -23,6 +24,7 @@ function ProductDetails() {
     <div>
       <Header />
       <ProductDetail data={data} />
+      {data && <SuggestedProducts data={data} />}
       <NewsLetter />
       <Footer />
     </div>
