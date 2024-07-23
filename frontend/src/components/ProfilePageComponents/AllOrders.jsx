@@ -74,7 +74,7 @@ function AllOrders() {
   }));
 
   return (
-    <div className="pl-6 pt-1 font-semibold">
+    <div className="pl-6 pt-1 font-semibold w-full">
       <DataGrid
         rows={rows}
         columns={columns}

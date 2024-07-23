@@ -30,13 +30,13 @@ function ProfileSidebar({ active, setActive }) {
   };
 
   return (
-    <div className="mr-6 w-full rounded-lg bg-white p-4 shadow-sm">
+    <div className="md:mr-6 w-full rounded-lg bg-white p-4 shadow-sm sticky top-32 md:top-20">
       <div
         className={`flex w-full cursor-pointer items-center gap-3 rounded-md px-2 py-3 transition-all`}
         onClick={() => setActive(1)}
       >
         <RxPerson size={20} color={active === 1 ? "red" : ""} />
-        <span className={`${active === 1 ? "font-semibold text-red-600" : ""}`}>
+        <span className={`${active === 1 ? "font-semibold text-red-600" : ""} hidden md:block`}>
           Person
         </span>
       </div>
@@ -46,7 +46,7 @@ function ProfileSidebar({ active, setActive }) {
         onClick={() => setActive(2)}
       >
         <HiOutlineShoppingBag size={20} color={active === 2 ? "red" : ""} />
-        <span className={`${active === 2 ? "font-semibold text-red-600" : ""}`}>
+        <span className={`${active === 2 ? "font-semibold text-red-600" : ""} hidden md:block`}>
           Orders
         </span>
       </div>
@@ -56,7 +56,7 @@ function ProfileSidebar({ active, setActive }) {
         onClick={() => setActive(3)}
       >
         <HiOutlineReceiptRefund size={20} color={active === 3 ? "red" : ""} />
-        <span className={`${active === 3 ? "font-semibold text-red-600" : ""}`}>
+        <span className={`${active === 3 ? "font-semibold text-red-600" : ""} hidden md:block`}>
           Refunds
         </span>
       </div>
@@ -69,7 +69,7 @@ function ProfileSidebar({ active, setActive }) {
         }}
       >
         <AiOutlineMessage size={20} color={active === 4 ? "red" : ""} />
-        <span className={`${active === 4 ? "font-semibold text-red-600" : ""}`}>
+        <span className={`${active === 4 ? "font-semibold text-red-600" : ""} hidden md:block`}>
           Inbox
         </span>
       </div>
@@ -79,7 +79,7 @@ function ProfileSidebar({ active, setActive }) {
         onClick={() => setActive(5)}
       >
         <MdOutlineTrackChanges size={20} color={active === 5 ? "red" : ""} />
-        <span className={`${active === 5 ? "font-semibold text-red-600" : ""}`}>
+        <span className={`${active === 5 ? "font-semibold text-red-600" : ""} hidden md:block`}>
           Track Order
         </span>
       </div>
@@ -89,7 +89,7 @@ function ProfileSidebar({ active, setActive }) {
         onClick={() => setActive(6)}
       >
         <AiOutlineCreditCard size={20} color={active === 6 ? "red" : ""} />
-        <span className={`${active === 6 ? "font-semibold text-red-600" : ""}`}>
+        <span className={`${active === 6 ? "font-semibold text-red-600" : ""} hidden md:block`}>
           Payment Methods
         </span>
       </div>
@@ -99,17 +99,17 @@ function ProfileSidebar({ active, setActive }) {
         onClick={() => setActive(7)}
       >
         <TbAddressBook size={20} color={active === 7 ? "red" : ""} />
-        <span className={`${active === 7 ? "font-semibold text-red-600" : ""}`}>
+        <span className={`${active === 7 ? "font-semibold text-red-600" : ""} hidden md:block`}>
           Address
         </span>
       </div>
 
       <div
-        className={`flex w-full cursor-pointer items-center gap-3 rounded-md px-2 py-3 transition-all hover:text-red-600`}
+        className={`flex w-full cursor-pointer items-center gap-3 rounded-md px-2 py-3 transition-all hover:text-red-600 `}
         onClick={handleLogout}
       >
         <AiOutlineLogin size={20} />
-        <span className="font-semibold">Logout</span>
+        <span className="font-semibold hidden md:block">Logout</span>
       </div>
     </div>
   );

@@ -8,8 +8,8 @@ function ProfilePage() {
   return (
     <div>
       <Header />
-      <div className="section bg-[#f5f5f5] py-8 flex">
-        <div className="max-w-[270px] w-full">
+      <div className="section flex bg-[#f5f5f5] py-8">
+        <div className="sticky top-40 md:max-w-[270px] lg:w-full">
           <ProfileSidebar active={active} setActive={setActive} />
         </div>
         <ProfileContent active={active} />

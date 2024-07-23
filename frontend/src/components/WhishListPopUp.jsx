@@ -32,7 +32,7 @@ function WhishListPopUp({ setOpenWhishlist }) {
   ];
 
   return (
-    <div className="fixed top-0 right-0 w-full h-full bg-[#0000004b] z-[100]">
+    <div className="fixed top-0 right-0 w-full h-full bg-[#0000004b] z-[250]">
       <div className="fixed top-0 right-0 h-full max-w-sm w-full bg-white shadow-sm flex flex-col justify-between overflow-auto no-scrollbar">
         <div className="pt-[40px]">
           {/* cross icon */}

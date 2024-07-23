@@ -33,7 +33,7 @@ function CartPopUp({ setOpenCart }) {
   ];
 
   return (
-    <div className="fixed top-0 right-0 w-full h-full bg-[#0000004b] z-[100]">
+    <div className="fixed top-0 right-0 w-full h-full bg-[#0000004b] z-[300]">
       <div className="fixed top-0 right-0 h-full max-w-sm w-full bg-white shadow-sm flex flex-col justify-between overflow-auto">
         <div className="pt-[30px] overflow-auto no-scrollbar">
           {/* cross icon */}

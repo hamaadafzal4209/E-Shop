@@ -4,7 +4,7 @@ import { navItems } from "../static/data";
 function Navbar() {
   return (
     <div>
-      <div className="flex items-center gap-12">
+      <div className="flex items-center gap-6 lg:gap-12">
         {navItems.map((item, index) => (
           <p key={index}>
             <NavLink

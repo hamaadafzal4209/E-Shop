@@ -2,7 +2,7 @@ import EventCountDown from "./EventCountDown";
 
 function EventCard() {
   return (
-    <div className="px-20 md:px-12 bg-white rounded-lg lg:flex p-4 shadow-sm">
+    <div className="px-6 md:px-12 bg-white rounded-lg lg:flex p-4 shadow-sm">
       <div className="w-full lg:w-2/5 flex items-center justify-center">
         <img
           className="max-w-[450px] object-contain"

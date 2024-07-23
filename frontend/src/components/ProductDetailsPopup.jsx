@@ -26,7 +26,7 @@ function ProductDetailsPopup({ setOpen, data }) {
   return (
     <div className="bg-white">
       {data && (
-        <div className="fixed w-full h-screen top-0 left-0 bg-[#00000030] z-40 flex items-center justify-center">
+        <div className="fixed w-full h-screen top-0 left-0 bg-[#00000030] z-[400] flex items-center justify-center">
           <div className="w-11/12 md:w-3/5 h-[90vh] overflow-y-scroll md:h-[75vh] bg-white rounded-md shadow-sm relative p-4">
             <RxCross1
               size={30}
