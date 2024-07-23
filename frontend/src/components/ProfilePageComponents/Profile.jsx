@@ -141,7 +141,7 @@ function Profile() {
           </div>
           <button
             type="submit"
-            className="mt-6 cursor-pointer rounded-md border-2 border-blue-500 bg-transparent px-10 py-2 text-blue-500 transition duration-300 hover:bg-blue-500 hover:text-white"
+            className="mt-6 cursor-pointer rounded-md border-2 border-blue-500 bg-transparent px-14 py-2 text-blue-500 transition duration-300 hover:bg-blue-500 hover:text-white"
           >
             Update
           </button>

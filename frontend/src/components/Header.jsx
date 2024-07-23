@@ -33,7 +33,7 @@ function Header() {
     const filterProducts =
       productData &&
       productData.filter((product) =>
-        product.name.toLowerCase().includes(term.toLowerCase())
+        product.name.toLowerCase().includes(term.toLowerCase()),
       );
     setSearchData(filterProducts);
   };
@@ -58,7 +58,7 @@ function Header() {
     <>
       <div className="section">
         {/* top navbar section */}
-        <div className="h-[50px] my-[20px] flex items-center justify-between relative">
+        <div className="relative my-[20px] flex h-[50px] items-center justify-between">
           <div>
             <Link to="/">
               <img
@@ -68,22 +68,22 @@ function Header() {
             </Link>
           </div>
           {/* Search box */}
-          <div className="w-1/2 relative">
+          <div className="relative w-1/2">
             <input
               type="text"
               placeholder="Search Products..."
               value={searchTerm}
               onChange={handleSearchChange}
-              className="bg-gray-50 border-2 text-gray-900 rounded-lg focus:ring-blue-600 border-blue-600 block w-full p-2"
+              className="block w-full rounded-lg border-2 border-blue-600 bg-gray-50 p-2 text-gray-900 focus:ring-blue-600"
             />
             <AiOutlineSearch
               size={30}
               className="absolute right-2 top-2 cursor-pointer"
             />
             {searchTerm && searchData && (
-              <div className="absolute top-full mt-2 w-full bg-white shadow-lg z-10 p-4">
+              <div className="absolute top-full z-10 mt-2 w-full bg-white p-4 shadow-lg">
                 {searchData.length === 0 ? (
-                  <div className="w-full flex items-start py-2">
+                  <div className="flex w-full items-start py-2">
                     <h1>No products found</h1>
                   </div>
                 ) : (
@@ -92,13 +92,13 @@ function Header() {
                       key={`${item.id}-${item.name}`}
                       to={`/product/${item.name}`}
                     >
-                      <div className="w-full flex items-start py-2 hover:bg-gray-100">
-                        <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center">
+                      <div className="flex w-full items-start py-2 hover:bg-gray-100">
+                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center">
                           {item.image_Url && item.image_Url.length > 0 && (
                             <img
                               src={item.image_Url[0].url}
                               alt={item.name}
-                              className="w-full h-full object-contain mr-2"
+                              className="mr-2 h-full w-full object-contain"
                             />
                           )}
                         </div>
@@ -111,9 +111,9 @@ function Header() {
             )}
           </div>
           {/* seller button */}
-          <div className="px-4 bg-black h-[50px] flex items-center justify-center rounded-xl cursor-pointer">
+          <div className="flex h-[50px] cursor-pointer items-center justify-center rounded-xl bg-black px-4">
             <Link to="/seller">
-              <div className="text-[#fff] flex items-center justify-center">
+              <div className="flex items-center justify-center text-[#fff]">
                 <h1> Become Seller</h1>
                 <IoIosArrowForward className="ml-1" />
               </div>
@@ -123,8 +123,8 @@ function Header() {
       </div>
       {/* bottom navbar */}
       <div
-        className={classNames("w-full z-30 h-[70px]", {
-          "shadow-md sticky top-0 bg-[#3321c8]": active,
+        className={classNames("z-30 h-[70px] w-full", {
+          "sticky top-0 bg-[#3321c8] shadow-md": active,
           "bg-[#3321c8]": !active,
         })}
       >
@@ -132,14 +132,14 @@ function Header() {
           {/* categories */}
           <div
             onClick={() => setDropDown(!dropDown)}
-            className="w-[270px] h-[70px] relative flex items-center"
+            className="relative flex h-[70px] w-[270px] items-center"
           >
             <BiMenuAltLeft
               size={30}
-              className="absolute top-1/2 -translate-y-1/2 mt-1.5 left-2"
+              className="absolute left-2 top-1/2 mt-1.5 -translate-y-1/2"
             />
             <button
-              className={`h-[60px] mt-[10px] w-full flex justify-between items-center pl-10 bg-white font-sans text-lg font-[500] select-none rounded-t-md`}
+              className={`font-sans mt-[10px] flex h-[60px] w-full select-none items-center justify-between rounded-t-md bg-white pl-10 text-lg font-[500]`}
             >
               All Categories
             </button>
@@ -163,22 +163,22 @@ function Header() {
             <div className="flex items-center">
               <div
                 onClick={() => setOpenWhishlist(true)}
-                className="relative cursor-pointer mr-4"
+                className="relative mr-4 cursor-pointer"
               >
                 <AiOutlineHeart size={30} className="text-white opacity-75" />
-                <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 text-white flex items-center justify-center font-mono text-xs leading-tight">
+                <span className="font-mono absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#3bc177] text-xs leading-tight text-white">
                   0
                 </span>
               </div>
               <div
                 onClick={() => setOpenCart(true)}
-                className="relative cursor-pointer mr-4"
+                className="relative mr-4 cursor-pointer"
               >
                 <AiOutlineShoppingCart
                   size={30}
                   className="text-white opacity-75"
                 />
-                <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 text-white flex items-center justify-center font-mono text-xs leading-tight">
+                <span className="font-mono absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#3bc177] text-xs leading-tight text-white">
                   0
                 </span>
               </div>
@@ -187,7 +187,7 @@ function Header() {
                   <Link to="/profile">
                     <img
                       src={`${backend_url}/${user.avatar}`}
-                      className="w-8 h-8 rounded-full object-cover object-top"
+                      className="h-8 w-8 rounded-full object-cover object-top"
                       alt=""
                     />
                   </Link>
