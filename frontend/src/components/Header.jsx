@@ -128,7 +128,7 @@ function Header() {
         </div>
       </div>
       {/* mobile navbar */}
-      <div className="sticky top-0 bg-white pb-2 md:hidden z-[250] shadow-md">
+      <div className="sticky top-0 z-[250] bg-white pb-2 shadow-md md:hidden">
         <div className="section flex h-14 w-full items-center justify-between">
           {/* mobile logo */}
           <div>
@@ -223,11 +223,13 @@ function Header() {
         </div>
       </div>
       {/* mobile side navbar */}
-      {
-        openNavbar && (
-          <div className="fixed inset-0 top-0 h-full w-full bg-black/50 z-[270]">
+      {openNavbar && (
+        <div className="fixed inset-0 top-0 z-[270] h-full w-full overflow-y-auto bg-black/50">
           <div className="relative h-full w-full max-w-60 bg-white">
-            <div onClick={() => setOpenNNavbar(false)} className="absolute right-2 top-2 cursor-pointer">
+            <div
+              onClick={() => setOpenNNavbar(false)}
+              className="absolute right-2 top-2 cursor-pointer"
+            >
               <RxCross1 size={25} />
             </div>
             <ul className="flex flex-col gap-4 pl-6 pt-14">
@@ -250,8 +252,7 @@ function Header() {
             </ul>
           </div>
         </div>
-        )
-      }
+      )}
       {/* bottom navbar */}
       <div
         className={classNames("z-30 h-[70px] w-full", {
