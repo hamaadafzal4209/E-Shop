@@ -1,10 +1,15 @@
+import Profile from "./Profile";
 
-function ProfileContent() {
+function ProfileContent({ active }) {
+
   return (
-    <div>
-        content
+    <div className="w-full">
+      {/* profile page */}
+      {active === 1 && (
+        <Profile/>
+      )}
     </div>
-  )
+  );
 }
 
-export default ProfileContent
+export default ProfileContent;

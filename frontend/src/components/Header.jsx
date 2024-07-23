@@ -187,7 +187,7 @@ function Header() {
                   <Link to="/profile">
                     <img
                       src={`${backend_url}/${user.avatar}`}
-                      className="w-8 h-8 rounded-full object-cover"
+                      className="w-8 h-8 rounded-full object-cover object-top"
                       alt=""
                     />
                   </Link>
