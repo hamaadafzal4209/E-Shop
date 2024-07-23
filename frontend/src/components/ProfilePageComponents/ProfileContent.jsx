@@ -1,5 +1,6 @@
 import AllOrders from "./AllOrders";
 import AllRefundOrders from "./AllRefundOrders";
+import PaymentMethod from "./PaymentMethod";
 import Profile from "./Profile";
 import TrackOrders from "./TrackOrders";
 
@@ -17,6 +18,9 @@ function ProfileContent({ active }) {
 
       {/* track ordres page */}
       {active === 5 && <TrackOrders />}
+
+      {/* track ordres page */}
+      {active === 6 && <PaymentMethod />}
     </div>
   );
 }
