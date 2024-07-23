@@ -23,5 +23,6 @@ userRouter.post("/create-user", upload.single("file"), createUser);
 userRouter.post("/activation", activateUser);
 userRouter.post("/login", loginUser);
 userRouter.get("/getuser", isAuthenticated, getUser);
+userRouter.get("/logout", isAuthenticated, Logout);
 
 export default userRouter;
