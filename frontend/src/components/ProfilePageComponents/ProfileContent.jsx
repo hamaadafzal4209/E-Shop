@@ -1,3 +1,4 @@
+import AllOrders from "./AllOrders";
 import Profile from "./Profile";
 
 function ProfileContent({ active }) {
@@ -7,6 +8,9 @@ function ProfileContent({ active }) {
       {/* profile page */}
       {active === 1 && (
         <Profile/>
+      )}
+      {active === 2 && (
+        <AllOrders/>
       )}
     </div>
   );
