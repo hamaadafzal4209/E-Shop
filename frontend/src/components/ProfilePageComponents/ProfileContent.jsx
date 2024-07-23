@@ -3,24 +3,28 @@ import AllRefundOrders from "./AllRefundOrders";
 import PaymentMethod from "./PaymentMethod";
 import Profile from "./Profile";
 import TrackOrders from "./TrackOrders";
+import UserAddress from "./UserAddress";
 
 function ProfileContent({ active }) {
   return (
     <div className="w-full">
-      {/* profile page */}
+      {/* profile */}
       {active === 1 && <Profile />}
 
-      {/* ordres page */}
+      {/* ordres */}
       {active === 2 && <AllOrders />}
 
-      {/* refund ordres page */}
+      {/* refund ordres */}
       {active === 3 && <AllRefundOrders />}
 
-      {/* track ordres page */}
+      {/* track ordres */}
       {active === 5 && <TrackOrders />}
 
-      {/* track ordres page */}
+      {/* payment methods */}
       {active === 6 && <PaymentMethod />}
+
+      {/* user address */}
+      {active === 7 && <UserAddress />}
     </div>
   );
 }
