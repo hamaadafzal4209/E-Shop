@@ -4,6 +4,7 @@ import {
   createUser,
   getUser,
   loginUser,
+  Logout,
 } from "../controller/userController.js";
 import multer from "multer";
 import isAuthenticated from "../middleware/auth.js";
