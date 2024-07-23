@@ -15,6 +15,7 @@ import BestSelling from "./pages/BestSelling";
 import { useSelector } from "react-redux";
 import ProductDetails from "./pages/ProductDetails";
 import ProfilePage from "./pages/ProfilePage";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   const { loading } = useSelector((state) => state.user);
@@ -42,7 +43,9 @@ function App() {
               <Route path="/best-selling" element={<BestSelling />} />
               <Route path="/faq" element={<FAQs />} />
               <Route path="/events" element={<EventsPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/profile" element={<ProfilePage />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </div>

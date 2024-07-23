@@ -21,15 +21,13 @@ function ProfileSidebar({ active, setActive }) {
         withCredentials: true,
       });
       toast.success(res.data.message);
-      setTimeout(() => {
-        navigate("/");
-        window.location.reload();
-      }, 500); // Delay to ensure navigate runs after reload
+      window.location.reload();
+      navigate("/login");
     } catch (error) {
       console.log(error.message);
       toast.error(error.response?.data?.message || "Logout failed");
     }
-  };  
+  };
 
   return (
     <div className="mr-6 w-full rounded-lg bg-white p-4 shadow-sm">
