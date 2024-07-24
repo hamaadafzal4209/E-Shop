@@ -16,6 +16,8 @@ import { loadUser } from "./redux/actions/user";
 import ProductDetails from "./pages/ProductDetails";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import CheckOutPage from "./pages/CheckOutPage";
+import ShopCreatePage from "./pages/ShopCreate";
 
 function App() {
   const { loading } = useSelector((state) => state.user);
@@ -51,6 +53,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckOutPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/shop-create" element={<ShopCreatePage />} />
         </Routes>
       </BrowserRouter>
     </>

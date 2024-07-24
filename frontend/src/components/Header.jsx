@@ -118,7 +118,7 @@ function Header() {
           </div>
           {/* seller button */}
           <div className="flex h-[50px] cursor-pointer items-center justify-center rounded-xl bg-black px-4">
-            <Link to="/seller">
+            <Link to="/shop-create">
               <div className="flex items-center justify-center text-[#fff]">
                 <h1> Become Seller</h1>
                 <IoIosArrowForward className="ml-1" />
