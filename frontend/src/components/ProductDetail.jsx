@@ -121,7 +121,7 @@ function ProductDetail({ data }) {
                 <button className="bg-black text-white px-5 py-3 flex items-center gap-2 my-4 rounded-md">
                   Add to cart <AiOutlineShoppingCart size={22} />
                 </button>
-                <div className="flex items-center gap-6 my-8">
+                <div className="flex items-center gap-2 sm:gap-6 flex-wrap sm:flex-nowrap my-8">
                   <div className="flex items-center gap-2">
                     <div>
                       <img

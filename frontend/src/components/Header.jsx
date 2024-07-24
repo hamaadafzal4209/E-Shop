@@ -224,7 +224,7 @@ function Header() {
       </div>
       {/* mobile side navbar */}
       {openNavbar && (
-        <div className="fixed inset-0 top-0 z-[270] h-full w-full overflow-y-auto bg-black/50">
+        <div className="animate-fadeIn fixed inset-0 top-0 z-[270] h-full w-full overflow-y-auto bg-black/50">
           <div className="relative h-full w-full max-w-60 bg-white">
             <div
               onClick={() => setOpenNNavbar(false)}

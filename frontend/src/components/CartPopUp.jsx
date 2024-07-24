@@ -33,9 +33,9 @@ function CartPopUp({ setOpenCart }) {
   ];
 
   return (
-    <div className="fixed top-0 right-0 w-full h-full bg-[#0000004b] z-[300]">
-      <div className="fixed top-0 right-0 h-full max-w-sm w-full bg-white shadow-sm flex flex-col justify-between overflow-auto">
-        <div className="pt-[30px] overflow-auto no-scrollbar">
+    <div className="animate-fadeIn fixed right-0 top-0 z-[300] h-full w-full bg-[#0000004b]">
+      <div className="fixed right-0 top-0 flex h-full w-full max-w-sm flex-col justify-between overflow-auto bg-white shadow-sm">
+        <div className="no-scrollbar overflow-auto pt-[30px]">
           {/* cross icon */}
           <div>
             <RxCross1
@@ -60,10 +60,10 @@ function CartPopUp({ setOpenCart }) {
         </div>
 
         {/* checkout button */}
-        <div className="px-4 py-4 bg-white text-white border-t">
+        <div className="border-t bg-white px-4 py-4 text-white">
           <Link to="/checkout">
-            <div className="h-11 flex items-center justify-center w-full bg-[#e44343] rounded-md">
-              <h1 className="text-white font-semibold">
+            <div className="flex h-11 w-full items-center justify-center rounded-md bg-[#e44343]">
+              <h1 className="font-semibold text-white">
                 Checkout Now (USD$1000)
               </h1>
             </div>

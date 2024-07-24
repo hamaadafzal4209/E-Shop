@@ -32,8 +32,8 @@ function WhishListPopUp({ setOpenWhishlist }) {
   ];
 
   return (
-    <div className="fixed top-0 right-0 w-full h-full bg-[#0000004b] z-[250]">
-      <div className="fixed top-0 right-0 h-full max-w-sm w-full bg-white shadow-sm flex flex-col justify-between overflow-auto no-scrollbar">
+    <div className="animate-fadeIn fixed right-0 top-0 z-[250] h-full w-full bg-[#0000004b]">
+      <div className="no-scrollbar fixed right-0 top-0 flex h-full w-full max-w-sm flex-col justify-between overflow-auto bg-white shadow-sm">
         <div className="pt-[40px]">
           {/* cross icon */}
           <div>
@@ -46,7 +46,7 @@ function WhishListPopUp({ setOpenWhishlist }) {
           {/* item length */}
           <div className="flex items-center gap-2 p-4">
             <FaRegHeart size={25} className="inline-block" />
-            <h5 className="text-[20px] font-semibold ">3 items</h5>
+            <h5 className="text-[20px] font-semibold">3 items</h5>
           </div>
 
           {/* cart items */}
