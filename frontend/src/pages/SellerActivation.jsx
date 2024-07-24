@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { server } from "../server";
 
-function ActivationUser() {
+function SellerActivation() {
   const { activation_token } = useParams();
   const { error, setError } = useState(false);
 
@@ -11,7 +11,7 @@ function ActivationUser() {
     if (activation_token) {
       const activationEmail = async () => {
         try {
-          const res = await axios.post(`${server}/user/activation`, {
+          const res = await axios.post(`${server}/shop/seller/activation`, {
             activation_token,
           });
           console.log(res.data.message);
@@ -22,17 +22,17 @@ function ActivationUser() {
       };
       activationEmail();
     }
-  }, []);
+}, []);
 
   return (
     <div className="w-full h-screen flex items-center justify-center p-4">
       {error ? (
         <p className="text-xl">Your token is expired</p>
       ) : (
-        <p className="text-xl">Your account is created succesfully</p>
+        <p className="text-xl">Your shop account is created succesfully</p>
       )}
     </div>
   );
 }
 
-export default ActivationUser;
+export default SellerActivation;

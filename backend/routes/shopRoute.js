@@ -17,6 +17,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 shopRouter.post("/create-shop", upload.single("file"), createShop);
-shopRouter.post("/shop/activation", activateSellerShop);
+shopRouter.post("/seller/activation", activateSellerShop);
 
 export default shopRouter;  

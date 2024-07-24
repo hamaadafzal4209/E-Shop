@@ -18,6 +18,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import CheckOutPage from "./pages/CheckOutPage";
 import ShopCreatePage from "./pages/ShopCreate";
+import SellerActivation from "./pages/SellerActivation";
 
 function App() {
   const { loading } = useSelector((state) => state.user);
@@ -62,6 +63,10 @@ function App() {
             }
           />
           <Route path="/shop-create" element={<ShopCreatePage />} />
+          <Route
+            path="/seller/activation/:activation_token"
+            element={<SellerActivation />}
+          />
         </Routes>
       </BrowserRouter>
     </>

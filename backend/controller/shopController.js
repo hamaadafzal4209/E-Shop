@@ -10,8 +10,8 @@ export const createShop = async (req, res, next) => {
     const { name, email, password, phoneNumber, address, zipCode } = req.body;
 
     // Check if user with the provided email already exists
-    const userEmail = await shopModel.findOne({ email });
-    if (userEmail) {
+    const shopEmail = await shopModel.findOne({ email });
+    if (shopEmail) {
       return next(new ErrorHandler("User already exists", 400));
     }
 
@@ -38,13 +38,13 @@ export const createShop = async (req, res, next) => {
 
     try {
       await sendMail({
-        email: user.email,
+        email: seller.email,
         subject: "Activate your Shop",
-        message: `Hello ${user.name}, please click on the link to activate your shop ${activationUrl}`,
+        message: `Hello ${seller.name}, please click on the link to activate your shop ${activationUrl}`,
       });
       res.status(200).json({
         success: true,
-        message: `please check your email:- ${user.email} to activate your shop`,
+        message: `please check your email:- ${seller.email} to activate your shop`,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
