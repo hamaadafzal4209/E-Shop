@@ -6,6 +6,7 @@ import connectDatabase from "./db/Database.js";
 import dotenv from "dotenv";
 import { errorHandlerMiddleware } from "./middleware/error.js";
 import userRouter from "./routes/userRoute.js";
+import shopRouter from "./routes/shopRoute.js";
 
 // config
 const app = express();
@@ -31,6 +32,7 @@ connectDatabase();
 
 // import routes
 app.use("/api/user", userRouter);
+app.use("/api/shop", shopRouter);
 
 // unhandled promise rejection
 process.on("unhandledRejection", (err) => {
