@@ -1,15 +1,13 @@
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children }) => {
-  const { loading, isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, loading } = useSelector((state) => state.user);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" />;
   }
 
   return children;
