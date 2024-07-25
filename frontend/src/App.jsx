@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import store from "./redux/store";
 import { loadSeller, loadUser } from "./redux/actions/user";
@@ -24,15 +23,10 @@ import ShopHomePage from "./pages/ShopPages/ShopHomePage";
 import SellerProtectedRoute from "./pages/ShopPages/SellerProtectedRoute";
 
 function App() {
-  const { loading } = useSelector((state) => state.user);
-  const { isLoading, isSeller } = useSelector((state) => state.seller);
-
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(loadSeller());
   }, []);
-
-  if (loading || isLoading) return <div>Loading...</div>;
 
   return (
     <>
@@ -77,7 +71,7 @@ function App() {
           <Route
             path="/shop/:id"
             element={
-              <SellerProtectedRoute isSeller={isSeller}>
+              <SellerProtectedRoute>
                 <ShopHomePage />
               </SellerProtectedRoute>
             }

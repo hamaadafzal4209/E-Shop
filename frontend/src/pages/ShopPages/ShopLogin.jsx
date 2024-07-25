@@ -17,7 +17,7 @@ function ShopLogin() {
 
   useEffect(() => {
     if (isSeller) {
-      navigate(`/shop/${seller._id}`);
+      navigate("/dashboard");
     }
   }, [isSeller, seller, navigate]);
 
@@ -35,6 +35,7 @@ function ShopLogin() {
       );
       if (res.data.success) {
         window.location.reload();
+        navigate("/dashboard")
         toast.success("User successfully logged in");
       }
     } catch (error) {

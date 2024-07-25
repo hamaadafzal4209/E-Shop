@@ -9,7 +9,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
 function ShopCreate() {
-  const { isSeller, seller } = useSelector((state) => state.seller);
+  const { isSeller } = useSelector((state) => state.seller);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ function ShopCreate() {
 
   useEffect(() => {
     if (isSeller) {
-      navigate(`/shop/${seller._id}`);
+      navigate(`/dashboard`);
     }
   });
 
