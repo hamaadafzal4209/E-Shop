@@ -20,6 +20,7 @@ import { RxCross1 } from "react-icons/rx";
 
 function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { isSeller } = useSelector((state) => state.seller);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
@@ -118,10 +119,10 @@ function Header() {
           </div>
           {/* seller button */}
           <div className="flex h-[50px] cursor-pointer items-center justify-center rounded-xl bg-black px-4">
-            <Link to="/shop-create">
+            <Link to={isSeller ? "/dashboard" : "/shop-create"}>
               <div className="flex items-center justify-center text-[#fff]">
-                <h1> Become Seller</h1>
-                <IoIosArrowForward className="ml-1" />
+                <h1>{isSeller ? "DashBoard" : " Become Seller"}</h1>
+                {!isSeller && <IoIosArrowForward className="ml-1" />}
               </div>
             </Link>
           </div>
@@ -224,7 +225,7 @@ function Header() {
       </div>
       {/* mobile side navbar */}
       {openNavbar && (
-        <div className="animate-fadeIn fixed inset-0 top-0 z-[270] h-full w-full overflow-y-auto bg-black/50">
+        <div className="fixed inset-0 top-0 z-[270] h-full w-full animate-fadeIn overflow-y-auto bg-black/50">
           <div className="relative h-full w-full max-w-60 bg-white">
             <div
               onClick={() => setOpenNNavbar(false)}
@@ -251,10 +252,10 @@ function Header() {
               ))}
             </ul>
             <div className="flex cursor-pointer items-center">
-              <Link to="/shop-create">
+              <Link to={isSeller ? "/dashboard" : "/shop-create"}>
                 <div className="mx-6 my-6 flex items-center justify-center rounded-md bg-black px-8 py-3 text-[#fff]">
-                  <h1> Become Seller</h1>
-                  <IoIosArrowForward className="ml-1" />
+                  <h1>{isSeller ? "Shop DashBoard" : " Become Seller"}</h1>
+                  {!isSeller && <IoIosArrowForward className="ml-1" />}
                 </div>
               </Link>
             </div>

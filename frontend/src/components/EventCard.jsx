@@ -5,7 +5,7 @@ function EventCard() {
     <div className="px-6 md:px-12 bg-white rounded-lg lg:flex p-4 shadow-sm">
       <div className="w-full lg:w-2/5 flex items-center justify-center">
         <img
-          className="max-w-[450px] object-contain"
+          className="max-w-[450px] w-full object-contain"
           src="https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg"
           alt=""
         />
