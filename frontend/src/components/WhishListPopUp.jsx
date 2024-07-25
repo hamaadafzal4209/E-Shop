@@ -33,7 +33,7 @@ function WhishListPopUp({ setOpenWhishlist }) {
 
   return (
     <div className="animate-fadeIn fixed right-0 top-0 z-[250] h-full w-full bg-[#0000004b]">
-      <div className="no-scrollbar fixed right-0 top-0 flex h-full w-full max-w-sm flex-col justify-between overflow-auto bg-white shadow-sm">
+      <div className="custom-scrollbar fixed right-0 top-0 flex h-full w-full max-w-sm flex-col justify-between overflow-auto bg-white shadow-sm">
         <div className="pt-[40px]">
           {/* cross icon */}
           <div>

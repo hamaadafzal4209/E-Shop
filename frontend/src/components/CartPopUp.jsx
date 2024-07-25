@@ -35,7 +35,7 @@ function CartPopUp({ setOpenCart }) {
   return (
     <div className="animate-fadeIn fixed right-0 top-0 z-[300] h-full w-full bg-[#0000004b]">
       <div className="fixed right-0 top-0 flex h-full w-full max-w-sm flex-col justify-between overflow-auto bg-white shadow-sm">
-        <div className="no-scrollbar overflow-auto pt-[30px]">
+        <div className="custom-scrollbar overflow-auto pt-[30px]">
           {/* cross icon */}
           <div>
             <RxCross1

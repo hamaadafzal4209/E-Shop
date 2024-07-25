@@ -24,40 +24,42 @@ function ShopInfo({ isOwner }) {
   };
 
   return (
-    <div className="w-full rounded-lg bg-white p-6 shadow-lg">
-      <div className="flex flex-col items-center">
-        {seller.avatar ? (
-          <img
-            src={`${backend_url}/${seller.avatar}`}
-            alt="Seller Avatar"
-            className="h-32 w-32 rounded-full border-4 border-gray-200 object-cover"
-          />
-        ) : (
-          <CgProfile className="h-32 w-32 text-gray-400" />
-        )}
-        <h2 className="mt-4 text-xl font-bold">{seller.name}</h2>
-        <p className="mt-2 text-gray-600">{seller.description}</p>
-      </div>
-      <div className="mt-6 space-y-2">
-        <h5 className="font-semibold text-gray-700">
-          Address: <span className="font-medium">{seller.address}</span>{" "}
-        </h5>
-
-        <div className="flex justify-between text-gray-700">
-          <span className="font-semibold">Phone Number:</span>
-          <span>{seller.phoneNumber}</span>
+    <div className="">
+      <div>
+        <div className="flex flex-col items-center">
+          {seller.avatar ? (
+            <img
+              src={`${backend_url}/${seller.avatar}`}
+              alt="Seller Avatar"
+              className="h-32 w-32 rounded-full border-4 border-gray-200 object-cover"
+            />
+          ) : (
+            <CgProfile className="h-32 w-32 text-gray-400" />
+          )}
+          <h2 className="mt-4 text-xl font-bold">{seller.name}</h2>
+          <p className="mt-2 text-gray-600">{seller.description}</p>
         </div>
-        <div className="flex justify-between text-gray-700">
-          <span className="font-semibold">Total Products:</span>
-          <span>10</span>
-        </div>
-        <div className="flex justify-between text-gray-700">
-          <span className="font-semibold">Shop Rating:</span>
-          <span>4/5</span>
-        </div>
-        <div className="flex justify-between text-gray-700">
-          <span className="font-semibold">Joined On:</span>
-          <span>{seller.createdAt.slice(0, 10)}</span>
+        <div className="mt-6 space-y-2">
+          <div className="flex justify-between text-gray-700 flex-wrap">
+            <span className="font-semibold">Address:</span>
+            <span>{seller.address}</span>
+          </div>
+          <div className="flex justify-between text-gray-700">
+            <span className="font-semibold">Phone Number:</span>
+            <span>{seller.phoneNumber}</span>
+          </div>
+          <div className="flex justify-between text-gray-700">
+            <span className="font-semibold">Total Products:</span>
+            <span>10</span>
+          </div>
+          <div className="flex justify-between text-gray-700">
+            <span className="font-semibold">Shop Rating:</span>
+            <span>4/5</span>
+          </div>
+          <div className="flex justify-between text-gray-700">
+            <span className="font-semibold">Joined On:</span>
+            <span>{seller.createdAt.slice(0, 10)}</span>
+          </div>
         </div>
       </div>
       {isOwner && (

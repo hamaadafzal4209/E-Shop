@@ -3,12 +3,12 @@ import ShopProfileData from "../../components/SellerComponent/ShopProfileData";
 
 function ShopHomePage() {
   return (
-    <div className="section bg-gray-100 min-h-screen py-10">
-      <div className="flex flex-col lg:flex-row gap-6">
-        <div className="custom-scrollbar sticky top-4 z-10 w-full lg:w-80 overflow-y-auto bg-white shadow-lg rounded-lg p-6">
+    <div className="section bg-gray-100 py-10">
+      <div className="flex flex-col gap-6 lg:flex-row">
+        <div className="custom-scrollbar top-4 z-10 h-[90vh] w-full overflow-y-auto rounded-lg bg-white p-6 shadow-lg lg:sticky lg:w-80">
           <ShopInfo isOwner={true} />
         </div>
-        <div className="flex-1 bg-white shadow-lg rounded-lg p-6">
+        <div className="flex-1 lg:px-6 py-6 lg:py-0">
           <ShopProfileData isOwner={true} />
         </div>
       </div>
