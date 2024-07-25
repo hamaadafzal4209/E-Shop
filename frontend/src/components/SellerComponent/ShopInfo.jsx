@@ -1,9 +1,27 @@
 import { useSelector } from "react-redux";
-import { backend_url } from "../../server";
+import { backend_url, server } from "../../server";
 import { CgProfile } from "react-icons/cg";
+import axios from 'axios';
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function ShopInfo({ isOwner }) {
   const { seller } = useSelector((state) => state.seller);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.get(`${server}/shop/logout`, {
+        withCredentials: true,
+      });
+      toast.success(res.data.message);
+      window.location.reload();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.response?.data?.message || "Logout failed");
+    }
+  };
 
   return (
     <div className="w-full space-y-4 p-4 py-5">
@@ -53,9 +71,7 @@ function ShopInfo({ isOwner }) {
       }
       {
         isOwner && (
-          <div>
-            <div className="bg-black w-full text-white py-3 text-center font-semibold">Log Out</div>
-          </div>
+            <button onClick={handleLogout} className="bg-black w-full text-white py-3 text-center font-semibold">Log Out</button>
         )
       }
     </div>

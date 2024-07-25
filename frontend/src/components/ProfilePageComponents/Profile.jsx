@@ -26,7 +26,6 @@ function Profile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your submit logic here
   };
 
   if (!user) {
