@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { backend_url, server } from "../../server";
 import { CgProfile } from "react-icons/cg";
-import axios from 'axios';
+import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -24,56 +24,55 @@ function ShopInfo({ isOwner }) {
   };
 
   return (
-    <div className="w-full space-y-4 p-4 py-5">
-      <div className="flex w-full items-center justify-center">
+    <div className="w-full rounded-lg bg-white p-6 shadow-lg">
+      <div className="flex flex-col items-center">
         {seller.avatar ? (
           <img
             src={`${backend_url}/${seller.avatar}`}
             alt="Seller Avatar"
-            className="h-32 w-32 rounded-full object-cover"
+            className="h-32 w-32 rounded-full border-4 border-gray-200 object-cover"
           />
         ) : (
-          <p>
-            <CgProfile className="h-32 w-32" />
-          </p>
+          <CgProfile className="h-32 w-32 text-gray-400" />
         )}
+        <h2 className="mt-4 text-xl font-bold">{seller.name}</h2>
+        <p className="mt-2 text-gray-600">{seller.description}</p>
       </div>
-      <p className="text-center text-lg font-semibold pb-6">{seller.name}</p>
-      <p className="text-center text-lg font-semibold">{seller.description}</p>
-      <h5 className="font-semibold">
-        Address:{" "}
-        <span className="font-medium text-[#000000a6]">{seller.address}</span>{" "}
-      </h5>
-      <h5 className="font-semibold">
-        Phone Number:{" "}
-        <span className="font-medium text-[#000000a6]">
-          {seller.phoneNumber}
-        </span>{" "}
-      </h5>
-      <h5 className="font-semibold">
-        Total Products: <span className="font-medium text-[#000000a6]">10</span>{" "}
-      </h5>
-      <h5 className="font-semibold">
-        Shop Rating: <span className="font-medium text-[#000000a6]">4/5</span>{" "}
-      </h5>
-      <h5 className="font-semibold">
-        Joined On:{" "}
-        <span className="font-medium text-[#000000a6]">
-          {seller.createdAt.slice(0, 10)}
-        </span>{" "}
-      </h5>
-      {
-        isOwner && (
-          <div className="pt-3">
-            <div className="bg-black w-full text-white py-3 text-center font-semibold">Edit Shop</div>
-          </div>
-        )
-      }
-      {
-        isOwner && (
-            <button onClick={handleLogout} className="bg-black w-full text-white py-3 text-center font-semibold">Log Out</button>
-        )
-      }
+      <div className="mt-6 space-y-2">
+        <h5 className="font-semibold text-gray-700">
+          Address: <span className="font-medium">{seller.address}</span>{" "}
+        </h5>
+
+        <div className="flex justify-between text-gray-700">
+          <span className="font-semibold">Phone Number:</span>
+          <span>{seller.phoneNumber}</span>
+        </div>
+        <div className="flex justify-between text-gray-700">
+          <span className="font-semibold">Total Products:</span>
+          <span>10</span>
+        </div>
+        <div className="flex justify-between text-gray-700">
+          <span className="font-semibold">Shop Rating:</span>
+          <span>4/5</span>
+        </div>
+        <div className="flex justify-between text-gray-700">
+          <span className="font-semibold">Joined On:</span>
+          <span>{seller.createdAt.slice(0, 10)}</span>
+        </div>
+      </div>
+      {isOwner && (
+        <div className="mt-6 flex flex-col gap-4">
+          <button className="rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
+            Edit Shop
+          </button>
+          <button
+            onClick={handleLogout}
+            className="rounded-lg bg-red-600 py-3 font-semibold text-white shadow-lg transition duration-300 hover:bg-red-700"
+          >
+            Log Out
+          </button>
+        </div>
+      )}
     </div>
   );
 }
