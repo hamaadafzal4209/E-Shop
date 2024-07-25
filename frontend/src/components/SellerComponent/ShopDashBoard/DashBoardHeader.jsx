@@ -10,7 +10,7 @@ function DashBoardHeader() {
   const { seller } = useSelector((state) => state.seller);
   return (
     <div className="sticky top-0 z-50 h-20 w-full bg-white shadow-sm">
-      <div className="px-4 flex h-20 items-center justify-between">
+      <div className="flex h-20 items-center justify-between px-4">
         {/* logo */}
         <div className="">
           <Link to="/dashboard">
