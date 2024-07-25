@@ -5,6 +5,7 @@ import {
   activateSellerShop,
   createShop,
   loadShop,
+  logout,
   shopLogin,
 } from "../controller/shopController.js";
 import { isSeller } from "../middleware/auth.js"; 
@@ -24,5 +25,6 @@ shopRouter.post("/create-shop", upload.single("file"), createShop);
 shopRouter.post("/seller/activation", activateSellerShop);
 shopRouter.post("/login-shop", shopLogin);
 shopRouter.get("/getSeller", isSeller, loadShop);
+shopRouter.get("/logout", isSeller, logout);
 
 export default shopRouter;
