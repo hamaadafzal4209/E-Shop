@@ -9,8 +9,8 @@ import { backend_url } from "../../../server";
 function DashBoardHeader() {
   const { seller } = useSelector((state) => state.seller);
   return (
-    <div className="sticky top-0 h-20 w-full bg-white shadow-sm">
-      <div className="section flex h-20 items-center justify-between">
+    <div className="sticky top-0 z-50 h-20 w-full bg-white shadow-sm">
+      <div className="px-4 flex h-20 items-center justify-between">
         {/* logo */}
         <div className="">
           <Link to="/dashboard">
