@@ -12,22 +12,27 @@ import BestSelling from "./pages/BestSelling";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import store from "./redux/store";
-import { loadUser } from "./redux/actions/user";
+import { loadSeller, loadUser } from "./redux/actions/user";
 import ProductDetails from "./pages/ProductDetails";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import CheckOutPage from "./pages/CheckOutPage";
-import ShopCreatePage from "./pages/ShopCreate";
-import SellerActivation from "./pages/SellerActivation";
+import SellerActivation from "./pages/ShopPages/SellerActivation";
+import ShopCreate from "./pages/ShopPages/ShopCreate";
+import ShopLogin from "./pages/ShopPages/ShopLogin";
+import ShopHomePage from "./pages/ShopPages/ShopHomePage";
+import SellerProtectedRoute from "./pages/ShopPages/SellerProtectedRoute";
 
 function App() {
   const { loading } = useSelector((state) => state.user);
+  const { isLoading, isSeller } = useSelector((state) => state.seller);
 
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(loadSeller());
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading || isLoading) return <div>Loading...</div>;
 
   return (
     <>
@@ -62,10 +67,20 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/shop-create" element={<ShopCreatePage />} />
+          {/* shop Routes */}
+          <Route path="/shop-create" element={<ShopCreate />} />
           <Route
             path="/seller/activation/:activation_token"
             element={<SellerActivation />}
+          />
+          <Route path="/shop-login" element={<ShopLogin />} />
+          <Route
+            path="/shop/:id"
+            element={
+              <SellerProtectedRoute isSeller={isSeller}>
+                <ShopHomePage />
+              </SellerProtectedRoute>
+            }
           />
         </Routes>
       </BrowserRouter>

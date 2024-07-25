@@ -7,7 +7,7 @@ import {
   Logout,
 } from "../controller/userController.js";
 import multer from "multer";
-import isAuthenticated from "../middleware/auth.js";
+import { isAuthenticated } from "../middleware/auth.js";
 const userRouter = express.Router();
 
 // image upload engine

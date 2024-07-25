@@ -1,9 +1,9 @@
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import shopModel from "../model/shopModel.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
-import sendToken from "../utils/jwtToken.js";
 import sendMail from "../utils/sendMail.js";
 import jwt from "jsonwebtoken";
+import sendShopToken from "../utils/ShopToken.js";
 
 export const createShop = async (req, res, next) => {
   try {
@@ -86,7 +86,53 @@ export const activateSellerShop = catchAsyncErrors(async (req, res, next) => {
       avatar,
     });
 
-    sendToken(seller, 201, res);
+    sendShopToken(seller, 201, res);
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+// login user
+export const shopLogin = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return next(new ErrorHandler("Please provide the all fields!", 400));
+    }
+
+    const user = await shopModel.findOne({ email }).select("+password");
+
+    if (!user) {
+      return next(new ErrorHandler("User doesn't exists!", 400));
+    }
+
+    const isPasswordValid = await user.comparePassword(password);
+
+    if (!isPasswordValid) {
+      return next(new ErrorHandler("Wrong Cradientials", 400));
+    }
+
+    sendShopToken(user, 201, res);
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+export const loadShop = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const seller = await shopModel.findById(req.seller.id);
+
+    if (!seller) {
+      return next(new ErrorHandler("Shop not found", 400));
+    }
+
+    // console.log("Load Shop - Seller:", seller);
+
+    res.status(200).json({
+      success: true,
+      seller,
+    });
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
   }

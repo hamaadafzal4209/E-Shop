@@ -26,8 +26,8 @@ function ProductDetailsPopup({ setOpen, data }) {
   return (
     <div className="bg-white">
       {data && (
-        <div className="animate-fadeIn fixed left-0 top-0 z-[400] flex h-screen w-full items-center justify-center bg-[#00000030]">
-          <div className="relative h-[90vh] w-11/12 overflow-y-scroll rounded-md bg-white p-4 shadow-sm md:h-[75vh] md:w-3/5">
+        <div className="fixed left-0 top-0 z-[400] flex h-screen w-full animate-fadeIn items-center justify-center bg-[#00000030]">
+          <div className="relative h-[90vh] w-11/12 overflow-y-scroll rounded-md bg-white p-4 shadow-sm md:h-[75vh] md:max-w-2xl lg:w-3/5">
             <RxCross1
               size={30}
               className="absolute right-3 top-3 z-50 cursor-pointer"

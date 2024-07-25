@@ -250,6 +250,14 @@ function Header() {
                 </li>
               ))}
             </ul>
+            <div className="flex cursor-pointer items-center">
+              <Link to="/shop-create">
+                <div className="mx-6 my-6 flex items-center justify-center rounded-md bg-black px-8 py-3 text-[#fff]">
+                  <h1> Become Seller</h1>
+                  <IoIosArrowForward className="ml-1" />
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       )}

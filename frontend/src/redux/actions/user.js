@@ -5,6 +5,11 @@ import {
   loadUserSuccess,
   loadUserFail,
 } from "../reducers/user.js";
+import {
+  loadSellerFail,
+  loadSellerRequest,
+  loadSellerSuccess,
+} from "../reducers/seller.js";
 
 // load user
 export const loadUser = () => async (dispatch) => {
@@ -16,5 +21,17 @@ export const loadUser = () => async (dispatch) => {
     dispatch(loadUserSuccess(data.user));
   } catch (error) {
     dispatch(loadUserFail(error.response.data.message));
+  }
+};
+
+export const loadSeller = () => async (dispatch) => {
+  try {
+    dispatch(loadSellerRequest());
+    const { data } = await axios.get(`${server}/shop/getSeller`, {
+      withCredentials: true,
+    });
+    dispatch(loadSellerSuccess(data.seller));
+  } catch (error) {
+    dispatch(loadSellerFail(error.response.data.message));
   }
 };

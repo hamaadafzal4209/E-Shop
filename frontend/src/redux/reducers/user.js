@@ -30,6 +30,10 @@ const userSlice = createSlice({
   },
 });
 
-export const { loadUserRequest, loadUserSuccess, loadUserFail, clearErrors } =
-  userSlice.actions;
+export const {
+  loadUserRequest,
+  loadUserSuccess,
+  loadUserFail,
+  clearErrors,
+} = userSlice.actions;
 export default userSlice.reducer;

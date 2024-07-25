@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { server } from "../server";
+import { Link, useNavigate } from "react-router-dom";
+import { server } from "../../server";
 import { toast } from "react-toastify";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
-function ShopCreatePage() {
+function ShopCreate() {
+  const { isSeller, seller } = useSelector((state) => state.seller);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -17,7 +19,13 @@ function ShopCreatePage() {
   const [avatar, setAvatar] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSeller) {
+      navigate(`/shop/${seller._id}`);
+    }
+  });
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -276,4 +284,4 @@ function ShopCreatePage() {
   );
 }
 
-export default ShopCreatePage;
+export default ShopCreate;

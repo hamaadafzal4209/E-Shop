@@ -1,9 +1,13 @@
+// shopRoute.js
 import express from "express";
 import multer from "multer";
 import {
   activateSellerShop,
   createShop,
+  loadShop,
+  shopLogin,
 } from "../controller/shopController.js";
+import { isSeller } from "../middleware/auth.js"; 
 const shopRouter = express.Router();
 
 // image upload engine
@@ -18,5 +22,7 @@ const upload = multer({ storage: storage });
 
 shopRouter.post("/create-shop", upload.single("file"), createShop);
 shopRouter.post("/seller/activation", activateSellerShop);
+shopRouter.post("/login-shop", shopLogin);
+shopRouter.get("/getSeller", isSeller, loadShop);
 
-export default shopRouter;  
+export default shopRouter;
