@@ -31,22 +31,18 @@ const productSchema = new mongoose.Schema({
   ratings: {
     type: Number,
   },
-  shopId: {
-    type: String,
-    required: true,
-  },
   shop: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'shop',
+    ref: "shop",
     required: true,
-  },  
+  },
   sold_out: {
     type: Number,
     default: 0,
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 

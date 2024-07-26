@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { categoriesData } from "../../../static/data";
 import { FaPlus } from "react-icons/fa6";
-import { createProduct } from "../../../redux/actions/product";
 import { toast } from "react-toastify";
+import { clearErrors, resetProductState } from "../../../redux/reducers/product";
+import { createProduct } from "../../../redux/actions/product";
 
 function CreateProduct() {
   const { seller } = useSelector((state) => state.seller);
@@ -22,34 +23,32 @@ function CreateProduct() {
   const [stock, setStock] = useState("");
 
   useEffect(() => {
-    try {
-      if (error) {
-        toast.error(error);
-      }
-      if (success) {
-        toast.success("Product created successfully");
-        navigate("/dashboard");
-        window.location.reload();
-      }
-    } catch (error) {
-      toast.error(error);
-      console.log(error);
+    console.log("Success:", success);
+    if (success) {
+      toast.success("Product created successfully");
+      dispatch(resetProductState());
+      navigate("/dashboard");
     }
-  }, [success, error, navigate]);
+  }, [success, navigate, dispatch]);
+
+  useEffect(() => {
+    console.log("Error:", error);
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+  }, [error, dispatch]);
 
   const handleImageChange = (e) => {
-    e.preventDefault();
-    let files = Array.from(e.target.files);
-    setImages((prevImages) => [...prevImages, ...files]);
+    setImages(Array.from(e.target.files));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newForm = new FormData();
-
     images.forEach((image) => {
-      newForm.set("images", image);
+      newForm.append("images", image);
     });
     newForm.append("name", name);
     newForm.append("description", description);
@@ -58,21 +57,11 @@ function CreateProduct() {
     newForm.append("originalPrice", originalPrice);
     newForm.append("discountPrice", discountPrice);
     newForm.append("stock", stock);
-    newForm.append("shopId", seller._id);
-    dispatch(
-      createProduct({
-        name,
-        description,
-        category,
-        tags,
-        originalPrice,
-        discountPrice,
-        stock,
-        shopId: seller._id,
-        images,
-      })
-    );
+    newForm.append("shopId", seller._id); // Ensure seller._id is valid
+
+    dispatch(createProduct(newForm)); // Dispatch the FormData object directly
   };
+
   return (
     <section className="bg-gray-50 sm:py-4 dark:bg-gray-900">
       <div className="mx-auto flex h-[90vh] flex-col items-center justify-center overflow-y-auto px-6 py-8 md:h-[80vh] lg:py-0">
@@ -82,7 +71,6 @@ function CreateProduct() {
               Create Product
             </h1>
             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-              {/* Form fields */}
               <div>
                 <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                   Product Name

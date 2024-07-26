@@ -72,3 +72,4 @@ shopSchema.methods.comparePassword = async function (enteredPassword) {
 
 const shopModel = mongoose.model("shop", shopSchema);
 export default shopModel;
+  
