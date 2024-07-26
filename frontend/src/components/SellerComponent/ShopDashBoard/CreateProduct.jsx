@@ -152,6 +152,19 @@ function CreateProduct() {
                   id="upload"
                 />
               </div>
+              <div className="mt-4 flex flex-wrap gap-4">
+                {images &&
+                  images.map((image, index) => (
+                    <div key={index}>
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt={`Preview ${index}`}
+                        className="h-28 w-28 rounded-lg object-cover shadow-md"
+                      />
+                    </div>
+                  ))}
+              </div>
+
               <div className="flex justify-end">
                 <button
                   type="submit"

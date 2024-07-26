@@ -40,7 +40,7 @@ function ShopInfo({ isOwner }) {
           <p className="mt-2 text-gray-600">{seller.description}</p>
         </div>
         <div className="mt-6 space-y-2">
-          <div className="flex justify-between text-gray-700 flex-wrap">
+          <div className="flex flex-wrap justify-between text-gray-700">
             <span className="font-semibold">Address:</span>
             <span>{seller.address}</span>
           </div>
