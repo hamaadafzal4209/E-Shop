@@ -36,9 +36,10 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   shop: {
-    type: Object,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'shop',
     required: true,
-  },
+  },  
   sold_out: {
     type: Number,
     default: 0,

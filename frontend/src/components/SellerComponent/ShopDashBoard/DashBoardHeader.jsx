@@ -13,7 +13,7 @@ function DashBoardHeader() {
       <div className="flex h-20 items-center justify-between px-4">
         {/* logo */}
         <div className="">
-          <Link to="/dashboard">
+          <Link to="/">
             <img
               src="https://shopo.quomodothemes.website/assets/images/logo.svg"
               alt=""

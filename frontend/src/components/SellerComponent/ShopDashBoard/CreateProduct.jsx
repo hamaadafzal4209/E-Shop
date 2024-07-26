@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { categoriesData } from "../../../static/data";
 import { FaPlus } from "react-icons/fa6";
+import { createProduct } from "../../../redux/actions/product";
+import { toast } from "react-toastify";
 
 function CreateProduct() {
   const { seller } = useSelector((state) => state.seller);
+  const { success, error } = useSelector((state) => state.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -18,17 +21,58 @@ function CreateProduct() {
   const [discountPrice, setDiscountPrice] = useState("");
   const [stock, setStock] = useState("");
 
+  useEffect(() => {
+    try {
+      if (error) {
+        toast.error(error);
+      }
+      if (success) {
+        toast.success("Product created successfully");
+        navigate("/dashboard");
+        window.location.reload();
+      }
+    } catch (error) {
+      toast.error(error);
+      console.log(error);
+    }
+  }, [success, error, navigate]);
+
   const handleImageChange = (e) => {
     e.preventDefault();
     let files = Array.from(e.target.files);
     setImages((prevImages) => [...prevImages, ...files]);
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement the form submission logic here
-  };
 
+    const newForm = new FormData();
+
+    images.forEach((image) => {
+      newForm.set("images", image);
+    });
+    newForm.append("name", name);
+    newForm.append("description", description);
+    newForm.append("category", category);
+    newForm.append("tags", tags);
+    newForm.append("originalPrice", originalPrice);
+    newForm.append("discountPrice", discountPrice);
+    newForm.append("stock", stock);
+    newForm.append("shopId", seller._id);
+    dispatch(
+      createProduct({
+        name,
+        description,
+        category,
+        tags,
+        originalPrice,
+        discountPrice,
+        stock,
+        shopId: seller._id,
+        images,
+      })
+    );
+  };
   return (
     <section className="bg-gray-50 sm:py-4 dark:bg-gray-900">
       <div className="mx-auto flex h-[90vh] flex-col items-center justify-center overflow-y-auto px-6 py-8 md:h-[80vh] lg:py-0">
@@ -38,6 +82,7 @@ function CreateProduct() {
               Create Product
             </h1>
             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              {/* Form fields */}
               <div>
                 <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                   Product Name
@@ -147,32 +192,31 @@ function CreateProduct() {
                   type="file"
                   multiple
                   onChange={handleImageChange}
-                  required
                   hidden
                   id="upload"
                 />
               </div>
-              <div className="mt-4 flex flex-wrap gap-4">
+              <div className="mt-4 flex flex-wrap gap-2">
                 {images &&
                   images.map((image, index) => (
-                    <div key={index}>
+                    <div
+                      key={index}
+                      className="h-20 w-20 overflow-hidden rounded-md"
+                    >
                       <img
                         src={URL.createObjectURL(image)}
-                        alt={`Preview ${index}`}
-                        className="h-28 w-28 rounded-lg object-cover shadow-md"
+                        alt="product"
+                        className="h-full w-full object-cover"
                       />
                     </div>
                   ))}
               </div>
-
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Create Product
-                </button>
-              </div>
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-blue-600 py-2 text-white"
+              >
+                Create Product
+              </button>
             </form>
           </div>
         </div>
