@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   success: false,
   product: null,
+  products: [],  // Add products to the initial state
   error: null,
 };
 
@@ -25,9 +26,7 @@ const productSlice = createSlice({
       state.success = false;
     },
 
-    // get all products for shop
-
-    // get all products of shop
+    // Get all products for shop
     getAllProductsShopRequest: (state) => {
       state.isLoading = true;
     },
@@ -62,3 +61,4 @@ export const {
 } = productSlice.actions;
 
 export default productSlice.reducer;
+  
