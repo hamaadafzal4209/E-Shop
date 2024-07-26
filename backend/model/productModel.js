@@ -28,12 +28,35 @@ const productSchema = new mongoose.Schema({
     required: [true, "Please enter your product stock!"],
   },
   images: [{ type: String }],
+  reviews: [
+    {
+      user: {
+        type: Object,
+      },
+      rating: {
+        type: Number,
+      },
+      comment: {
+        type: String,
+      },
+      productId: {
+        type: String,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now(),
+      },
+    },
+  ],
   ratings: {
     type: Number,
   },
+  shopId: {
+    type: String,
+    required: true,
+  },
   shop: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "shop",
+    type: Object,
     required: true,
   },
   sold_out: {
@@ -42,7 +65,7 @@ const productSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
 });
 

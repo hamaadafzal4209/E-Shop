@@ -3,6 +3,7 @@ import productModel from "../model/productModel.js";
 import shopModel from "../model/shopModel.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 
+// create new product
 export const createProduct = catchAsyncErrors(async (req, res, next) => {
   try {
     const { shopId } = req.body;
@@ -34,3 +35,18 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
+
+// get all products
+export const getAllShopProducts = catchAsyncErrors(async(req,res,next) => {
+  try {
+    const products = await productModel.find({shopId: req.params.id});
+
+    res.status(200).json({
+      success: true,
+      products
+    })
+    
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400))
+  }
+})
