@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import { errorHandlerMiddleware } from "./middleware/error.js";
 import userRouter from "./routes/userRoute.js";
 import shopRouter from "./routes/shopRoute.js";
+import productRouter from "./routes/productRoute.js";
 
 // config
 const app = express();
@@ -33,6 +34,7 @@ connectDatabase();
 // import routes
 app.use("/api/user", userRouter);
 app.use("/api/shop", shopRouter);
+app.use("/api/product", productRouter);
 
 // unhandled promise rejection
 process.on("unhandledRejection", (err) => {
