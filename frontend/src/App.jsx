@@ -23,6 +23,7 @@ import ShopHomePage from "./pages/ShopPages/ShopHomePage";
 import SellerProtectedRoute from "./pages/ShopPages/SellerProtectedRoute";
 import ShopDashBoard from "./pages/ShopDashBoard/ShopDashBoard";
 import ShopCreateProduct from "./pages/ShopDashBoard/ShopCreateProduct";
+import DashAllProducts from "./components/SellerComponent/ShopDashBoard/DashAllProducts";
 
 function App() {
   useEffect(() => {
@@ -91,6 +92,14 @@ function App() {
             element={
               <SellerProtectedRoute>
                 <ShopCreateProduct />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard-products"
+            element={
+              <SellerProtectedRoute>
+                <DashAllProducts />
               </SellerProtectedRoute>
             }
           />

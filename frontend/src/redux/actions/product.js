@@ -4,6 +4,9 @@ import {
   createProductFail,
   createProductRequest,
   createProductSuccess,
+  getAllProductsShopFailed,
+  getAllProductsShopRequest,
+  getAllProductsShopSuccess,
 } from "../reducers/product";
 
 export const createProduct = (formData) => async (dispatch) => {
@@ -25,5 +28,18 @@ export const createProduct = (formData) => async (dispatch) => {
   } catch (error) {
     const errorMessage = error.response?.data?.message || "An error occurred";
     dispatch(createProductFail(errorMessage));
+  }
+};
+
+export const getAllShopProducts = (id) => async (dispatch) => {
+  try {
+    dispatch(getAllProductsShopRequest());
+
+    const { data } = axios.get(`${server}/product/get-all-shop-products/${id}`);
+
+    dispatch(getAllProductsShopSuccess(data.product));
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || "An error occurred";
+    dispatch(getAllProductsShopFailed(errorMessage));
   }
 };

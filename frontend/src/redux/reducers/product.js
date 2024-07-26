@@ -24,6 +24,22 @@ const productSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     },
+
+    // get all products for shop
+
+    // get all products of shop
+    getAllProductsShopRequest: (state) => {
+      state.isLoading = true;
+    },
+    getAllProductsShopSuccess: (state, action) => {
+      state.isLoading = false;
+      state.products = action.payload;
+    },
+    getAllProductsShopFailed: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
     clearErrors: (state) => {
       state.error = null;
     },
@@ -40,6 +56,9 @@ export const {
   createProductRequest,
   clearErrors,
   resetProductState,
+  getAllProductsShopFailed,
+  getAllProductsShopRequest,
+  getAllProductsShopSuccess,
 } = productSlice.actions;
 
 export default productSlice.reducer;
