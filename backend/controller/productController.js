@@ -62,7 +62,7 @@ export const deleteShopProduct = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      product,
+      message: "Product deleted successfully",
     });
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));

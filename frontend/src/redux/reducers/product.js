@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   success: false,
   product: null,
+  products: [], // Add products to the initial state
   error: null,
 };
 
@@ -25,9 +26,7 @@ const productSlice = createSlice({
       state.success = false;
     },
 
-    // get all products for shop
-
-    // get all products of shop
+    // Get all products for shop
     getAllProductsShopRequest: (state) => {
       state.isLoading = true;
     },
@@ -36,6 +35,19 @@ const productSlice = createSlice({
       state.products = action.payload;
     },
     getAllProductsShopFailed: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    // delete product of a shop
+    deleteProductRequest: (state) => {
+      state.isLoading = true;
+    },
+    deleteProductSuccess: (state, action) => {
+      state.isLoading = false;
+      state.message = action.payload;
+    },
+    deleteProductFailed: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -59,6 +71,9 @@ export const {
   getAllProductsShopFailed,
   getAllProductsShopRequest,
   getAllProductsShopSuccess,
+  deleteProductFailed,
+  deleteProductRequest,
+  deleteProductSuccess,
 } = productSlice.actions;
 
 export default productSlice.reducer;

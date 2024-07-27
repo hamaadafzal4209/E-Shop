@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllShopProducts } from "../../../redux/actions/product";
+import {
+  deleteShopProducts,
+  getAllShopProducts,
+} from "../../../redux/actions/product";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
@@ -20,8 +23,10 @@ function ShopAllProducts() {
 
   console.log(products);
 
-  const handleDelete = (e) => {
-    e.preventDefault();
+  const handleDelete = (id) => {
+    console.log(id);
+    dispatch(deleteShopProducts(id));
+    window.location.reload();
   };
 
   const columns = [
@@ -98,8 +103,11 @@ function ShopAllProducts() {
   return isLoading ? (
     <Loader />
   ) : (
-    <div className="mx-4 mt-4 w-full bg-white pt-1 overflow-hidden">
-      <Box sx={{ height: { xs: 300, sm: 400 }, width: "100%" }} className="overflow-auto">
+    <div className="mx-4 mt-4 w-full overflow-hidden bg-white pt-1">
+      <Box
+        sx={{ height: { xs: 300, sm: 400 }, width: "100%" }}
+        className="overflow-auto"
+      >
         <DataGrid
           rows={rows}
           columns={columns}
