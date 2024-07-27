@@ -31,13 +31,14 @@ export const createProduct = (formData) => async (dispatch) => {
   }
 };
 
+// Action to get all products for a shop
 export const getAllShopProducts = (id) => async (dispatch) => {
   try {
     dispatch(getAllProductsShopRequest());
 
-    const { data } = axios.get(`${server}/product/get-all-shop-products/${id}`);
+    const { data } = await axios.get(`${server}/product/get-all-shop-products/${id}`);
 
-    dispatch(getAllProductsShopSuccess(data.product));
+    dispatch(getAllProductsShopSuccess(data.products));  // Fix: should be data.products
   } catch (error) {
     const errorMessage = error.response?.data?.message || "An error occurred";
     dispatch(getAllProductsShopFailed(errorMessage));

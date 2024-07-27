@@ -7,16 +7,16 @@ import ErrorHandler from "../utils/ErrorHandler.js";
 export const createProduct = catchAsyncErrors(async (req, res, next) => {
   try {
     const { shopId } = req.body;
-    console.log("Received Shop ID:", shopId); 
+    console.log("Received Shop ID:", shopId);
     const shop = await shopModel.findById(shopId);
-    
+
     if (!shop) {
       return next(new ErrorHandler("Invalid shop Id", 400));
     }
-    
+
     const files = req.files;
-    const imageUrls = files.map(file => `${file.filename}`);
-    
+    const imageUrls = files.map((file) => `${file.filename}`);
+
     const productData = {
       ...req.body,
       images: imageUrls,
@@ -37,16 +37,14 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 // get all products
-export const getAllShopProducts = catchAsyncErrors(async(req,res,next) => {
+export const getAllShopProducts = catchAsyncErrors(async (req, res, next) => {
   try {
-    const products = await productModel.find({shopId: req.params.id});
-
+    const products = await productModel.find({ shopId: req.params.id });
     res.status(200).json({
       success: true,
-      products
-    })
-    
+      products,
+    });
   } catch (error) {
-    return next(new ErrorHandler(error.message, 400))
+    return next(new ErrorHandler(error.message, 400));
   }
-})
+});

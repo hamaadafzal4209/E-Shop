@@ -8,12 +8,14 @@ import { Link } from "react-router-dom";
 import Loader from "../../Loader";
 
 function ShopAllProducts() {
-  const { products, isLoading } = useSelector((state) => state.products);
+  const { products, isLoading } = useSelector((state) => state.products);  // Fix: state.product instead of
   const { seller } = useSelector((state) => state.seller);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllShopProducts(seller._id));
+    if (seller?._id) {
+      dispatch(getAllShopProducts(seller._id));
+    }
   }, [dispatch, seller._id]);
 
   console.log(products);
@@ -43,7 +45,6 @@ function ShopAllProducts() {
       minWidth: 80,
       flex: 0.5,
     },
-
     {
       field: "sold",
       headerName: "Sold out",
@@ -60,13 +61,11 @@ function ShopAllProducts() {
       sortable: false,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={`/product/${params.id}`}>
-              <Button>
-                <AiOutlineEye size={20} />
-              </Button>
-            </Link>
-          </>
+          <Link to={`/product/${params.id}`}>
+            <Button>
+              <AiOutlineEye size={20} />
+            </Button>
+          </Link>
         );
       },
     },
@@ -79,35 +78,28 @@ function ShopAllProducts() {
       sortable: false,
       renderCell: (params) => {
         return (
-          <>
-            <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} />
-            </Button>
-          </>
+          <Button onClick={() => handleDelete(params.id)}>
+            <AiOutlineDelete size={20} />
+          </Button>
         );
       },
     },
   ];
 
-  const row = [];
-
-  products &&
-    products.forEach((item) => {
-      row.push({
-        id: item._id,
-        name: item.name,
-        price: "US$" + item.discountPrice,
-        stock: item.stock,
-        sold: 10,
-      });
-    });
+  const rows = products?.map((item) => ({
+    id: item._id,
+    name: item.name,
+    price: `US$${item.discountPrice}`,
+    stock: item.stock,
+    sold: 10,
+  })) || [];
 
   return isLoading ? (
     <Loader />
   ) : (
     <div className="mx-8 mt-10 w-full bg-white pt-1">
       <DataGrid
-        row={row}
+        rows={rows}
         columns={columns}
         pageSize={10}
         disableRowSelectionOnClick
