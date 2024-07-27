@@ -26,6 +26,7 @@ import ShopCreateProduct from "./pages/ShopDashBoard/ShopCreateProduct";
 import DashAllProducts from "./pages/ShopDashBoard/DashAllProducts";
 import ShopCreateEvent from "./pages/ShopDashBoard/ShopCreateEvent";
 import DashAllEvents from "./pages/ShopDashBoard/DashAllEvents";
+import ShopCoupounsCode from "./pages/ShopDashBoard/ShopCouponsCode";
 
 function App() {
   useEffect(() => {
@@ -118,6 +119,14 @@ function App() {
             element={
               <SellerProtectedRoute>
                 <DashAllEvents />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard-coupouns"
+            element={
+              <SellerProtectedRoute>
+                <ShopCoupounsCode />
               </SellerProtectedRoute>
             }
           />

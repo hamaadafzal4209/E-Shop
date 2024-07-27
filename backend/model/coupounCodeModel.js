@@ -19,11 +19,14 @@ const coupounCodeSchema = new mongoose.Schema({
     type: Object,
     required: true,
   },
+  selectedProduct: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
   },
 });
 
-const coupounsCodeModel = mongoose.model("coupuncode", coupounCodeSchema);
-export default coupounsCodeModel;
+const couponsCodeModel = mongoose.model("coupuncode", coupounCodeSchema);
+export default couponsCodeModel;
