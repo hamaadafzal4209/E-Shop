@@ -4,7 +4,6 @@ const initialState = {
   isLoading: false,
   success: false,
   product: null,
-  products: [],  // Add products to the initial state
   error: null,
 };
 
@@ -26,7 +25,9 @@ const productSlice = createSlice({
       state.success = false;
     },
 
-    // Get all products for shop
+    // get all products for shop
+
+    // get all products of shop
     getAllProductsShopRequest: (state) => {
       state.isLoading = true;
     },

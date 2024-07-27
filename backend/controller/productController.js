@@ -48,3 +48,23 @@ export const getAllShopProducts = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
+
+// delete product route
+export const deleteShopProduct = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const productId = req.params.id;
+
+    const product = await productModel.findByIdAndDelete(productId);
+
+    if (!product) {
+      return next(new ErrorHandler("Product not found", 400));
+    }
+
+    res.status(200).json({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400));
+  }
+});
