@@ -9,6 +9,7 @@ import userRouter from "./routes/userRoute.js";
 import shopRouter from "./routes/shopRoute.js";
 import productRouter from "./routes/productRoute.js";
 import eventRouter from "./routes/eventRoute.js";
+import coupunsCodeRouter from "./routes/coupounsCodeRoute.js";
 
 // config
 const app = express();
@@ -37,6 +38,7 @@ app.use("/api/user", userRouter);
 app.use("/api/shop", shopRouter);
 app.use("/api/product", productRouter);
 app.use("/api/event", eventRouter);
+app.use("/api/coupunscode", coupunsCodeRouter);
 
 // unhandled promise rejection
 process.on("unhandledRejection", (err) => {
