@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllShopProducts } from "../../../redux/actions/product";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Loader from "../../Loader";
 
 function ShopAllProducts() {
-  const { products, isLoading } = useSelector((state) => state.products);  // Fix: state.product instead of
+  const { products, isLoading } = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
   const dispatch = useDispatch();
 
@@ -86,25 +86,35 @@ function ShopAllProducts() {
     },
   ];
 
-  const rows = products?.map((item) => ({
-    id: item._id,
-    name: item.name,
-    price: `US$${item.discountPrice}`,
-    stock: item.stock,
-    sold: 10,
-  })) || [];
+  const rows =
+    products?.map((item) => ({
+      id: item._id,
+      name: item.name,
+      price: `US$${item.discountPrice}`,
+      stock: item.stock,
+      sold: 10,
+    })) || [];
 
   return isLoading ? (
     <Loader />
   ) : (
-    <div className="mx-8 mt-10 w-full bg-white pt-1">
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={10}
-        disableRowSelectionOnClick
-        autoHeight
-      />
+    <div className="mx-4 mt-4 w-full bg-white pt-1 overflow-hidden">
+      <Box sx={{ height: { xs: 300, sm: 400 }, width: "100%" }} className="overflow-auto">
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
     </div>
   );
 }

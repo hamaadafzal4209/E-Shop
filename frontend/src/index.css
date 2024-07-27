@@ -123,3 +123,17 @@ input[type="number"] {
     grid-template-columns: 1fr;
   }
 }
+
+/* Ensure the DataGrid is responsive */
+.data-grid-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Adjust padding and margins for small screens */
+@media (max-width: 768px) {
+  .data-grid-container {
+    margin: 0;
+    padding: 0;
+  }
+}

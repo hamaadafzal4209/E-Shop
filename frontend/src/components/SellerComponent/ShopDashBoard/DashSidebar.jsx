@@ -10,7 +10,7 @@ import { HiOutlineReceiptRefund } from "react-icons/hi";
 
 function DashSidebar({ active }) {
   return (
-    <div className="no-scrollbar sticky left-0 top-0 z-10 h-[89vh] w-full overflow-y-auto bg-white pb-6 shadow-sm">
+    <div className="no-scrollbar sticky left-0 h-screen top-0 z-10 w-full flex-shrink-0 overflow-y-auto bg-white pb-6 shadow-sm">
       {/* single item */}
       <div className="flex w-full items-center p-4">
         <Link to="/dashboard" className="flex w-full items-center">
@@ -19,7 +19,7 @@ function DashSidebar({ active }) {
             color={`${active === 1 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 1 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -35,7 +35,7 @@ function DashSidebar({ active }) {
             color={`${active === 2 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 2 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -46,9 +46,12 @@ function DashSidebar({ active }) {
 
       <div className="flex w-full items-center p-4">
         <Link to="/dashboard-products" className="flex w-full items-center">
-          <FiPackage size={30} color={`${active === 3 ? "crimson" : "#555"} `} />
+          <FiPackage
+            size={30}
+            color={`${active === 3 ? "crimson" : "#555"} `}
+          />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 3 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -67,7 +70,7 @@ function DashSidebar({ active }) {
             color={`${active === 4 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 4 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -83,7 +86,7 @@ function DashSidebar({ active }) {
             color={`${active === 5 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 5 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -99,7 +102,7 @@ function DashSidebar({ active }) {
             color={`${active === 6 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 6 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -118,7 +121,7 @@ function DashSidebar({ active }) {
             color={`${active === 7 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 7 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -134,7 +137,7 @@ function DashSidebar({ active }) {
             color={`${active === 8 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 8 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -150,7 +153,7 @@ function DashSidebar({ active }) {
             color={`${active === 9 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 9 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -166,7 +169,7 @@ function DashSidebar({ active }) {
             color={`${active === 10 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 10 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
@@ -182,7 +185,7 @@ function DashSidebar({ active }) {
             color={`${active === 11 ? "crimson" : "#555"} `}
           />
           <h5
-            className={`hidden pl-2 pr-12 text-[18px] font-[400] md:block ${
+            className={`hidden whitespace-nowrap pl-2 pr-12 text-[18px] font-[400] md:block ${
               active === 11 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
