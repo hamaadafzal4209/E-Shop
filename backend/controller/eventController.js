@@ -37,7 +37,7 @@ export const createEvent = catchAsyncErrors(async (req, res, next) => {
 });
 
 // get all events
-export const getAllShopProducts = catchAsyncErrors(async (req, res, next) => {
+export const getAllEvents = catchAsyncErrors(async (req, res, next) => {
   try {
     const events = await eventModel.find({ shopId: req.params.id });
     res.status(200).json({
