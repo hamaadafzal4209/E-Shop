@@ -12,7 +12,7 @@ function DashAllProducts() {
           <DashSidebar active={3} />
         </div>
         {/* create product */}
-        <div className="w-full flex-1 max-w-[900px]">
+        <div className="w-full max-w-[950px] flex-1">
           <ShopAllProducts />
         </div>
       </div>

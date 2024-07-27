@@ -44,7 +44,7 @@ function ShopAllProducts() {
       flex: 0.6,
     },
     {
-      field: "Stock",
+      field: "stock",
       headerName: "Stock",
       type: "number",
       minWidth: 80,
@@ -58,10 +58,10 @@ function ShopAllProducts() {
       flex: 0.6,
     },
     {
-      field: "Preview",
+      field: "preview",
       flex: 0.8,
       minWidth: 100,
-      headerName: "",
+      headerName: "Preview",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -75,10 +75,10 @@ function ShopAllProducts() {
       },
     },
     {
-      field: "Delete",
+      field: "delete",
       flex: 0.8,
       minWidth: 120,
-      headerName: "",
+      headerName: "Delete",
       type: "number",
       sortable: false,
       renderCell: (params) => {

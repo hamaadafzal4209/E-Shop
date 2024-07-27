@@ -10,7 +10,7 @@ import { HiOutlineReceiptRefund } from "react-icons/hi";
 
 function DashSidebar({ active }) {
   return (
-    <div className="no-scrollbar sticky left-0 top-0 z-10 h-[89vh] w-full flex-shrink-0 overflow-y-auto bg-white pb-6 shadow-sm sm:h-screen">
+    <div className="custom-scrollbar sm:no-scrollbar sticky left-0 top-0 z-10 h-[89vh] w-full flex-shrink-0 overflow-y-auto bg-white pb-6 shadow-sm sm:h-screen">
       {/* single item */}
       <div className="flex w-full items-center p-4">
         <Link to="/dashboard" className="flex w-full items-center">
