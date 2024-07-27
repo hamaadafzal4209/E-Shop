@@ -4,6 +4,12 @@ import {
   createEventFail,
   createEventRequest,
   createEventSuccess,
+  deleteEventFailed,
+  deleteEventRequest,
+  deleteEventSuccess,
+  getAllEventsShopFailed,
+  getAllEventsShopRequest,
+  getAllEventsShopSuccess,
 } from "../reducers/event";
 
 // create event
@@ -28,3 +34,37 @@ export const createEvent = (formData) => async (dispatch) => {
     dispatch(createEventFail(errorMessage));
   }
 };
+
+// Action to get all event for a shop
+export const getAllShopEvents = (id) => async (dispatch) => {
+    try {
+      dispatch(getAllEventsShopRequest());
+  
+      const { data } = await axios.get(
+        `${server}/event/get-all-shop-events/${id}`,
+      );
+  
+      dispatch(getAllEventsShopSuccess(data.events));
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "An error occurred";
+      dispatch(getAllEventsShopFailed(errorMessage));
+    }
+  };
+  
+  // Action to delete event for a shop
+  export const deleteShopEvent = (id) => async (dispatch) => {
+    try {
+      dispatch(deleteEventRequest());
+  
+      const { data } = await axios.delete(
+        `${server}/event/delete-shop-event/${id}`,
+        { withCredentials: true },
+      );
+  
+      dispatch(deleteEventSuccess(data.message));
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "An error occurred";
+      dispatch(deleteEventFailed(errorMessage));
+    }
+  };
+  

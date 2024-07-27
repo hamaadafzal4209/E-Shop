@@ -1,31 +1,31 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteShopProducts,
-  getAllShopProducts,
-} from "../../../redux/actions/product";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Loader from "../../Loader";
+import {
+  deleteShopEvent,
+  getAllShopEvents,
+} from "../../../redux/actions/event";
 
 function ShopAllEvents() {
-  const { products, isLoading } = useSelector((state) => state.events);
+  const { events, isLoading } = useSelector((state) => state.events);
   const { seller } = useSelector((state) => state.seller);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (seller?._id) {
-      dispatch(getAllShopProducts(seller._id));
+      dispatch(getAllShopEvents(seller._id));
     }
   }, [dispatch, seller._id]);
 
-  console.log(products);
+  console.log(events);
 
   const handleDelete = (id) => {
     console.log(id);
-    dispatch(deleteShopProducts(id));
+    dispatch(deleteShopEvent(id));
     window.location.reload();
   };
 
@@ -92,7 +92,7 @@ function ShopAllEvents() {
   ];
 
   const rows =
-    products?.map((item) => ({
+    events?.map((item) => ({
       id: item._id,
       name: item.name,
       price: `US$${item.discountPrice}`,

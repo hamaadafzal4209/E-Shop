@@ -50,7 +50,7 @@ export const getAllShopProducts = (id) => async (dispatch) => {
   }
 };
 
-// Action to get all products for a shop
+// Action to delete product for a shop
 export const deleteShopProducts = (id) => async (dispatch) => {
   try {
     dispatch(deleteProductRequest());
