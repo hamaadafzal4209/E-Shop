@@ -50,7 +50,7 @@ function CreateEvent() {
     if (success) {
       toast.success("Event created successfully");
       dispatch(resetEventState());
-      navigate("/dashboard");
+      navigate("/dashboard-events");
     }
   }, [success, navigate, dispatch]);
 

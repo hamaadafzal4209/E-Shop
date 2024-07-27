@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { createEvent } from "../controller/eventController.js";
+import { createEvent ,getAllEvents} from "../controller/eventController.js";
 
 const eventRouter = express.Router();
 
@@ -15,5 +15,6 @@ const upload = multer({ storage: storage });
 
 // event routes
 eventRouter.post("/create-event", upload.array("images"), createEvent);
+eventRouter.get("/get-all-shop-events/:id", getAllEvents)
 
 export default eventRouter;

@@ -3,6 +3,7 @@ import eventModel from "../model/eventModel.js";
 import shopModel from "../model/shopModel.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 
+// create event
 export const createEvent = catchAsyncErrors(async (req, res, next) => {
   try {
     const { shopId } = req.body;
@@ -29,6 +30,19 @@ export const createEvent = catchAsyncErrors(async (req, res, next) => {
     res.status(201).json({
       success: true,
       event,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400));
+  }
+});
+
+// get all events
+export const getAllShopProducts = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const events = await eventModel.find({ shopId: req.params.id });
+    res.status(200).json({
+      success: true,
+      events,
     });
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));

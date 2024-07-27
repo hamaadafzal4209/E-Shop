@@ -23,8 +23,9 @@ import ShopHomePage from "./pages/ShopPages/ShopHomePage";
 import SellerProtectedRoute from "./pages/ShopPages/SellerProtectedRoute";
 import ShopDashBoard from "./pages/ShopDashBoard/ShopDashBoard";
 import ShopCreateProduct from "./pages/ShopDashBoard/ShopCreateProduct";
-import DashAllProducts from "./components/SellerComponent/ShopDashBoard/DashAllProducts";
+import DashAllProducts from "./pages/ShopDashBoard/DashAllProducts";
 import ShopCreateEvent from "./pages/ShopDashBoard/ShopCreateEvent";
+import DashAllEvents from "./pages/ShopDashBoard/DashAllEvents";
 
 function App() {
   useEffect(() => {
@@ -109,6 +110,14 @@ function App() {
             element={
               <SellerProtectedRoute>
                 <ShopCreateEvent />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard-events"
+            element={
+              <SellerProtectedRoute>
+                <DashAllEvents />
               </SellerProtectedRoute>
             }
           />

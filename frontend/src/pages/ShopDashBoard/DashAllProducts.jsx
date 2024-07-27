@@ -1,6 +1,6 @@
-import DashBoardHeader from "./DashBoardHeader";
-import DashSidebar from "./DashSidebar";
-import ShopAllProducts from "./ShopAllProducts";
+import DashBoardHeader from "../../components/SellerComponent/ShopDashBoard/DashBoardHeader";
+import DashSidebar from "../../components/SellerComponent/ShopDashBoard/DashSidebar";
+import ShopAllProducts from "../../components/SellerComponent/ShopDashBoard/ShopAllProducts";
 
 function DashAllProducts() {
   return (
