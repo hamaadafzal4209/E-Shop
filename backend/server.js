@@ -8,6 +8,7 @@ import { errorHandlerMiddleware } from "./middleware/error.js";
 import userRouter from "./routes/userRoute.js";
 import shopRouter from "./routes/shopRoute.js";
 import productRouter from "./routes/productRoute.js";
+import eventRouter from "./routes/eventRoute.js";
 
 // config
 const app = express();
@@ -35,6 +36,7 @@ connectDatabase();
 app.use("/api/user", userRouter);
 app.use("/api/shop", shopRouter);
 app.use("/api/product", productRouter);
+app.use("/api/event", eventRouter);
 
 // unhandled promise rejection
 process.on("unhandledRejection", (err) => {
