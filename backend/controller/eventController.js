@@ -48,3 +48,23 @@ export const getAllShopProducts = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
+
+// delete event route
+export const deleteEvent = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const eventId = req.params.id;
+
+    const event = await eventModel.findByIdAndDelete(eventId);
+
+    if (!event) {
+      return next(new ErrorHandler("Event not found", 400));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Event deleted successfully",
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400));
+  }
+});
