@@ -36,7 +36,7 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-// get all products
+// get all shop products
 export const getAllShopProducts = catchAsyncErrors(async (req, res, next) => {
   try {
     const products = await productModel.find({ shopId: req.params.id });
@@ -66,5 +66,19 @@ export const deleteShopProduct = catchAsyncErrors(async (req, res, next) => {
     });
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
+  }
+});
+
+// gte all products
+export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const products = await productModel.find().sort({ createdAt: -1 });
+
+    res.status(201).json({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error, 404));
   }
 });

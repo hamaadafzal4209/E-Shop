@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { createProduct, getAllShopProducts,deleteShopProduct } from "../controller/productController.js";
+import { createProduct, getAllShopProducts,deleteShopProduct, getAllProducts } from "../controller/productController.js";
 import { isSeller } from "../middleware/auth.js";
 
 const productRouter = express.Router();
@@ -18,5 +18,6 @@ const upload = multer({ storage: storage });
 productRouter.post("/create-product", upload.array("images"), createProduct);
 productRouter.get("/get-all-shop-products/:id", getAllShopProducts)
 productRouter.delete("/delete-shop-products/:id",isSeller, deleteShopProduct)
+productRouter.get("/get-all-products", getAllProducts)
 
 export default productRouter;
