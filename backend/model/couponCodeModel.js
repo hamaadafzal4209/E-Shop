@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const coupounCodeSchema = new mongoose.Schema({
+const couponCodeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -15,8 +15,8 @@ const coupounCodeSchema = new mongoose.Schema({
   maxAmount: {
     type: Number,
   },
-  shop: {
-    type: Object,
+  shopId: {
+    type: String,
     required: true,
   },
   selectedProduct: {
@@ -28,5 +28,5 @@ const coupounCodeSchema = new mongoose.Schema({
   },
 });
 
-const couponsCodeModel = mongoose.model("coupuncode", coupounCodeSchema);
+const couponsCodeModel = mongoose.model("couponcode", couponCodeSchema);
 export default couponsCodeModel;

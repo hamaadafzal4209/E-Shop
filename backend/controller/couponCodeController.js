@@ -1,15 +1,15 @@
-import couponsCodeModel from "../model/coupounCodeModel.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
+import couponsCodeModel from "../model/couponCodeModel.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 
-export const createCoupounCode = catchAsyncErrors(async (req, res, next) => {
+export const createCoupon = catchAsyncErrors(async (req, res, next) => {
   try {
-    const isCoupounCodeExist = await couponsCodeModel.findOne({
+    const isCoupounCodeExists = await couponsCodeModel.findOne({
       name: req.body.name,
     });
 
-    if (isCoupounCodeExist) {
-      return next(new ErrorHandler("Coupoun Code already exists", 404));
+    if (isCoupounCodeExists) {
+      return next(new ErrorHandler("Coupoun code already exists!", 400));
     }
 
     const coupounCode = await couponsCodeModel.create(req.body);
@@ -19,7 +19,7 @@ export const createCoupounCode = catchAsyncErrors(async (req, res, next) => {
       coupounCode,
     });
   } catch (error) {
-    return next(new ErrorHandler(error, 404));
+    return next(new ErrorHandler(error.message, 404));
   }
 });
 
@@ -35,7 +35,7 @@ export const getCoupons = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-export const deleteCoupons = catchAsyncErrors(async (req, res, next) => {
+export const deleteCoupon = catchAsyncErrors(async (req, res, next) => {
   try {
     const couponCode = await couponsCodeModel.findByIdAndDelete(req.params.id);
 

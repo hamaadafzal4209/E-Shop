@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteShopProducts,
-  getAllShopProducts,
-} from "../../../redux/actions/product";
-import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineDelete } from "react-icons/ai";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
 import Loader from "../../Loader";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
@@ -15,42 +10,59 @@ import { server } from "../../../server";
 import { toast } from "react-toastify";
 
 function AllCoupons() {
-  const { products, isLoading } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
 
   const dispatch = useDispatch();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [name, setName] = useState("");
+  const [value, setValue] = useState(null);
   const [coupouns, setCoupouns] = useState([]);
   const [minAmount, setMinAmout] = useState(null);
   const [maxAmount, setMaxAmount] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState(null);
-  const [value, setValue] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (seller?._id) {
-      dispatch(getAllShopProducts(seller._id));
-    }
+    setIsLoading(true);
+    axios
+      .get(`${server}/couponscode/get-coupons/${seller._id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setIsLoading(false);
+        setCoupouns(res.data.couponCodes);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+      });
   }, [dispatch, seller._id]);
 
-  const handleDelete = (id) => {
-    console.log(id);
-    dispatch(deleteShopProducts(id));
+  const handleDelete = async (id) => {
+    axios
+      .delete(`${server}/couponscode/delete-coupon/${id}`, {
+        withCredentials: true,
+      })
+      .then(() => {
+        toast.success("Coupon code deleted succesfully!");
+      });
     window.location.reload();
   };
 
-  const handleFormSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
+
+    await axios
       .post(
-        `${server}/coupunsCodeRouter/create-coupoun`,
+        `${server}/couponscode/create-coupon`,
         {
           name,
-          value,
           minAmount,
           maxAmount,
           selectedProducts,
+          value,
           shopId: seller._id,
         },
         { withCredentials: true },
@@ -63,79 +75,52 @@ function AllCoupons() {
       .catch((error) => {
         toast.error(error.response.data.message);
       });
-    setModalOpen(false);
   };
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Id", minWidth: 150, flex: 0.7 },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Coupon Code",
       minWidth: 180,
-      flex: 1.4,
+      flex: 1,
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: "Value",
       minWidth: 100,
       flex: 0.6,
     },
     {
-      field: "stock",
-      headerName: "Stock",
-      type: "number",
-      minWidth: 80,
+      field: "Delete",
       flex: 0.5,
-    },
-    {
-      field: "sold",
-      headerName: "Sold out",
-      type: "number",
-      minWidth: 130,
-      flex: 0.6,
-    },
-    {
-      field: "preview",
-      flex: 0.8,
       minWidth: 100,
-      headerName: "Preview",
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <Link to={`/product/${params.id}`}>
-            <Button>
-              <AiOutlineEye size={20} />
-            </Button>
-          </Link>
-        );
-      },
-    },
-    {
-      field: "delete",
-      flex: 0.8,
-      minWidth: 120,
       headerName: "Delete",
       type: "number",
       sortable: false,
       renderCell: (params) => {
         return (
-          <Button onClick={() => handleDelete(params.id)}>
-            <AiOutlineDelete size={20} />
-          </Button>
+          <>
+            <Button onClick={() => handleDelete(params.id)}>
+              <AiOutlineDelete size={20} />
+            </Button>
+          </>
         );
       },
     },
   ];
 
-  const rows =
-    products?.map((item) => ({
-      id: item._id,
-      name: item.name,
-      price: `US$${item.discountPrice}`,
-      stock: item.stock,
-      sold: 10,
-    })) || [];
+  const row = [];
+
+  coupouns &&
+    coupouns.forEach((item) => {
+      row.push({
+        id: item._id,
+        name: item.name,
+        price: item.value + " %",
+        sold: 10,
+      });
+    });
 
   return isLoading ? (
     <Loader />
@@ -158,22 +143,14 @@ function AllCoupons() {
           className="overflow-auto"
         >
           <DataGrid
-            rows={rows}
+            rows={row}
             columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 5,
-                },
-              },
-            }}
-            pageSizeOptions={[5]}
-            checkboxSelection
-            disableRowSelectionOnClick
+            pageSize={10}
+            disableSelectionOnClick
+            autoHeight
           />
         </Box>
       </div>
-      {/* popup box */}
       {modalOpen && (
         <div
           id="authentication-modal"
@@ -197,7 +174,7 @@ function AllCoupons() {
                 </button>
               </div>
               <div className="p-4 md:p-5">
-                <form className="space-y-4" onSubmit={handleFormSubmit}>
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
                     <label
                       htmlFor="name"
@@ -208,12 +185,11 @@ function AllCoupons() {
                     <input
                       type="text"
                       name="name"
-                      id="name"
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
-                      placeholder="Coupon Name"
-                      value={couponData.name}
-                      onChange={handleInputChange}
                       required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your coupon code name..."
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
                     />
                   </div>
                   <div>
@@ -221,17 +197,16 @@ function AllCoupons() {
                       htmlFor="value"
                       className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Value
+                      Discount Percentenge{" "}
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       name="value"
-                      id="value"
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
-                      placeholder="Coupon Value"
-                      value={couponData.value}
-                      onChange={handleInputChange}
+                      value={value}
                       required
+                      onChange={(e) => setValue(e.target.value)}
+                      placeholder="Enter your coupon code value..."
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
                     />
                   </div>
                   <div>
@@ -243,13 +218,11 @@ function AllCoupons() {
                     </label>
                     <input
                       type="number"
-                      name="minAmount"
-                      id="minAmount"
+                      name="value"
+                      value={minAmount}
+                      onChange={(e) => setMinAmout(e.target.value)}
+                      placeholder="Enter your coupon code min amount..."
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
-                      placeholder="Minimum Amount"
-                      value={couponData.minAmount}
-                      onChange={handleInputChange}
-                      required
                     />
                   </div>
                   <div>
@@ -261,32 +234,27 @@ function AllCoupons() {
                     </label>
                     <input
                       type="number"
-                      name="maxAmount"
-                      id="maxAmount"
+                      name="value"
+                      value={maxAmount}
+                      onChange={(e) => setMaxAmount(e.target.value)}
+                      placeholder="Enter your coupon code max amount..."
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
-                      placeholder="Maximum Amount"
-                      value={couponData.maxAmount}
-                      onChange={handleInputChange}
-                      required
                     />
                   </div>
                   <div>
                     <label
-                      htmlFor="productId"
+                      htmlFor="selectedProduct"
                       className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Select Product
                     </label>
                     <select
-                      name="productId"
-                      id="productId"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
-                      value={couponData.productId}
-                      onChange={handleInputChange}
-                      required
+                      value={selectedProducts}
+                      onChange={(e) => setSelectedProducts(e.target.value)}
                     >
-                      <option value="" disabled>
-                        Select a Product
+                      <option value="Choose your selected products">
+                        Choose a selected product
                       </option>
                       {products.map((product) => (
                         <option key={product._id} value={product._id}>
@@ -295,12 +263,11 @@ function AllCoupons() {
                       ))}
                     </select>
                   </div>
-                  <button
-                    type="submit"
-                    className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Create Coupon
-                  </button>
+                  <div className="flex justify-end">
+                    <Button variant="contained" color="primary" type="submit">
+                      Create
+                    </Button>
+                  </div>
                 </form>
               </div>
             </div>

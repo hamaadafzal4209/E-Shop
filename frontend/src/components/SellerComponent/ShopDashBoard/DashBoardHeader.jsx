@@ -22,7 +22,7 @@ function DashBoardHeader() {
         </div>
         {/* dashboard navbar icons */}
         <div className="flex items-center gap-10">
-          <Link to="/dashboard/cupouns" className="hidden md:block">
+          <Link to="/dashboard-coupouns" className="hidden md:block">
             <AiOutlineGift size={30} color="#555" />
           </Link>
           <Link to="/dashboard-events" className="hidden md:block">
