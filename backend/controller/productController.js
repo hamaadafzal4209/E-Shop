@@ -78,7 +78,7 @@ export const deleteShopProduct = catchAsyncErrors(async (req, res, next) => {
 // get all products
 export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
   try {
-    const products = await productModel.find().sort({ createdAt: -1 });
+    const products = await productModel.find().sort({ createdAt: -1 })
 
     res.status(201).json({
       success: true,
@@ -88,3 +88,4 @@ export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error, 404));
   }
 });
+

@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { useSearchParams } from "react-router-dom";
-import { productData } from "../static/data";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
+import { getAllProducts } from "../redux/actions/product";
 
 function ProductsPage() {
+  const dispatch = useDispatch();
   const { allProducts, isLoading } = useSelector((state) => state.products);
   const [searchParams] = useSearchParams();
   const categoryData = searchParams.get("category");
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (categoryData === null) {
-      const d = allProducts;
-      setData(d);
+      setData(allProducts);
     } else {
-      const d =
+      const filteredData =
         allProducts && allProducts.filter((i) => i.category === categoryData);
-      setData(d);
+      setData(filteredData);
     }
-    console.log(allProducts)
     window.scrollTo(0, 0);
   }, [allProducts, categoryData]);
 

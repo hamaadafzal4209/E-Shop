@@ -77,7 +77,7 @@ export const getAllProducts = () => async (dispatch) => {
 
     const { data } = await axios.get(`${server}/product/get-all-products`);
 
-    dispatch(getAllProductsSuccess(data.allProducts));
+    dispatch(getAllProductsSuccess(data.products));
   } catch (error) {
     const errorMessage = error.response?.data?.message || "An error occurred";
     dispatch(getAllProductsFailed(errorMessage));
