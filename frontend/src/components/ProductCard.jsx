@@ -16,28 +16,25 @@ function ProductCard({ data }) {
   const [open, setOpen] = useState(false);
 
   const productName = data.name.replace(/\s+/g, "-");
+  const imageUrl = data.images && data.images.length > 0 ? `${backend_url}/${data.images[0]}` : 'https://cdn-icons-png.flaticon.com/128/44/44289.png';
 
   return (
     <>
       <div className="relative h-[370px] w-full cursor-pointer rounded-lg bg-white p-3 shadow-sm">
         <Link to={`/product/${productName}`}>
           <img
-            src={
-              data.images?.[0]
-                ? `${backend_url}/uploads/${data.images[0]}`
-                : "https://cdn-icons-png.flaticon.com/128/44/44289.png"
-            }
-            className="h-[170px] w-11/12 object-contain pr-2"
+            src={imageUrl}
+            className="h-[170px] w-11/12 pr-2 object-contain"
             alt={data.name}
           />
         </Link>
         <Link to="/">
-          <h5 className="py-3 text-[15px] text-blue-400">
-            {data.shop?.name || "Unknown Shop"}
-          </h5>
+          <h5 className="py-3 text-[15px] text-blue-400">{data.shop?.name || 'Unknown Shop'}</h5>
         </Link>
         <Link to={`/product/${productName}`}>
-          <h5 className="mb-2 line-clamp-2 font-medium">{data.name}</h5>
+          <h5 className="font-medium line-clamp-2 mb-2">
+            {data.name}
+          </h5>
           <div className="flex items-center">
             {[...Array(4)].map((_, i) => (
               <AiFillStar
