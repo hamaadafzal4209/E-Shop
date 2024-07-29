@@ -6,6 +6,7 @@ import {
   AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
+import { backend_url } from "../server";
 
 function ProductDetailsPopup({ setOpen, data }) {
   const [count, setCount] = useState(1);
@@ -39,7 +40,7 @@ function ProductDetailsPopup({ setOpen, data }) {
               <div className="w-full md:w-1/2">
                 <div className="my-4 flex items-center justify-center">
                   <img
-                    src={data.image_Url[0]?.url}
+                    src={`${backend_url}/${data.images[0]}`}
                     className="w-60"
                     alt={data.name}
                   />
@@ -47,7 +48,7 @@ function ProductDetailsPopup({ setOpen, data }) {
                 <div className="flex items-center gap-2">
                   <div>
                     <img
-                      src={data.shop.shop_avatar.url}
+                      src={data.shop.avatar}
                       className="h-12 w-12 rounded-full"
                       alt={data.shop.name}
                     />
@@ -68,7 +69,7 @@ function ProductDetailsPopup({ setOpen, data }) {
                 </button>
                 {/* sold out items */}
                 <h6 className="text-base text-red-600">
-                  ({data.total_sell}) sold out
+                  ({data.sold_out}) sold out
                 </h6>
               </div>
               {/* right */}
@@ -79,11 +80,14 @@ function ProductDetailsPopup({ setOpen, data }) {
                 <p className="pt-2">{data.description}</p>
                 <div className="flex items-center pt-3">
                   <h5 className="font-Roboto text-[18px] font-bold text-[#333]">
-                    {data.discount_price ? data.discount_price : data.price}$
+                    {data.discountPrice
+                      ? data.discountPrice
+                      : data.originalPrice}
+                    $
                   </h5>
-                  {data.discount_price && (
+                  {data.discountPrice && (
                     <h5 className="pl-2 text-[16px] font-[500] text-[#d55b45] line-through">
-                      {data.price}$
+                      {data.originalPrice}$
                     </h5>
                   )}
                 </div>
