@@ -1,35 +1,60 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { productData } from "../static/data";
+import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../components/Loader";
+import { getAllProducts } from "../redux/actions/product";
 
 function BestSelling() {
+  const dispatch = useDispatch();
+  const { allProducts, isLoading } = useSelector((state) => state.products);
+  const [searchParams] = useSearchParams();
+  const categoryData = searchParams.get("category");
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const d = productData && productData.sort((a, b) => b.total_sell - a.total_sell);
-    setData(d);
-  }, []);
+    dispatch(getAllProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (categoryData === null) {
+      setData(allProducts);
+    } else {
+      const filteredData =
+        allProducts && allProducts.filter((i) => i.category === categoryData);
+      setData(filteredData);
+    }
+    window.scrollTo(0, 0);
+  }, [allProducts, categoryData]);
 
   return (
-    <div>
-      <Header />
-      <div className="section pt-8 pb-12">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {data &&
-            data.map((item, index) => <ProductCard data={item} key={index} />)}
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          <Header />
+          <div className="section pb-12 pt-8">
+            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {data &&
+                data.map((item, index) => (
+                  <ProductCard data={item} key={index} />
+                ))}
+            </div>
+            {data && data.length === 0 ? (
+              <h1 className="select-none pb-12 pt-6 text-center font-Poppins text-3xl">
+                No product found
+              </h1>
+            ) : null}
+          </div>
+          <NewsLetter />
+          <Footer />
         </div>
-        {data && data.length === 0 ? (
-          <h1 className="text-center text-3xl pt-6 pb-12 select-none font-Poppins">
-            No product found
-          </h1>
-        ) : null}
-      </div>
-      <NewsLetter/>
-      <Footer />
-    </div>
+      )}
+    </>
   );
 }
 
