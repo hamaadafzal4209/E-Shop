@@ -9,31 +9,35 @@ import {
   AiOutlineStar,
 } from "react-icons/ai";
 import ProductDetailsPopup from "./ProductDetailsPopup";
+import { backend_url } from "../server";
 
 function ProductCard({ data }) {
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const d = data.name;
-  const product_name = d.replace(/\s+/g, "-");
+  const productName = data.name.replace(/\s+/g, "-");
 
   return (
     <>
-      <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 cursor-pointer relative">
-        <Link to={`/product/${product_name}`}>
+      <div className="relative h-[370px] w-full cursor-pointer rounded-lg bg-white p-3 shadow-sm">
+        <Link to={`/product/${productName}`}>
           <img
-            src={data.image_Url[0].url}
-            className="w-11/12 h-[170px] object-contain"
+            src={
+              data.images?.[0]
+                ? `${backend_url}/uploads/${data.images[0]}`
+                : "https://cdn-icons-png.flaticon.com/128/44/44289.png"
+            }
+            className="h-[170px] w-11/12 object-contain pr-2"
             alt={data.name}
           />
         </Link>
         <Link to="/">
-          <h5 className="py-3 text-[15px] text-blue-400">{data.shop.name}</h5>
-        </Link>
-        <Link to={`/product/${product_name}`}>
-          <h5 className="pb-3 font-medium">
-            {data.name.length > 40 ? `${data.name.slice(0, 40)}...` : data.name}
+          <h5 className="py-3 text-[15px] text-blue-400">
+            {data.shop?.name || "Unknown Shop"}
           </h5>
+        </Link>
+        <Link to={`/product/${productName}`}>
+          <h5 className="mb-2 line-clamp-2 font-medium">{data.name}</h5>
           <div className="flex items-center">
             {[...Array(4)].map((_, i) => (
               <AiFillStar
@@ -49,19 +53,19 @@ function ProductCard({ data }) {
               size={20}
             />
           </div>
-          <div className="pt-4 flex items-center justify-between">
+          <div className="flex items-center justify-between pt-4">
             <div className="flex items-center">
-              <h5 className="font-bold text-[18px] text-[#333] font-Roboto">
-                {data.discount_price ? data.discount_price : data.price}$
+              <h5 className="font-Roboto text-[18px] font-bold text-[#333]">
+                {data.discountPrice ? data.discountPrice : data.originalPrice}$
               </h5>
-              {data.discount_price && (
-                <h5 className="font-[500] text-[16px] text-[#d55b45] pl-2 line-through">
-                  {data.price}$
+              {data.discountPrice && (
+                <h5 className="pl-2 text-[16px] font-[500] text-[#d55b45] line-through">
+                  {data.originalPrice}$
                 </h5>
               )}
             </div>
-            <div className="font-normal text-[17px] text-[#68d284]">
-              <h5>{data.total_sell} sold</h5>
+            <div className="text-[17px] font-normal text-[#68d284]">
+              <h5>{data.sold_out} sold</h5>
             </div>
           </div>
         </Link>
@@ -70,7 +74,7 @@ function ProductCard({ data }) {
         {click ? (
           <AiFillHeart
             size={22}
-            className="cursor-pointer absolute right-2 top-5"
+            className="absolute right-2 top-5 cursor-pointer"
             onClick={() => setClick(!click)}
             color="red"
             title="Remove from wishlist"
@@ -78,7 +82,7 @@ function ProductCard({ data }) {
         ) : (
           <AiOutlineHeart
             size={22}
-            className="cursor-pointer absolute right-2 top-5"
+            className="absolute right-2 top-5 cursor-pointer"
             onClick={() => setClick(!click)}
             color="#333"
             title="Add to wishlist"
@@ -86,14 +90,14 @@ function ProductCard({ data }) {
         )}
         <AiOutlineEye
           size={22}
-          className="cursor-pointer absolute right-2 top-14"
+          className="absolute right-2 top-14 cursor-pointer"
           onClick={() => setOpen(!open)}
           color="#333"
           title="Quick View"
         />
         <AiOutlineShoppingCart
           size={25}
-          className="cursor-pointer absolute right-2 top-24"
+          className="absolute right-2 top-24 cursor-pointer"
           color="#444"
           title="Add to cart"
         />

@@ -20,7 +20,13 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
     const productData = {
       ...req.body,
       images: imageUrls,
-      shop: shop._id,
+      shop: {
+        _id: shop._id,
+        name: shop.name,
+        address: shop.address,
+        phone: shop.phone,
+        email: shop.email,
+      },
     };
 
     // console.log(productData);
@@ -69,7 +75,7 @@ export const deleteShopProduct = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-// gte all products
+// get all products
 export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
   try {
     const products = await productModel.find().sort({ createdAt: -1 });

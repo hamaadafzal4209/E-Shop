@@ -4,7 +4,8 @@ const initialState = {
   isLoading: false,
   success: false,
   product: null,
-  products: [], // Add products to the initial state
+  products: [],
+  allProducts: [],
   error: null,
 };
 
@@ -52,6 +53,19 @@ const productSlice = createSlice({
       state.error = action.payload;
     },
 
+    // get all products
+    getAllProductsRequest: (state) => {
+      state.isLoading = true;
+    },
+    getAllProductsSuccess: (state, action) => {
+      state.isLoading = false;
+      state.allProducts = action.payload;
+    },
+    getAllProductsFailed: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
     clearErrors: (state) => {
       state.error = null;
     },
@@ -74,6 +88,9 @@ export const {
   deleteProductFailed,
   deleteProductRequest,
   deleteProductSuccess,
+  getAllProductsFailed,
+  getAllProductsRequest,
+  getAllProductsSuccess,
 } = productSlice.actions;
 
 export default productSlice.reducer;
