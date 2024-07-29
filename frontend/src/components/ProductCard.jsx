@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -15,15 +16,15 @@ function ProductCard({ data }) {
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const productName = data.name.replace(/\s+/g, "-");
-  const imageUrl =
+  const productName = encodeURIComponent(data.name.replace(/\s+/g, "-"));
+    const imageUrl =
     data.images && data.images.length > 0
       ? `${backend_url}/${data.images[0]}`
       : "https://cdn-icons-png.flaticon.com/128/44/44289.png";
 
   return (
     <>
-      <div className="relative h-[370px] w-full cursor-pointer rounded-lg bg-white p-3 shadow-sm">
+      <div className="relative h-[370px] w-full md:max-w-72 cursor-pointer rounded-lg bg-white p-3 shadow-sm">
         <Link to={`/product/${productName}`}>
           <img
             src={imageUrl}

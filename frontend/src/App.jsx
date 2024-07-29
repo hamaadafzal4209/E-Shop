@@ -27,6 +27,7 @@ import DashAllProducts from "./pages/ShopDashBoard/DashAllProducts";
 import ShopCreateEvent from "./pages/ShopDashBoard/ShopCreateEvent";
 import DashAllEvents from "./pages/ShopDashBoard/DashAllEvents";
 import ShopCoupounsCode from "./pages/ShopDashBoard/ShopCouponsCode";
+import ShopPreviewPage from "./pages/ShopPages/ShopPreviewPage";
 
 function App() {
   useEffect(() => {
@@ -82,6 +83,7 @@ function App() {
               </SellerProtectedRoute>
             }
           />
+          <Route path="/shop/:id" element={<ShopPreviewPage />} />
           <Route
             path="/dashboard"
             element={

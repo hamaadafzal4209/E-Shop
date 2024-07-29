@@ -26,56 +26,55 @@ function ProductDetail({ data }) {
     setCount(count + 1);
   };
 
+  if (!data) {
+    return <h1 className="text-center p-6">Loading...</h1>;
+  }
+
+  const { images, name, description, originalPrice, discountPrice, shop } = data;
+
   return (
     <div className="bg-white">
       {data ? (
         <div className="section">
-          {/* product detai; */}
+          {/* product details */}
           <div className="w-full py-5">
             <div className="flex items-start gap-6 flex-col md:flex-row">
               {/* left section */}
               <div className="w-full md:w-1/2 flex flex-col items-center">
                 <img
-                  src={data.image_Url[select].url}
+                  src={images && images.length > 0 ? images[select]?.url : ''}
                   className="w-[80%] max-h-[350px] object-contain mb-4"
-                  alt=""
+                  alt={name}
                 />
                 <div className="w-full flex justify-center">
-                  <div
-                    className={`${select === 0 ? "border" : ""} cursor-pointer`}
-                  >
-                    <img
-                      className="h-[200px] w-[200px] object-contain p-3"
-                      onClick={() => setSelect(0)}
-                      src={data?.image_Url[0]?.url}
-                      alt={data?.name || "Product"}
-                    />
-                  </div>
-                  <div
-                    className={`${select === 1 ? "border" : ""} cursor-pointer`}
-                  >
-                    <img
-                      className="h-[200px] w-[200px] object-contain p-3"
-                      onClick={() => setSelect(1)}
-                      src={data?.image_Url[1]?.url}
-                      alt={data?.name || "Product"}
-                    />
-                  </div>
+                  {images && images.map((image, index) => (
+                    <div
+                      key={index}
+                      className={`${select === index ? "border" : ""} cursor-pointer`}
+                    >
+                      <img
+                        className="h-[200px] w-[200px] object-contain p-3"
+                        onClick={() => setSelect(index)}
+                        src={image.url}
+                        alt={name}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
               {/* right section */}
               <div className="w-full md:w-1/2 pt-5 px-1.5">
                 <h1 className="text-2xl font-[600] font-Roboto text-[#333]">
-                  {data.name}
+                  {name}
                 </h1>
-                <p className="pt-2">{data.description}</p>
+                <p className="pt-2">{description}</p>
                 <div className="flex items-center pt-3">
                   <h5 className="font-bold text-[18px] text-[#333] font-Roboto">
-                    {data.discount_price ? data.discount_price : data.price}$
+                    {discountPrice ? discountPrice : originalPrice}$
                   </h5>
-                  {data.discount_price && (
+                  {discountPrice && (
                     <h5 className="font-[500] text-[16px] text-[#d55b45] pl-2 line-through">
-                      {data.price}$
+                      {originalPrice}$
                     </h5>
                   )}
                 </div>
@@ -121,21 +120,21 @@ function ProductDetail({ data }) {
                 <button className="bg-black text-white px-5 py-3 flex items-center gap-2 my-4 rounded-md">
                   Add to cart <AiOutlineShoppingCart size={22} />
                 </button>
-                <div className="flex items-center gap-2 sm:gap-6 flex-wrap sm:flex-nowraaddp my-8">
+                <div className="flex items-center gap-2 sm:gap-6 flex-wrap sm:flex-nowrap my-8">
                   <div className="flex items-center gap-2">
                     <div>
                       <img
-                        src={data.shop.shop_avatar.url}
+                        src={shop?.shop_avatar?.url || ''}
                         className="w-12 h-12 rounded-full"
-                        alt={data.shop.name}
+                        alt={shop?.name}
                       />
                     </div>
                     <div>
                       <h3 className="text-[15px] text-blue-400">
-                        {data.shop.name}
+                        {shop?.name || 'Unknown Shop'}
                       </h3>
                       <h5 className="text-[15px]">
-                        {data.shop.ratings} ratings
+                        {shop?.ratings || 'No ratings'}
                       </h5>
                     </div>
                   </div>

@@ -50,14 +50,14 @@ function ProductDetailsPopup({ setOpen, data }) {
                     <img
                       src={data.shop.avatar}
                       className="h-12 w-12 rounded-full"
-                      alt={data.shop.name}
+                      alt={data.shop?.name}
                     />
                   </div>
                   <div>
                     <h3 className="text-[15px] text-blue-400">
-                      {data.shop.name}
+                      {data.shop.name || "Unknown Shop"}
                     </h3>
-                    <h5 className="text-[15px]">{data.shop.ratings} ratings</h5>
+                    <h5 className="text-[15px]">4/5 ratings</h5>
                   </div>
                 </div>
                 {/* send message button */}
