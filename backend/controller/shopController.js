@@ -92,7 +92,7 @@ export const activateSellerShop = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-// login user
+// login shop
 export const shopLogin = catchAsyncErrors(async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -138,7 +138,7 @@ export const loadShop = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-export const logout = catchAsyncErrors(async(req,res,next) => {
+export const logout = catchAsyncErrors(async (req, res, next) => {
   try {
     res.cookie("seller_token", null, {
       expires: new Date(Date.now()),
@@ -152,4 +152,21 @@ export const logout = catchAsyncErrors(async(req,res,next) => {
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
   }
-})
+});
+
+// get shop info
+export const getShopInfo = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const shop = await shopModel.findById(req.params.id);
+    if (!shop) {
+      return next(new ErrorHandler("Shop not found", 404));
+    }
+    res.status(200).json({
+      success: true,
+      shop,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+

@@ -59,7 +59,7 @@ const productSlice = createSlice({
     },
     getAllProductsSuccess: (state, action) => {
       state.isLoading = false;
-      state.allProducts = action.payload; // Make sure this is action.payload
+      state.allProducts = action.payload;
     },
     getAllProductsFailed: (state, action) => {
       state.isLoading = false;

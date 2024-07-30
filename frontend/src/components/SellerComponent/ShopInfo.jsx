@@ -1,13 +1,37 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { backend_url, server } from "../../server";
 import { CgProfile } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getAllShopProducts } from "../../redux/actions/product";
+import Loader from "../Loader";
 
 function ShopInfo({ isOwner }) {
   const { seller } = useSelector((state) => state.seller);
   const navigate = useNavigate();
+
+  const [data, setData] = useState({});
+  const { products } = useSelector((state) => state.products);
+  const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllShopProducts(id));
+    setIsLoading(true);
+    axios
+      .get(`${server}/shop/get-shop-info/${id}`)
+      .then((res) => {
+        setData(res.data.shop);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  }, [dispatch, id]);
 
   const handleLogout = async () => {
     try {
@@ -23,7 +47,9 @@ function ShopInfo({ isOwner }) {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="">
       <div>
         <div className="flex flex-col items-center">

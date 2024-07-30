@@ -7,6 +7,7 @@ import {
   loadShop,
   logout,
   shopLogin,
+  getShopInfo
 } from "../controller/shopController.js";
 import { isSeller } from "../middleware/auth.js"; 
 const shopRouter = express.Router();
@@ -26,5 +27,6 @@ shopRouter.post("/seller/activation", activateSellerShop);
 shopRouter.post("/login-shop", shopLogin);
 shopRouter.get("/getSeller", isSeller, loadShop);
 shopRouter.get("/logout", isSeller, logout);
+shopRouter.get("/get-shop-info/:id", getShopInfo);
 
 export default shopRouter;
