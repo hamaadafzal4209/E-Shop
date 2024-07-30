@@ -70,10 +70,14 @@ export const deleteEvent = catchAsyncErrors(async (req, res, next) => {
 });
 
 // get all events
-export const getAllEvents = catchAsyncErrors(async(req,res,next) => {
+export const getAllEvents = catchAsyncErrors(async (req, res, next) => {
   try {
-    
+    const events = await eventModel.find();
+    res.status(200).json({
+      success: true,
+      events,
+    });
   } catch (error) {
-    return next(new ErrorHandler(error,404));
+    return next(new ErrorHandler(error, 404));
   }
-})
+});
