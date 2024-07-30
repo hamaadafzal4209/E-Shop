@@ -6,6 +6,7 @@ const initialState = {
   event: null,
   events: [],
   error: null,
+  allEvents: [],
 };
 
 const eventSlice = createSlice({
@@ -52,6 +53,19 @@ const eventSlice = createSlice({
       state.error = action.payload;
     },
 
+    // get all events
+    getAllEventsRequest: (state) => {
+      state.isLoading = true;
+    },
+    getAllEventsSuccess: (state, action) => {
+      state.isLoading = false;
+      state.allEvents = action.payload;
+    },
+    getAllEventsFailed: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
     clearErrors: (state) => {
       state.error = null;
     },
@@ -74,6 +88,9 @@ export const {
   deleteEventSuccess,
   clearErrors,
   resetEventState,
+  getAllEventsFailed,
+  getAllEventsRequest,
+  getAllEventsSuccess,
 } = eventSlice.actions;
 
 export default eventSlice.reducer;
