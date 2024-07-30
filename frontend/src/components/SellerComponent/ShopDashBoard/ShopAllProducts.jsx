@@ -21,52 +21,58 @@ function ShopAllProducts() {
     }
   }, [dispatch, seller._id]);
 
-  console.log(products);
-
   const handleDelete = (id) => {
-    console.log(id);
     dispatch(deleteShopProducts(id));
     window.location.reload();
   };
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.8, align: 'center', headerAlign: 'center' },
     {
       field: "name",
       headerName: "Name",
       minWidth: 180,
-      flex: 1.4,
+      flex: 1.5,
+      align: 'left',
+      headerAlign: 'left',
     },
     {
       field: "price",
       headerName: "Price",
-      minWidth: 100,
-      flex: 0.6,
+      minWidth: 120,
+      flex: 0.8,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "stock",
       headerName: "Stock",
       type: "number",
-      minWidth: 80,
-      flex: 0.5,
+      minWidth: 100,
+      flex: 0.6,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "sold",
       headerName: "Sold out",
       type: "number",
       minWidth: 130,
-      flex: 0.6,
+      flex: 0.7,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "preview",
       flex: 0.8,
       minWidth: 100,
       headerName: "Preview",
-      type: "number",
       sortable: false,
+      align: 'center',
+      headerAlign: 'center',
       renderCell: (params) => {
         return (
-          <Link to={`/product/${params.id}`}>
+          <Link to={`/product/${encodeURIComponent(params.row.name)}`}>
             <Button>
               <AiOutlineEye size={20} />
             </Button>
@@ -79,11 +85,12 @@ function ShopAllProducts() {
       flex: 0.8,
       minWidth: 120,
       headerName: "Delete",
-      type: "number",
       sortable: false,
+      align: 'center',
+      headerAlign: 'center',
       renderCell: (params) => {
         return (
-          <Button onClick={() => handleDelete(params.id)}>
+          <Button onClick={() => handleDelete(params.row.id)}>
             <AiOutlineDelete size={20} />
           </Button>
         );
@@ -97,7 +104,7 @@ function ShopAllProducts() {
       name: item.name,
       price: `US$${item.discountPrice}`,
       stock: item.stock,
-      sold: 10,
+      sold: 10, // This should ideally come from the product data
     })) || [];
 
   return isLoading ? (
