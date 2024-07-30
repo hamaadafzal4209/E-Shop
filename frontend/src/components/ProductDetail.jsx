@@ -5,14 +5,14 @@ import {
   AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+
 import ProductDetailInfo from "./ProductDetailInfo";
+import { backend_url } from "../server";
 
 function ProductDetail({ data }) {
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
   const [select, setSelect] = useState(0);
-  const navigate = useNavigate();
 
   const handleMessageSubmit = () => {};
 
@@ -124,7 +124,7 @@ function ProductDetail({ data }) {
                   <div className="flex items-center gap-2">
                     <div>
                       <img
-                        src={shop?.shop_avatar?.url || ''}
+                        src={`${backend_url}/${data?.shop?.avatar}` || ''}
                         className="w-12 h-12 rounded-full"
                         alt={shop?.name}
                       />

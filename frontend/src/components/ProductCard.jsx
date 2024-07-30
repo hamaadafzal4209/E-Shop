@@ -17,14 +17,14 @@ function ProductCard({ data }) {
   const [open, setOpen] = useState(false);
 
   const productName = encodeURIComponent(data.name.replace(/\s+/g, "-"));
-    const imageUrl =
+  const imageUrl =
     data.images && data.images.length > 0
       ? `${backend_url}/${data.images[0]}`
       : "https://cdn-icons-png.flaticon.com/128/44/44289.png";
 
   return (
     <>
-      <div className="relative h-[370px] w-full md:max-w-72 cursor-pointer rounded-lg bg-white p-3 shadow-sm">
+      <div className="relative h-[370px] w-full cursor-pointer rounded-lg bg-white p-3 shadow-sm md:max-w-72">
         <Link to={`/product/${productName}`}>
           <img
             src={imageUrl}
@@ -32,7 +32,7 @@ function ProductCard({ data }) {
             alt={data.name}
           />
         </Link>
-        <Link to="/">
+        <Link to={`/shop/preview/${data?.shop._id}`}>
           <h5 className="py-3 text-[15px] text-blue-400">
             {data.shop?.name || "Unknown Shop"}
           </h5>

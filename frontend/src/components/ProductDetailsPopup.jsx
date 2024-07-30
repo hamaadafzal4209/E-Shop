@@ -48,7 +48,7 @@ function ProductDetailsPopup({ setOpen, data }) {
                 <div className="flex items-center gap-2">
                   <div>
                     <img
-                      src={data.shop.avatar}
+                      src={`${backend_url}/${data?.shop?.avatar}`}
                       className="h-12 w-12 rounded-full"
                       alt={data.shop?.name}
                     />
