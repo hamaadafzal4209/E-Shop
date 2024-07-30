@@ -20,6 +20,7 @@ import { RxCross1 } from "react-icons/rx";
 
 function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { allProducts } = useSelector((state) => state.products);
   const { isSeller } = useSelector((state) => state.seller);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
@@ -34,8 +35,8 @@ function Header() {
     setSearchTerm(term);
 
     const filterProducts =
-      productData &&
-      productData.filter((product) =>
+      allProducts &&
+      allProducts.filter((product) =>
         product.name.toLowerCase().includes(term.toLowerCase()),
       );
     setSearchData(filterProducts);
@@ -101,13 +102,11 @@ function Header() {
                     >
                       <div className="flex w-full items-start py-2 hover:bg-gray-100">
                         <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center">
-                          {item.image_Url && item.image_Url.length > 0 && (
                             <img
-                              src={item.image_Url[0].url}
+                              src={`${backend_url}/${item.images[0]}`}
                               alt={item.name}
                               className="mr-2 h-full w-full object-contain"
                             />
-                          )}
                         </div>
                         <h1 className="line-clamp-2">{item.name}</h1>
                       </div>

@@ -1,6 +1,11 @@
 import express from "express";
 import multer from "multer";
-import { createEvent, getAllEvents,deleteEvent } from "../controller/eventController.js";
+import {
+  createEvent,
+  getAllShopEvents,
+  deleteEvent,
+  getAllEvents,
+} from "../controller/eventController.js";
 import { isSeller } from "../middleware/auth.js";
 
 const eventRouter = express.Router();
@@ -16,7 +21,8 @@ const upload = multer({ storage: storage });
 
 // event routes
 eventRouter.post("/create-event", upload.array("images"), createEvent);
-eventRouter.get("/get-all-shop-events/:id", getAllEvents);
+eventRouter.get("/get-all-shop-events/:id", getAllShopEvents);
 eventRouter.delete("/delete-shop-event/:id", isSeller, deleteEvent);
+eventRouter.get("/get-all-events/", getAllEvents);
 
 export default eventRouter;

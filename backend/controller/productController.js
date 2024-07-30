@@ -30,6 +30,7 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
         zipCode: shop.zipCode,
         role: shop.role,
         avatar: shop.avatar,
+        createdAt: shop.createdAt,
       },
     };
 

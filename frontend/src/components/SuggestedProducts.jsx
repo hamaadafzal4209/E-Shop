@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { productData } from "../static/data";
 import ProductCard from "./ProductCard";
 import { useSelector } from "react-redux";
 

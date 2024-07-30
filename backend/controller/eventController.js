@@ -36,8 +36,8 @@ export const createEvent = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-// get all events
-export const getAllEvents = catchAsyncErrors(async (req, res, next) => {
+// get all shop events
+export const getAllShopEvents = catchAsyncErrors(async (req, res, next) => {
   try {
     const events = await eventModel.find({ shopId: req.params.id });
     res.status(200).json({
@@ -68,3 +68,12 @@ export const deleteEvent = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
+
+// get all events
+export const getAllEvents = catchAsyncErrors(async(req,res,next) => {
+  try {
+    
+  } catch (error) {
+    return next(new ErrorHandler(error,404));
+  }
+})

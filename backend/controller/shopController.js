@@ -158,10 +158,7 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
 export const getShopInfo = catchAsyncErrors(async (req, res, next) => {
   try {
     const shop = await shopModel.findById(req.params.id);
-    if (!shop) {
-      return next(new ErrorHandler("Shop not found", 404));
-    }
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       shop,
     });
@@ -169,4 +166,3 @@ export const getShopInfo = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 500));
   }
 });
-
