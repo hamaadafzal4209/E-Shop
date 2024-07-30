@@ -27,7 +27,7 @@ function ShopAllProducts() {
   };
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.8, align: 'center', headerAlign: 'center' },
+    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.8, align: 'left', headerAlign: 'left' },
     {
       field: "name",
       headerName: "Name",
