@@ -10,6 +10,7 @@ import {
 import ProductDetailInfo from "./ProductDetailInfo";
 import { backend_url } from "../server";
 import Loader from "./Loader";
+import { Link } from "react-router-dom";
 
 function ProductDetail({ data }) {
   const [count, setCount] = useState(1);
@@ -38,7 +39,8 @@ function ProductDetail({ data }) {
     );
   }
 
-  const { images, name, description, originalPrice, discountPrice, shop } = data;
+  const { images, name, description, originalPrice, discountPrice, shop } =
+    data;
 
   // Ensure images array and shop are not empty
   if (!images || images.length === 0) {
@@ -55,13 +57,15 @@ function ProductDetail({ data }) {
               {/* left section */}
               <div className="flex w-full flex-col items-center md:w-1/2">
                 <img
-                  src={images && images.length > 0
-                    ? `${backend_url}/${images[select]}`
-                    : "path/to/placeholder-image.jpg"}
+                  src={
+                    images && images.length > 0
+                      ? `${backend_url}/${images[select]}`
+                      : "path/to/placeholder-image.jpg"
+                  }
                   className="mb-4 max-h-[350px] w-[80%] object-contain"
                   alt={name || "Product Image"}
                 />
-                <div className="w-full flex items-center gap-4 overflow-x-auto justify-center">
+                <div className="flex w-full items-center justify-center gap-4 overflow-x-auto">
                   {images &&
                     images.map((i, index) => (
                       <div
@@ -73,7 +77,7 @@ function ProductDetail({ data }) {
                         <img
                           src={`${backend_url}/${i}`}
                           alt={`Thumbnail ${index + 1}`}
-                          className="mr-3 mt-3 w-[200px] h-24 flex-shrink-0 object-contain overflow-hidden"
+                          className="w mr-3 mt-3 h-24 flex-shrink-0 overflow-hidden object-contain"
                           onClick={() => setSelect(index)}
                         />
                       </div>
@@ -85,7 +89,9 @@ function ProductDetail({ data }) {
                 <h1 className="font-Roboto text-2xl font-[600] text-[#333]">
                   {name || "Product Name"}
                 </h1>
-                <p className="pt-2">{description || "No description available."}</p>
+                <p className="pt-2">
+                  {description || "No description available."}
+                </p>
                 <div className="flex items-center pt-3">
                   <h5 className="font-Roboto text-[18px] font-bold text-[#333]">
                     {discountPrice ? discountPrice : originalPrice}$
@@ -142,15 +148,21 @@ function ProductDetail({ data }) {
                   <div className="flex items-center gap-2">
                     <div>
                       <img
-                        src={shop?.avatar ? `${backend_url}/${shop.avatar}` : "path/to/placeholder-image.jpg"}
+                        src={
+                          shop?.avatar
+                            ? `${backend_url}/${shop.avatar}`
+                            : "path/to/placeholder-image.jpg"
+                        }
                         className="h-12 w-12 rounded-full"
                         alt={shop?.name || "Shop Avatar"}
                       />
                     </div>
                     <div>
-                      <h3 className="text-[15px] text-blue-400">
-                        {shop?.name || "Unknown Shop"}
-                      </h3>
+                      <Link to={`/shop/preview/${data?.shop._id}`}>
+                        <h3 className="text-[15px] text-blue-400">
+                          {shop?.name || "Unknown Shop"}
+                        </h3>
+                      </Link>
                       <h5 className="text-[15px]">
                         {shop?.ratings || "No ratings"}
                       </h5>

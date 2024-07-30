@@ -8,6 +8,7 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { backend_url } from "../server";
+import { Link } from "react-router-dom";
 
 function ProductDetailsPopup({ setOpen, data }) {
   const [count, setCount] = useState(1);
@@ -55,9 +56,11 @@ function ProductDetailsPopup({ setOpen, data }) {
                     />
                   </div>
                   <div>
-                    <h3 className="text-[15px] text-blue-400">
-                      {data.shop.name || "Unknown Shop"}
-                    </h3>
+                    <Link to={`/shop/preview/${data?.shop._id}`}>
+                      <h3 className="text-[15px] text-blue-400">
+                        {data.shop.name || "Unknown Shop"}
+                      </h3>
+                    </Link>
                     <h5 className="text-[15px]">4/5 ratings</h5>
                   </div>
                 </div>

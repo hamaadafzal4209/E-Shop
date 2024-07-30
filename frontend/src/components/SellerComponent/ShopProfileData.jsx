@@ -1,21 +1,18 @@
-// /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllShopProducts } from "../../redux/actions/product";
 
-function ShopProfileData() {
+function ShopProfileData({ isOwner }) {
   const { products } = useSelector((state) => state.products);
-  const { seller } = useSelector((state) => state.seller);
+  const { id } = useParams();
   const dispatch = useDispatch();
   const [active, setActive] = useState(1);
 
   useEffect(() => {
-    if (seller?._id) {
-      dispatch(getAllShopProducts(seller._id));
-    }
-  }, [dispatch, seller._id]);
+    dispatch(getAllShopProducts(id));
+  }, [id, dispatch]);
 
   return (
     <div className="w-full">
@@ -43,17 +40,29 @@ function ShopProfileData() {
             </h5>
           </div>
         </div>
-        <button className="inline-block rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
-          <Link to="/dashboard">Go to dashboard</Link>
-        </button>
+        {isOwner && (
+          <button className="inline-block rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
+            <Link to="/dashboard">Go to dashboard</Link>
+          </button>
+        )}
+        {!isOwner && (
+          <button className="inline-block rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
+            <Link to="/">Go to Home</Link>
+          </button>
+        )}
       </div>
 
       {active === 1 && (
         <div className="product-grid-container my-5">
-          {products &&
+          {products && products.length > 0 ? (
             products.map((item, index) => (
               <ProductCard data={item} key={index} isShop={true} />
-            ))}
+            ))
+          ) : (
+            <div className="text-center text-gray-600">
+              No products available.
+            </div>
+          )}
         </div>
       )}
     </div>

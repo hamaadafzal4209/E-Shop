@@ -83,7 +83,7 @@ function App() {
               </SellerProtectedRoute>
             }
           />
-          <Route path="/shop/:id" element={<ShopPreviewPage />} />
+          <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
           <Route
             path="/dashboard"
             element={

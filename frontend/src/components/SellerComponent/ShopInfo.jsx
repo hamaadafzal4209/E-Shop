@@ -9,9 +9,7 @@ import { getAllShopProducts } from "../../redux/actions/product";
 import Loader from "../Loader";
 
 function ShopInfo({ isOwner }) {
-  const { seller } = useSelector((state) => state.seller);
   const navigate = useNavigate();
-
   const [data, setData] = useState({});
   const { products } = useSelector((state) => state.products);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,30 +51,30 @@ function ShopInfo({ isOwner }) {
     <div className="">
       <div>
         <div className="flex flex-col items-center">
-          {seller.avatar ? (
+          {data.avatar ? (
             <img
-              src={`${backend_url}/${seller.avatar}`}
+              src={`${backend_url}/${data.avatar}`}
               alt="Seller Avatar"
               className="h-32 w-32 rounded-full border-4 border-gray-200 object-cover"
             />
           ) : (
             <CgProfile className="h-32 w-32 text-gray-400" />
           )}
-          <h2 className="mt-4 text-xl font-bold">{seller.name}</h2>
-          <p className="mt-2 text-gray-600">{seller.description}</p>
+          <h2 className="mt-4 text-xl font-bold">{data.name}</h2>
+          <p className="mt-2 text-gray-600">{data.description}</p>
         </div>
         <div className="mt-6 space-y-2">
           <div className="flex flex-wrap justify-between text-gray-700">
             <span className="font-semibold">Address:</span>
-            <span>{seller.address}</span>
+            <span>{data.address}</span>
           </div>
           <div className="flex justify-between text-gray-700">
             <span className="font-semibold">Phone Number:</span>
-            <span>{seller.phoneNumber}</span>
+            <span>{data.phoneNumber}</span>
           </div>
           <div className="flex justify-between text-gray-700">
             <span className="font-semibold">Total Products:</span>
-            <span>10</span>
+            <span>{products.length}</span>
           </div>
           <div className="flex justify-between text-gray-700">
             <span className="font-semibold">Shop Rating:</span>
@@ -84,7 +82,7 @@ function ShopInfo({ isOwner }) {
           </div>
           <div className="flex justify-between text-gray-700">
             <span className="font-semibold">Joined On:</span>
-            <span>{seller.createdAt.slice(0, 10)}</span>
+            <span>{data.createdAt ? data.createdAt.slice(0, 10) : ''}</span>
           </div>
         </div>
       </div>
