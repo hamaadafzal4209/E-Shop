@@ -28,11 +28,15 @@ import ShopCreateEvent from "./pages/ShopDashBoard/ShopCreateEvent";
 import DashAllEvents from "./pages/ShopDashBoard/DashAllEvents";
 import ShopCoupounsCode from "./pages/ShopDashBoard/ShopCouponsCode";
 import ShopPreviewPage from "./pages/ShopPages/ShopPreviewPage";
+import { getAllProducts } from "./redux/actions/product";
+import { getAllEvents } from "./redux/actions/event";
 
 function App() {
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(loadSeller());
+    store.dispatch(getAllProducts());
+    store.dispatch(getAllEvents());
   }, []);
 
   return (

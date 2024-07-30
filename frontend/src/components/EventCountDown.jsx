@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
-function EventCountDown() {
+function EventCountDown({data}) {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
@@ -11,7 +12,7 @@ function EventCountDown() {
   });
 
   function calculateTimeLeft() {
-    const difference = +new Date("2024-07-30") - +new Date();
+    const difference = +new Date(data?.Finish_Date) - +new Date();
 
     let timeLeft = {};
 

@@ -1,43 +1,34 @@
+/* eslint-disable react/prop-types */
+import { backend_url } from "../server";
 import EventCountDown from "./EventCountDown";
 
-function EventCard() {
+function EventCard({ data }) {
   return (
-    <div className="px-6 md:px-12 bg-white rounded-lg lg:flex p-4 shadow-sm">
-      <div className="w-full lg:w-2/5 flex items-center justify-center">
+    <div className="rounded-lg bg-white p-8 px-6 shadow-sm md:px-12 lg:flex items-center justify-between gap-6">
+      <div className="flex w-full items-center justify-center lg:w-2/5">
         <img
-          className="max-w-[450px] w-full object-contain"
-          src="https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg"
-          alt=""
+          className="w-full max-w-sm lg:w-[80%] object-contain"
+          src={`${backend_url}/${data?.images[0]}`}
+          alt={data?.name || "Event Image"}
         />
       </div>
-      <div className="w-full lg:w-3/5 flex flex-col justify-center">
-        <h2 className="text-[25px] font-[600] text-[#333]">
-          MacBook pro M2 chipset 256gb ssd 8gb ram space gray color{" "}
-        </h2>
-        <p className="">
-          Product details are a crucial part of any eCommerce website or online
-          marketplace. These details help the potential customers to make an
-          informed decision about the product they are interested in buying. A
-          well-written product description can also be a powerful marketing tool
-          that can help to increase sales.Product details typically include
-          information about the product features, specifications, dimensions,
-          weight, materials, and other relevant information that can help
-          customers to understand the product better. The product details
-          section should also include high-quality images and videos of the
-          product, as well as customer reviews and ratings.
-        </p>
-        <div className="flex py-2 justify-between">
+      <div className="flex w-full flex-col justify-center py-8 lg:w-3/5">
+        <h2 className="text-[25px] font-[600] text-[#333]">{data?.name}</h2>
+        <p className="">{data?.description}</p>
+        <div className="flex justify-between py-2">
           <div className="flex items-center">
-            <h5 className="font-medium text-lg text-[#d55b45] pr-3 line-through">
-              1099$
+            <h5 className="pr-3 text-lg font-medium text-[#d55b45] line-through">
+              {data?.originalPrice}$
             </h5>
-            <h5 className="font-bold text-[20px] text-[#333] pr-3">999$</h5>
+            <h5 className="pr-3 text-[20px] font-bold text-[#333]">
+              {data?.discountPrice}$
+            </h5>
           </div>
-          <div className="pr-3 font-normal text-[17px] text-[#44a55e]">
-            120 sold
+          <div className="pr-3 text-[17px] font-normal text-[#44a55e]">
+            {data?.sold_out} sold
           </div>
         </div>
-        <EventCountDown />
+        <EventCountDown data={data} />
         <div className="mb-4"></div>
       </div>
     </div>

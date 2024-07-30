@@ -102,11 +102,11 @@ function Header() {
                     >
                       <div className="flex w-full items-start py-2 hover:bg-gray-100">
                         <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center">
-                            <img
-                              src={`${backend_url}/${item.images[0]}`}
-                              alt={item.name}
-                              className="mr-2 h-full w-full object-contain"
-                            />
+                          <img
+                            src={`${backend_url}/${item?.images[0]}`}
+                            alt={item.name}
+                            className="mr-2 h-full w-full object-contain"
+                          />
                         </div>
                         <h1 className="line-clamp-2">{item.name}</h1>
                       </div>

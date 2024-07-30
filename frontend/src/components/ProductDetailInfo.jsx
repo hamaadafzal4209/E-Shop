@@ -105,7 +105,7 @@ function ProductDetailInfo({ data }) {
                     Total Reviews <span className="font-medium">131</span>
                   </h5>
                   <Link to={`/shop/preview/${data?.shop._id}`}>
-                    <button className="cursor-pointer bg-black px-10 py-2 text-white">
+                    <button className="cursor-pointer bg-black px-10 py-2 mt-2 rounded-md text-white">
                       Visit Shop
                     </button>
                   </Link>

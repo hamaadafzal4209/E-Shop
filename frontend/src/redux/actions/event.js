@@ -7,12 +7,12 @@ import {
   deleteEventFailed,
   deleteEventRequest,
   deleteEventSuccess,
-  getAllEventsFailed,
-  getAllEventsRequest,
+  getAlleventsFailed,
+  getAlleventsRequest,
   getAllEventsShopFailed,
   getAllEventsShopRequest,
   getAllEventsShopSuccess,
-  getAllEventsSuccess,
+  getAlleventsSuccess,
 } from "../reducers/event";
 
 // create event
@@ -74,13 +74,13 @@ export const deleteShopEvent = (id) => async (dispatch) => {
 // Action to get all event
 export const getAllEvents = () => async (dispatch) => {
   try {
-    dispatch(getAllEventsRequest());
+    dispatch(getAlleventsRequest());
 
     const { data } = await axios.get(`${server}/event/get-all-events`);
 
-    dispatch(getAllEventsSuccess(data.events));
+    dispatch(getAlleventsSuccess(data.events));
   } catch (error) {
     const errorMessage = error.response?.data?.message || "An error occurred";
-    dispatch(getAllEventsFailed(errorMessage));
+    dispatch(getAlleventsFailed(errorMessage));
   }
 };
