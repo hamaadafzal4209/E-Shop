@@ -71,7 +71,7 @@ function ProductCard({ data }) {
           </div>
         </Link>
 
-        {/* side options */}
+        {/* Side options */}
         {click ? (
           <AiFillHeart
             size={22}

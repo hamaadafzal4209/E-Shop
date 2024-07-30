@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -6,11 +7,11 @@ function ProductDetailInfo({ data }) {
 
   return (
     <div className="pb-12">
-      <div className="bg-[#f5f6fb] px-4 md:px-10 py-2 pb-6 rounded-md">
-        <div className="w-full flex items-center justify-between gap-4 border-b pt-10 pb-2">
+      <div className="rounded-md bg-[#f5f6fb] px-4 py-2 pb-6 md:px-10">
+        <div className="flex w-full items-center justify-between gap-4 border-b pb-2 pt-10">
           <div className="relative">
             <h5
-              className={`text-[#000] text-base sm:text-lg md:text-[20px] cursor-pointer font-semibold px-1 ${
+              className={`cursor-pointer px-1 text-base font-semibold text-[#000] sm:text-lg md:text-[20px] ${
                 active === 1 ? "text-crimson" : ""
               }`}
               onClick={() => setActive(1)}
@@ -23,7 +24,7 @@ function ProductDetailInfo({ data }) {
           </div>
           <div className="relative">
             <h5
-              className={`text-[#000] text-base sm:text-lg md:text-[20px] cursor-pointer font-semibold px-1 ${
+              className={`cursor-pointer px-1 text-base font-semibold text-[#000] sm:text-lg md:text-[20px] ${
                 active === 2 ? "text-crimson" : ""
               }`}
               onClick={() => setActive(2)}
@@ -36,7 +37,7 @@ function ProductDetailInfo({ data }) {
           </div>
           <div className="relative">
             <h5
-              className={`text-[#000] text-base sm:text-lg md:text-[20px] cursor-pointer font-semibold px-1 ${
+              className={`cursor-pointer px-1 text-base font-semibold text-[#000] sm:text-lg md:text-[20px] ${
                 active === 3 ? "text-crimson" : ""
               }`}
               onClick={() => setActive(3)}
@@ -52,7 +53,7 @@ function ProductDetailInfo({ data }) {
         <div className="pt-4">
           {active === 1 && (
             <div>
-              <p className="font-medium font-Poppins text-balance text-lg py-2 whitespace-pre-line">
+              <p className="whitespace-pre-line text-balance py-2 font-Poppins text-lg font-medium">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
                 error inventore veritatis, qui aliquam iure, laboriosam facilis
                 reprehenderit ipsa rem minima minus alias quibusdam sit ratione
@@ -66,7 +67,7 @@ function ProductDetailInfo({ data }) {
                 necessitatibus beatae rem cupiditate atque culpa facere quasi
                 corporis amet autem eveniet fugit esse tenetur minima nisi nemo.
               </p>
-              <p className="font-medium font-Poppins text-balance text-lg py-2 whitespace-pre-line">
+              <p className="whitespace-pre-line text-balance py-2 font-Poppins text-lg font-medium">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
                 error inventore veritatis, qui aliquam iure, laboriosam facilis
                 reprehenderit ipsa rem minima minus alias quibusdam sit ratione
@@ -80,7 +81,7 @@ function ProductDetailInfo({ data }) {
                 necessitatibus beatae rem cupiditate atque culpa facere quasi
                 corporis amet autem eveniet fugit esse tenetur minima nisi nemo.
               </p>
-              <p className="font-medium font-Poppins text-balance text-lg py-2 whitespace-pre-line">
+              <p className="whitespace-pre-line text-balance py-2 font-Poppins text-lg font-medium">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
                 error inventore veritatis, qui aliquam iure, laboriosam facilis
                 reprehenderit ipsa rem minima minus alias quibusdam sit ratione
@@ -97,48 +98,52 @@ function ProductDetailInfo({ data }) {
             </div>
           )}
           {active === 2 && (
-            <div className="min-h-[40vh] w-full flex items-center justify-center">
+            <div className="flex min-h-[40vh] w-full items-center justify-center">
               <h3>No Reviews Yet?</h3>
             </div>
           )}
           {active === 3 && (
-            <div className="w-full block md:flex p-4">
-                {/* left */}
+            <div className="block w-full p-4 md:flex">
+              {/* left */}
               <div className="w-full md:w-1/2">
-                  <div className="flex items-center gap-2">
-                    <div>
-                      <img
-                        src={data.shop.shop_avatar.url}
-                        className="w-12 h-12 rounded-full"
-                        alt={data.shop.name}
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-[15px] text-blue-400">
-                        {data.shop.name}
-                      </h3>
-                      <h5 className="text-[15px]">
-                        {data.shop.ratings} ratings
-                      </h5>
-                    </div>
+                <div className="flex items-center gap-2">
+                  <div>
+                    <img
+                      src={data.shop.shop_avatar.url}
+                      className="h-12 w-12 rounded-full"
+                      alt={data.shop.name}
+                    />
                   </div>
-                  <p className="pt-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae, iure voluptatem. Asperiores, aut quibusdam. Officiis, incidunt repellendus! Odio delectus similique, quaerat a quam obcaecati, praesentium ratione quasi nisi saepe illum.</p>
+                  <div>
+                    <h3 className="text-[15px] text-blue-400">
+                      {data.shop.name}
+                    </h3>
+                    <h5 className="text-[15px]">{data.shop.ratings} ratings</h5>
+                  </div>
+                </div>
+                <p className="pt-6">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Molestiae, iure voluptatem. Asperiores, aut quibusdam.
+                  Officiis, incidunt repellendus! Odio delectus similique,
+                  quaerat a quam obcaecati, praesentium ratione quasi nisi saepe
+                  illum.
+                </p>
               </div>
               {/* right */}
-              <div className="w-full md:w-1/2 mt-5 md:mt-0 md:flex flex-col items-end">
-                <div className="text-left space-y-2">
-                    <h5 className="font-semibold">
-                        Joined on <span className="font-medium">22 July, 2024</span>
-                    </h5>
-                    <h5 className="font-semibold">
-                        Total Products <span className="font-medium">1,221</span>
-                    </h5>
-                    <h5 className="font-semibold">
-                        Total Reviews <span className="font-medium">131</span>
-                    </h5>
-                    <button className="bg-black text-white px-10 py-2 cursor-pointer">
-                        <Link to="/">Visit Shop</Link>
-                    </button>
+              <div className="mt-5 w-full flex-col items-end md:mt-0 md:flex md:w-1/2">
+                <div className="space-y-2 text-left">
+                  <h5 className="font-semibold">
+                    Joined on <span className="font-medium">22 July, 2024</span>
+                  </h5>
+                  <h5 className="font-semibold">
+                    Total Products <span className="font-medium">1,221</span>
+                  </h5>
+                  <h5 className="font-semibold">
+                    Total Reviews <span className="font-medium">131</span>
+                  </h5>
+                  <button className="cursor-pointer bg-black px-10 py-2 text-white">
+                    <Link to="/">Visit Shop</Link>
+                  </button>
                 </div>
               </div>
             </div>

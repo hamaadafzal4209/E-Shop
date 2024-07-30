@@ -23,9 +23,13 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
       shop: {
         _id: shop._id,
         name: shop.name,
-        address: shop.address,
-        phone: shop.phone,
         email: shop.email,
+        phoneNumber: shop.phoneNumber,
+        address: shop.address,
+        description: shop.description,
+        zipCode: shop.zipCode,
+        role: shop.role,
+        avatar: shop.avatar,
       },
     };
 
@@ -78,7 +82,7 @@ export const deleteShopProduct = catchAsyncErrors(async (req, res, next) => {
 // get all products
 export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
   try {
-    const products = await productModel.find().sort({ createdAt: -1 })
+    const products = await productModel.find().sort({ createdAt: -1 });
 
     res.status(201).json({
       success: true,
@@ -88,4 +92,3 @@ export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error, 404));
   }
 });
-

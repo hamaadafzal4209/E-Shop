@@ -1,3 +1,4 @@
+// /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard";
 import { Link } from "react-router-dom";
@@ -5,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllShopProducts } from "../../redux/actions/product";
 
 function ShopProfileData() {
-  const { products, isLoading } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
   const dispatch = useDispatch();
   const [active, setActive] = useState(1);
@@ -15,7 +16,7 @@ function ShopProfileData() {
       dispatch(getAllShopProducts(seller._id));
     }
   }, [dispatch, seller._id]);
-  
+
   return (
     <div className="w-full">
       <div className="flex items-center justify-between gap-4">

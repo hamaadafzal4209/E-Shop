@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { productData } from "../static/data";
 import ProductCard from "./ProductCard";
+import { useSelector } from "react-redux";
 
 function SuggestedProducts({ data }) {
-  const [products, setProducts] = useState(null);
+  const {allProducts} = useSelector((state) => state.products);
+  const [productData,setProductData] = useState();
 
   useEffect(() => {
     const d =
-      productData &&
-      productData.filter((product) => product.category === data.category);
-    setProducts(d);
+    allProducts && allProducts.filter((i) => i.category === data.category);
+    setProductData(d);
   }, []);
 
   return (
@@ -17,8 +18,8 @@ function SuggestedProducts({ data }) {
       <div className="section">
         <h1 className="heading">Related Products</h1>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {products &&
-            products.map((item, index) => (
+          {productData &&
+            productData.map((item, index) => (
               <ProductCard data={item} key={index} />
             ))}
         </div>

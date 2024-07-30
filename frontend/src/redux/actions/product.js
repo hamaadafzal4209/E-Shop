@@ -74,9 +74,8 @@ export const deleteShopProducts = (id) => async (dispatch) => {
 export const getAllProducts = () => async (dispatch) => {
   try {
     dispatch(getAllProductsRequest());
-
     const { data } = await axios.get(`${server}/product/get-all-products`);
-
+    console.log("Fetched Products:", data.products); // Log fetched products
     dispatch(getAllProductsSuccess(data.products));
   } catch (error) {
     const errorMessage = error.response?.data?.message || "An error occurred";

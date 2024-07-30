@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
   AiFillHeart,
@@ -8,13 +9,16 @@ import {
 
 import ProductDetailInfo from "./ProductDetailInfo";
 import { backend_url } from "../server";
+import Loader from "./Loader";
 
 function ProductDetail({ data }) {
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
   const [select, setSelect] = useState(0);
 
-  const handleMessageSubmit = () => {};
+  const handleMessageSubmit = () => {
+    // Implement message sending functionality
+  };
 
   const decrementCount = () => {
     if (count > 1) {
@@ -27,10 +31,19 @@ function ProductDetail({ data }) {
   };
 
   if (!data) {
-    return <h1 className="text-center p-6">Loading...</h1>;
+    return (
+      <h1 className="p-6 text-center">
+        <Loader />
+      </h1>
+    );
   }
 
   const { images, name, description, originalPrice, discountPrice, shop } = data;
+
+  // Ensure images array and shop are not empty
+  if (!images || images.length === 0) {
+    console.log("No images available for this product.");
+  }
 
   return (
     <div className="bg-white">
@@ -38,59 +51,64 @@ function ProductDetail({ data }) {
         <div className="section">
           {/* product details */}
           <div className="w-full py-5">
-            <div className="flex items-start gap-6 flex-col md:flex-row">
+            <div className="flex flex-col items-start gap-6 md:flex-row">
               {/* left section */}
-              <div className="w-full md:w-1/2 flex flex-col items-center">
+              <div className="flex w-full flex-col items-center md:w-1/2">
                 <img
-                  src={images && images.length > 0 ? images[select]?.url : ''}
-                  className="w-[80%] max-h-[350px] object-contain mb-4"
-                  alt={name}
+                  src={images && images.length > 0
+                    ? `${backend_url}/${images[select]}`
+                    : "path/to/placeholder-image.jpg"}
+                  className="mb-4 max-h-[350px] w-[80%] object-contain"
+                  alt={name || "Product Image"}
                 />
-                <div className="w-full flex justify-center">
-                  {images && images.map((image, index) => (
-                    <div
-                      key={index}
-                      className={`${select === index ? "border" : ""} cursor-pointer`}
-                    >
-                      <img
-                        className="h-[200px] w-[200px] object-contain p-3"
-                        onClick={() => setSelect(index)}
-                        src={image.url}
-                        alt={name}
-                      />
-                    </div>
-                  ))}
+                <div className="w-full flex items-center gap-4 overflow-x-auto justify-center">
+                  {images &&
+                    images.map((i, index) => (
+                      <div
+                        key={index}
+                        className={`${
+                          select === index ? "border" : ""
+                        } cursor-pointer`}
+                      >
+                        <img
+                          src={`${backend_url}/${i}`}
+                          alt={`Thumbnail ${index + 1}`}
+                          className="mr-3 mt-3 w-[200px] h-24 flex-shrink-0 object-contain overflow-hidden"
+                          onClick={() => setSelect(index)}
+                        />
+                      </div>
+                    ))}
                 </div>
               </div>
               {/* right section */}
-              <div className="w-full md:w-1/2 pt-5 px-1.5">
-                <h1 className="text-2xl font-[600] font-Roboto text-[#333]">
-                  {name}
+              <div className="w-full px-1.5 pt-5 md:w-1/2">
+                <h1 className="font-Roboto text-2xl font-[600] text-[#333]">
+                  {name || "Product Name"}
                 </h1>
-                <p className="pt-2">{description}</p>
+                <p className="pt-2">{description || "No description available."}</p>
                 <div className="flex items-center pt-3">
-                  <h5 className="font-bold text-[18px] text-[#333] font-Roboto">
+                  <h5 className="font-Roboto text-[18px] font-bold text-[#333]">
                     {discountPrice ? discountPrice : originalPrice}$
                   </h5>
                   {discountPrice && (
-                    <h5 className="font-[500] text-[16px] text-[#d55b45] pl-2 line-through">
+                    <h5 className="pl-2 text-[16px] font-[500] text-[#d55b45] line-through">
                       {originalPrice}$
                     </h5>
                   )}
                 </div>
-                <div className="flex items-center mt-8 justify-between pr-3">
+                <div className="mt-8 flex items-center justify-between pr-3">
                   <div>
                     <button
-                      className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
+                      className="rounded-l bg-gradient-to-r from-teal-400 to-teal-500 px-4 py-2 font-bold text-white shadow-lg transition duration-300 ease-in-out hover:opacity-75"
                       onClick={decrementCount}
                     >
                       -
                     </button>
-                    <span className="bg-gray-200 text-gray-800 font-medium px-4 py-[11px]">
+                    <span className="bg-gray-200 px-4 py-[11px] font-medium text-gray-800">
                       {count}
                     </span>
                     <button
-                      className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-r px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
+                      className="rounded-r bg-gradient-to-r from-teal-400 to-teal-500 px-4 py-2 font-bold text-white shadow-lg transition duration-300 ease-in-out hover:opacity-75"
                       onClick={incrementCount}
                     >
                       +
@@ -117,30 +135,30 @@ function ProductDetail({ data }) {
                   </div>
                 </div>
                 {/* add to cart button */}
-                <button className="bg-black text-white px-5 py-3 flex items-center gap-2 my-4 rounded-md">
+                <button className="my-4 flex items-center gap-2 rounded-md bg-black px-5 py-3 text-white">
                   Add to cart <AiOutlineShoppingCart size={22} />
                 </button>
-                <div className="flex items-center gap-2 sm:gap-6 flex-wrap sm:flex-nowrap my-8">
+                <div className="my-8 flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-6">
                   <div className="flex items-center gap-2">
                     <div>
                       <img
-                        src={`${backend_url}/${data?.shop?.avatar}` || ''}
-                        className="w-12 h-12 rounded-full"
-                        alt={shop?.name}
+                        src={shop?.avatar ? `${backend_url}/${shop.avatar}` : "path/to/placeholder-image.jpg"}
+                        className="h-12 w-12 rounded-full"
+                        alt={shop?.name || "Shop Avatar"}
                       />
                     </div>
                     <div>
                       <h3 className="text-[15px] text-blue-400">
-                        {shop?.name || 'Unknown Shop'}
+                        {shop?.name || "Unknown Shop"}
                       </h3>
                       <h5 className="text-[15px]">
-                        {shop?.ratings || 'No ratings'}
+                        {shop?.ratings || "No ratings"}
                       </h5>
                     </div>
                   </div>
                   {/* send message button */}
                   <button
-                    className="flex items-center gap-2 bg-purple-800 text-white rounded-md px-5 py-3 my-3"
+                    className="my-3 flex items-center gap-2 rounded-md bg-purple-800 px-5 py-3 text-white"
                     onClick={handleMessageSubmit}
                   >
                     Send Message <AiOutlineMessage size={22} />
@@ -153,7 +171,7 @@ function ProductDetail({ data }) {
           <ProductDetailInfo data={data} />
         </div>
       ) : (
-        <h1 className="text-center p-6">Product not found!</h1>
+        <h1 className="p-6 text-center">Product not found!</h1>
       )}
     </div>
   );
