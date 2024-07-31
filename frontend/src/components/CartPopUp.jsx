@@ -21,7 +21,7 @@ const CartPopUp = ({ setOpenCart }) => {
 
   return (
     <div className="fixed left-0 top-0 z-[300] flex h-screen w-full items-center justify-end bg-[#0000004b]">
-      <div className="h-full w-full max-w-sm bg-[#f5f5f5] p-4 flex flex-col">
+      <div className="h-full w-full max-w-sm bg-white p-4 flex flex-col">
         <div className="flex w-full items-center justify-end">
           <RxCross1 size={25} className="cursor-pointer" onClick={() => setOpenCart(false)} />
         </div>

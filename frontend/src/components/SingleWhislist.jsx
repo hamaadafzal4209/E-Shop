@@ -1,27 +1,37 @@
 import { IoClose, IoCartOutline } from "react-icons/io5";
+import { backend_url } from "../server";
 
-function SingleWhislist({ data }) {
+function SingleWhislist({ data, removeFromWishlistHandler, handleAddToCart }) {
   return (
     <div className="border-b p-4">
-      <div className="w-full flex items-center gap-4">
-        <div className="cursor-pointer">
+      <div className="flex w-full items-center gap-4">
+        <div
+          className="cursor-pointer"
+          onClick={() => removeFromWishlistHandler(data)}
+        >
           <IoClose />
         </div>
-        <div className="">
+        <div className="min-w-20">
           <img
-            src="https://media.istockphoto.com/id/488160041/photo/mens-shirt.jpg?s=612x612&w=0&k=20&c=xVZjKAUJecIpYc_fKRz_EB8HuRmXCOOPOtZ-ST6eFvQ="
-            className="w-20 h-20 object-contain"
+            src={`${backend_url}/${data.images[0]}`}
+            className="h-20 w-20 object-contain"
             alt=""
           />
         </div>
-        <div>
-          <h2 className="font-semibold ">{data.name}</h2>
-          <h3 className="font-semibold text-lg text-[#d02222]">
-            ${data.price}
-          </h3>
-        </div>
-        <div className="cursor-pointer">
-          <IoCartOutline size={22} title="Add to cart" />
+        <div className="flex w-full items-center justify-between gap-3">
+          <div>
+            <h2 className="font-semibold">{data.name}</h2>
+            <h3 className="text-lg font-semibold text-[#d02222]">
+              ${data.discountPrice}
+            </h3>
+          </div>
+          <div className="cursor-pointer">
+            <IoCartOutline
+              size={22}
+              title="Add to cart"
+              onClick={() => handleAddToCart(data)}
+            />
+          </div>
         </div>
       </div>
     </div>

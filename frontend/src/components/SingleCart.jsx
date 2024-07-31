@@ -44,7 +44,7 @@ function SingleCart({ data, quantityChangeHandler, removeFromCartHandler }) {
             <FaMinus size={16} color="#7d879c" />
           </div>
         </div>
-        <div className="">
+        <div className="min-w-[70px]">
           <img
             src={`${backend_url}/${data.images[0]}`}
             className="h-20 w-20 object-contain"
