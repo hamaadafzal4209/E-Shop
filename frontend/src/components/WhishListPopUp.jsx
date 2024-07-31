@@ -34,8 +34,8 @@ function WhishListPopUp({ setOpenWhishlist }) {
           </div>
           {/* Check if wishlist is empty */}
           {wishlist && wishlist.length === 0 ? (
-            <div className="flex items-center justify-center p-4 text-gray-600">
-              <h5 className="text-[16px] font-semibold">Your wishlist is empty</h5>
+            <div className="flex items-center justify-center h-[85vh]  p-4 text-gray-600">
+              <h5 className="text-[16px] font-semibold ">Your wishlist is empty</h5>
             </div>
           ) : (
             <>
