@@ -9,18 +9,14 @@ function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNUmber, setPhoneNumber] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
       setPhoneNumber(user.phoneNumber || "");
-      setZipCode(user.zipCode || "");
-      setAddress1(user.address1 || "");
-      setAddress2(user.address2 || "");
+      setPassword(user.password || "");
     }
   }, [user]);
 
@@ -97,43 +93,15 @@ function Profile() {
               />
             </div>
             <div className="w-full sm:w-1/2">
-              <label htmlFor="zipcode" className="text-base font-semibold">
-                Zip Code
+              <label htmlFor="password" className="text-base font-semibold">
+                Password
               </label>
               <input
-                type="text"
-                id="zipcode"
-                name="zipcode"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-                className="mt-1 w-full px-2 py-1"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-between gap-2 sm:flex-row sm:gap-6">
-            <div className="w-full sm:w-1/2">
-              <label htmlFor="address-1" className="text-base font-semibold">
-                Address 1
-              </label>
-              <input
-                type="text"
-                id="address-1"
-                name="address1"
-                value={address1}
-                onChange={(e) => setAddress1(e.target.value)}
-                className="mt-1 w-full px-2 py-1"
-              />
-            </div>
-            <div className="w-full sm:w-1/2">
-              <label htmlFor="address-2" className="text-base font-semibold">
-                Address 2
-              </label>
-              <input
-                type="text"
-                id="address-2"
-                name="address2"
-                value={address2}
-                onChange={(e) => setAddress2(e.target.value)}
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 w-full px-2 py-1"
               />
             </div>

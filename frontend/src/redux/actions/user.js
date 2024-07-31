@@ -4,6 +4,9 @@ import {
   loadUserRequest,
   loadUserSuccess,
   loadUserFail,
+  updateUserInfoRequest,
+  updateUserInfoSuccess,
+  updateUserInfoFailed,
 } from "../reducers/user.js";
 import {
   loadSellerFail,
@@ -24,6 +27,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
+// load seller
 export const loadSeller = () => async (dispatch) => {
   try {
     dispatch(loadSellerRequest());
@@ -35,3 +39,26 @@ export const loadSeller = () => async (dispatch) => {
     dispatch(loadSellerFail(error.response.data.message));
   }
 };
+
+// update user information
+export const updateUserInfomation =
+  (email, name, password, phoneNumber) => async (dispatch) => {
+    try {
+      dispatch(updateUserInfoRequest());
+      const { data } = await axios.put(
+        `${server}/user/update-user-info`,
+        {
+          email,
+          name,
+          password,
+          phoneNumber,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+      dispatch(updateUserInfoSuccess(data.user));
+    } catch (error) {
+      dispatch(updateUserInfoFailed(error.response.data.message));
+    }
+  };

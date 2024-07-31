@@ -5,6 +5,7 @@ import {
   getUser,
   loginUser,
   Logout,
+  updateUserInfo
 } from "../controller/userController.js";
 import multer from "multer";
 import { isAuthenticated } from "../middleware/auth.js";
@@ -25,5 +26,6 @@ userRouter.post("/activation", activateUser);
 userRouter.post("/login", loginUser);
 userRouter.get("/getuser", isAuthenticated, getUser);
 userRouter.get("/logout", isAuthenticated, Logout);
+userRouter.put("/update-user-info", isAuthenticated, updateUserInfo);
 
 export default userRouter;

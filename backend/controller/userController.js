@@ -113,6 +113,7 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+// get user
 export const getUser = catchAsyncErrors(async (req, res, next) => {
   try {
     const user = await userModel.findById(req.user.id);
@@ -130,6 +131,7 @@ export const getUser = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+// logout
 export const Logout = catchAsyncErrors(async (req, res, next) => {
   try {
     res.cookie("token", null, {
