@@ -5,6 +5,7 @@ import userReducer from "./reducers/user";
 import sellerReducer from "./reducers/seller";
 import productReducer from "./reducers/product";
 import eventReducer from "./reducers/event";
+import cartReducer from "./reducers/cart";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   seller: sellerReducer,
   products: productReducer,
   events: eventReducer,
+  cart: cartReducer,
 });
 
 const persistConfig = {
