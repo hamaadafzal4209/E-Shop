@@ -20,6 +20,7 @@ function ProductDetails() {
     if (!allProducts.length) {
       dispatch(getAllProducts());
     }
+    window.scrollTo(0,0);
   }, [dispatch, allProducts]);
 
   // Log the productName and allProducts for debugging

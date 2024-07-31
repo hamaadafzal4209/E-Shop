@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { productData, categoriesData, navItems } from "../static/data";
+import { categoriesData, navItems } from "../static/data";
 import { Link, NavLink } from "react-router-dom";
 import {
   AiOutlineHeart,
@@ -89,7 +89,7 @@ function Header() {
               className="absolute right-2 top-2 cursor-pointer"
             />
             {searchTerm && searchData && (
-              <div className="absolute top-full z-10 mt-2 w-full bg-white p-4 shadow-lg">
+              <div className="absolute top-full z-10 mt-2 w-full bg-white p-4 shadow-lg overflow-y-auto">
                 {searchData.length === 0 ? (
                   <div className="flex w-full items-start py-2">
                     <h1>No products found</h1>
