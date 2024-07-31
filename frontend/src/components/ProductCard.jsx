@@ -13,6 +13,10 @@ import ProductDetailsPopup from "./ProductDetailsPopup";
 import { backend_url } from "../server";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
+import {
+  addToWishlistAction,
+  removeFromWishlistAction,
+} from "../redux/actions/whishlist";
 
 function ProductCard({ data }) {
   const [click, setClick] = useState(false);
@@ -21,15 +25,31 @@ function ProductCard({ data }) {
 
   const dispatch = useDispatch();
   const { cart = [] } = useSelector((state) => state.cart);
+  const { wishlist = [] } = useSelector((state) => state.wishlist);
 
   const productName = encodeURIComponent(data.name.replace(/\s+/g, "-"));
+
+  const removeFromWishlistHandler = (data) => {
+    setClick(!click);
+    dispatch(removeFromWishlistAction(data));
+  };
+
+  const addFromWishlistHandler = (data) => {
+    setClick(!click);
+    dispatch(addToWishlistAction(data));
+  };
 
   useEffect(() => {
     if (cart) {
       const isItemInCart = cart.some((item) => item._id === data._id);
       setInCart(isItemInCart);
     }
-  }, [cart, data._id]);
+    if (wishlist && wishlist.find((item) => item._id === data._id)) {
+      setClick(true);
+    } else {
+      setClick(false);
+    }
+  }, [cart, data._id, wishlist]);
 
   const handleCartClick = () => {
     if (inCart) {
@@ -99,7 +119,7 @@ function ProductCard({ data }) {
           <AiFillHeart
             size={22}
             className="absolute right-2 top-5 cursor-pointer"
-            onClick={() => setClick(!click)}
+            onClick={() => removeFromWishlistHandler(data)}
             color="red"
             title="Remove from wishlist"
           />
@@ -107,7 +127,7 @@ function ProductCard({ data }) {
           <AiOutlineHeart
             size={22}
             className="absolute right-2 top-5 cursor-pointer"
-            onClick={() => setClick(!click)}
+            onClick={() => addFromWishlistHandler(data)}
             color="#333"
             title="Add to wishlist"
           />

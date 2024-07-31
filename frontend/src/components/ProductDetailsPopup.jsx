@@ -11,9 +11,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
+import {
+  addToWishlistAction,
+  removeFromWishlistAction,
+} from "../redux/actions/whishlist";
 
 function ProductDetailsPopup({ setOpen, data }) {
-  const { cart = [] } = useSelector((state) => state.cart); // Ensure cart is always an array
+  const { cart = [] } = useSelector((state) => state.cart);
+  const { wishlist = [] } = useSelector((state) => state.wishlist);
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
   const [inCart, setInCart] = useState(false);
@@ -23,7 +28,22 @@ function ProductDetailsPopup({ setOpen, data }) {
   useEffect(() => {
     const isItemExists = cart.find((i) => i._id === data._id);
     setInCart(!!isItemExists);
-  }, [cart, data._id]);
+    if (wishlist && wishlist.find((item) => item._id === data._id)) {
+      setClick(true);
+    } else {
+      setClick(false);
+    }
+  }, [cart, data._id, wishlist]);
+
+  const removeFromWishlistHandler = (data) => {
+    setClick(!click);
+    dispatch(removeFromWishlistAction(data));
+  };
+
+  const addFromWishlistHandler = (data) => {
+    setClick(!click);
+    dispatch(addToWishlistAction(data));
+  };
 
   const decrementCount = () => {
     if (count > 1) {
@@ -141,7 +161,7 @@ function ProductDetailsPopup({ setOpen, data }) {
                       <AiFillHeart
                         size={30}
                         className="cursor-pointer"
-                        onClick={() => setClick(!click)}
+                        onClick={() => removeFromWishlistHandler(data)}
                         color="red"
                         title="Remove from wishlist"
                       />
@@ -149,7 +169,7 @@ function ProductDetailsPopup({ setOpen, data }) {
                       <AiOutlineHeart
                         size={30}
                         className="cursor-pointer"
-                        onClick={() => setClick(!click)}
+                        onClick={() => addFromWishlistHandler(data)}
                         color="#333"
                         title="Add to wishlist"
                       />

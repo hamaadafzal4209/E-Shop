@@ -13,6 +13,10 @@ import Loader from "./Loader";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
+import {
+  addToWishlistAction,
+  removeFromWishlistAction,
+} from "../redux/actions/whishlist";
 
 function ProductDetail({ data }) {
   const [count, setCount] = useState(1);
@@ -22,11 +26,27 @@ function ProductDetail({ data }) {
 
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+  const { wishlist = [] } = useSelector((state) => state.wishlist);
 
   useEffect(() => {
     const isInCart = cart.some((item) => item._id === data._id);
     setInCart(isInCart);
-  }, [cart, data._id]);
+    if (wishlist && wishlist.find((item) => item._id === data._id)) {
+      setClick(true);
+    } else {
+      setClick(false);
+    }
+  }, [cart, data._id, wishlist]);
+
+  const removeFromWishlistHandler = (data) => {
+    setClick(!click);
+    dispatch(removeFromWishlistAction(data));
+  };
+
+  const addFromWishlistHandler = (data) => {
+    setClick(!click);
+    dispatch(addToWishlistAction(data));
+  };
 
   const handleMessageSubmit = () => {
     // Implement message sending functionality
@@ -145,7 +165,7 @@ function ProductDetail({ data }) {
                       <AiFillHeart
                         size={30}
                         className="cursor-pointer"
-                        onClick={() => setClick(!click)}
+                        onClick={() => removeFromWishlistHandler(data)}
                         color="red"
                         title="Remove from wishlist"
                       />
@@ -153,7 +173,7 @@ function ProductDetail({ data }) {
                       <AiOutlineHeart
                         size={30}
                         className="cursor-pointer"
-                        onClick={() => setClick(!click)}
+                        onClick={() => addFromWishlistHandler(data)}
                         color="#333"
                         title="Add to wishlist"
                       />

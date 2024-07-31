@@ -23,6 +23,7 @@ function Header() {
   const { allProducts } = useSelector((state) => state.products);
   const { isSeller } = useSelector((state) => state.seller);
   const { cart } = useSelector((state) => state.cart);
+  const { wishlist } = useSelector((state) => state.wishlist);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
@@ -150,7 +151,7 @@ function Header() {
               >
                 <AiOutlineHeart size={30} className="text-black" />
                 <span className="font-mono absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#3bc177] text-xs leading-tight text-white">
-                  0
+                  {wishlist && wishlist.length}
                 </span>
               </div>
               <div
@@ -308,7 +309,7 @@ function Header() {
               >
                 <AiOutlineHeart size={30} className="text-white opacity-75" />
                 <span className="font-mono absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#3bc177] text-xs leading-tight text-white">
-                  0
+                  {wishlist && wishlist.length}
                 </span>
               </div>
               <div

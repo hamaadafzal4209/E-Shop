@@ -1,19 +1,17 @@
-import { addToWhishlist, removeFromWhishlist } from "../reducers/whishlist";
+import { addToWishlist, removeFromWishlist } from "../reducers/whishlist";
 
-// add to whishlist action
-export const addToWhishlistAction = (data) => (dispatch, getState) => {
-  dispatch(addToWhishlist(data));
+export const addToWishlistAction = (data) => (dispatch, getState) => {
+  dispatch(addToWishlist(data));
   localStorage.setItem(
-    "whishlistItems",
-    JSON.stringify(getState().whishlist.whishlist),
+    "wishlistItems",
+    JSON.stringify(getState().wishlist.wishlist)
   );
 };
 
-// remove from whishlist action
-export const removeFromWhishlistAction = (id) => (dispatch, getState) => {
-  dispatch(removeFromWhishlist(id));
+export const removeFromWishlistAction = (id) => (dispatch, getState) => {
+  dispatch(removeFromWishlist(id));
   localStorage.setItem(
-    "whishlistItems",
-    JSON.stringify(getState().whishlist.whishlist),
+    "wishlistItems",
+    JSON.stringify(getState().wishlist.wishlist)
   );
 };

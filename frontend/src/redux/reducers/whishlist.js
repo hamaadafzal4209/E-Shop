@@ -1,29 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  whishlist: [],
+  wishlist: [],
 };
 
-const whishlistSlice = createSlice({
-  name: "whishlist",
+const wishlistSlice = createSlice({
+  name: "wishlist",
   initialState,
   reducers: {
-    addToCart: (state, action) => {
+    addToWishlist: (state, action) => {
       const item = action.payload;
-      const isItemExist = state.whishlist.find((i) => i._id === item._id);
+      const isItemExist = state.wishlist.find((i) => i._id === item._id);
       if (isItemExist) {
-        state.whishlist = state.whishlist.map((i) =>
-          i._id === isItemExist._id ? item : i,
+        state.wishlist = state.wishlist.map((i) =>
+          i._id === isItemExist._id ? item : i
         );
       } else {
-        state.whishlist.push(item);
+        state.wishlist.push(item);
       }
     },
-    removeFromCart: (state, action) => {
-      state.whishlist = state.whishlist.filter((i) => i._id !== action.payload);
+    removeFromWishlist: (state, action) => {
+      state.wishlist = state.wishlist.filter((i) => i._id !== action.payload);
     },
   },
 });
 
-export const { addToWhishlist, removeFromWhishlist } = whishlistSlice.actions;
-export default whishlistSlice.reducer;
+export const { addToWishlist, removeFromWishlist } = wishlistSlice.actions;
+export default wishlistSlice.reducer;
