@@ -1,31 +1,48 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { backend_url } from "../../server";
 import { AiOutlineCamera } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import Loader from "../Loader";
+import { updateUserInfomation } from "../../redux/actions/user";
+import { toast } from "react-toastify";
 
 function Profile() {
-  const { user } = useSelector((state) => state.user);
+  const { user, error } = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNUmber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
       setPhoneNumber(user.phoneNumber || "");
-      setPassword(user.password || "");
+      setPassword(""); 
     }
-  }, [user]);
+    if (error) {
+      toast.error(error);
+    }
+  }, [user, error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (password.length < 6) {
+      toast.error("Password should be at least 6 characters long");
+      return;
+    }
+    if (!/^\d+$/.test(phoneNumber)) {
+      toast.error("Phone number should contain only digits");
+      return;
+    }
+    dispatch(updateUserInfomation(email, name, password, phoneNumber));
   };
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
@@ -86,8 +103,8 @@ function Profile() {
               <input
                 type="text"
                 id="phone"
-                name="phonenumber"
-                value={phoneNUmber}
+                name="phoneNumber"
+                value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 className="mt-1 w-full px-2 py-1"
               />

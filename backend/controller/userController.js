@@ -147,3 +147,37 @@ export const Logout = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 500));
   }
 });
+
+// update user info
+export const updateUserInfo = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const { email, name, password, phoneNumber } = req.body;
+
+    // Ensure the user exists
+    const user = await userModel.findOne({ email }).select("+password");
+    if (!user) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    // Check if the password is correct
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) {
+      return next(new ErrorHandler("Incorrect password", 400));
+    }
+
+    // Update user information
+    user.name = name;
+    user.email = email;
+    user.phoneNumber = phoneNumber;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+

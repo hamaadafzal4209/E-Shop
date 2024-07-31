@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import ProfileContent from "../components/ProfilePageComponents/ProfileContent";
 import ProfileSidebar from "../components/ProfilePageComponents/ProfileSidebar";
+import Loader from "../components/Loader";
 
 function ProfilePage() {
   const [active, setActive] = useState(1);
@@ -16,7 +17,12 @@ function ProfilePage() {
     }
   }, [isAuthenticated, loading, navigate]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   return (
     <div>
