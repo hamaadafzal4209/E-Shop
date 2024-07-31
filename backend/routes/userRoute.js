@@ -5,7 +5,8 @@ import {
   getUser,
   loginUser,
   Logout,
-  updateUserInfo
+  updateUserInfo,
+  updateUserAvatar
 } from "../controller/userController.js";
 import multer from "multer";
 import { isAuthenticated } from "../middleware/auth.js";
@@ -27,5 +28,6 @@ userRouter.post("/login", loginUser);
 userRouter.get("/getuser", isAuthenticated, getUser);
 userRouter.get("/logout", isAuthenticated, Logout);
 userRouter.put("/update-user-info", isAuthenticated, updateUserInfo);
+userRouter.post("/update-avatar",isAuthenticated ,upload.single("file"), updateUserAvatar);
 
 export default userRouter;

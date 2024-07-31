@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import sendMail from "../utils/sendMail.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import sendToken from "../utils/jwtToken.js";
+import fs from "fs";
 
 // register user
 export const createUser = async (req, res, next) => {
@@ -181,3 +182,31 @@ export const updateUserInfo = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+// update user avatar
+export const updateUserAvatar = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const existUser = await userModel.findById(req.user.id);
+
+    if (!existUser) {
+      return next(new ErrorHandler("User not found!", 500));
+    }
+
+    const existAvatarPath = `uploads/${existUser.avatar}`;
+
+    fs.unlinkSync(existAvatarPath);
+
+    const fileUrl = path.join(req.file.filename);
+
+    const user = await userModel.findByIdAndUpdate(req.user.id, {
+      avatar: fileUrl,
+    });
+
+    res.status(200) /
+      json({
+        success: true,
+        user,
+      });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
