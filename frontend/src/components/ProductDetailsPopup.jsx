@@ -1,20 +1,30 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RxCross1 } from "react-icons/rx";
 import {
-  AiFillHeart,
-  AiOutlineHeart,
   AiOutlineMessage,
   AiOutlineShoppingCart,
+  AiFillHeart,
+  AiOutlineHeart,
 } from "react-icons/ai";
 import { backend_url } from "../server";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { addTocartAction } from "../redux/actions/cart";
 
 function ProductDetailsPopup({ setOpen, data }) {
+  const { cart } = useSelector((state) => state.cart);
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
+  const [inCart, setInCart] = useState(false);
 
-  const handleMessageSubmit = () => {};
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Check if the product is already in the cart
+    const isItemExists = cart.find((i) => i._id === data._id);
+    setInCart(!!isItemExists);
+  }, [cart, data._id]);
 
   const decrementCount = () => {
     if (count > 1) {
@@ -24,6 +34,21 @@ function ProductDetailsPopup({ setOpen, data }) {
 
   const incrementCount = () => {
     setCount(count + 1);
+  };
+
+  const handleCartButtonClick = () => {
+    if (inCart) {
+      toast.info("Item is already in the cart!");
+    } else {
+      if (data.stock < count) {
+        toast.error("Product stock limited!");
+      } else {
+        const cartData = { ...data, qty: count };
+        dispatch(addTocartAction(cartData));
+        setInCart(true);
+        toast.success("Item added to cart successfully!");
+      }
+    }
   };
 
   return (
@@ -36,7 +61,6 @@ function ProductDetailsPopup({ setOpen, data }) {
               className="absolute right-3 top-3 z-50 cursor-pointer"
               onClick={() => setOpen(false)}
             />
-
             <div className="block w-full gap-6 md:flex">
               {/* left */}
               <div className="w-full md:w-1/2">
@@ -67,7 +91,7 @@ function ProductDetailsPopup({ setOpen, data }) {
                 {/* send message button */}
                 <button
                   className="my-3 flex items-center gap-2 rounded-md bg-black px-5 py-3 text-white"
-                  onClick={handleMessageSubmit}
+                  onClick={() => console.log("Message sent")}
                 >
                   Send Message <AiOutlineMessage size={22} />
                 </button>
@@ -134,8 +158,16 @@ function ProductDetailsPopup({ setOpen, data }) {
                   </div>
                 </div>
                 {/* add to cart button */}
-                <button className="my-4 flex items-center gap-2 rounded-md bg-black px-5 py-3 text-white">
-                  Add to cart <AiOutlineShoppingCart size={22} />
+                <button
+                  className={`my-4 flex items-center gap-2 rounded-md ${
+                    inCart
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-black"
+                  } px-5 py-3 text-white`}
+                  onClick={handleCartButtonClick}
+                >
+                  {inCart ? "Already in cart" : "Add to cart"}{" "}
+                  <AiOutlineShoppingCart size={22} />
                 </button>
               </div>
             </div>

@@ -22,6 +22,7 @@ function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const { allProducts } = useSelector((state) => state.products);
   const { isSeller } = useSelector((state) => state.seller);
+  const { cart } = useSelector((state) => state.cart);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
@@ -89,7 +90,7 @@ function Header() {
               className="absolute right-2 top-2 cursor-pointer"
             />
             {searchTerm && searchData && (
-              <div className="absolute top-full z-10 mt-2 w-full bg-white p-4 shadow-lg overflow-y-auto">
+              <div className="absolute top-full z-10 mt-2 w-full overflow-y-auto bg-white p-4 shadow-lg">
                 {searchData.length === 0 ? (
                   <div className="flex w-full items-start py-2">
                     <h1>No products found</h1>
@@ -158,7 +159,7 @@ function Header() {
               >
                 <AiOutlineShoppingCart size={30} className="text-black" />
                 <span className="font-mono absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#3bc177] text-xs leading-tight text-white">
-                  0
+                  {cart ? cart.length : 0}
                 </span>
               </div>
               <div className="flex-shrink-0 cursor-pointer">
@@ -319,7 +320,7 @@ function Header() {
                   className="text-white opacity-75"
                 />
                 <span className="font-mono absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#3bc177] text-xs leading-tight text-white">
-                  0
+                  {cart ? cart.length : 0}
                 </span>
               </div>
               <div className="flex-shrink-0 cursor-pointer">

@@ -1,15 +1,13 @@
 import { addToCart, removeFromCart } from "../reducers/cart";
 
-// add to cart
-export const addTocart = (data) => async (dispatch, getState) => {
+// add to cart action
+export const addTocartAction = (data) => (dispatch, getState) => {
   dispatch(addToCart(data));
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cart));
-  return data;
 };
 
-// remove from cart
-export const removeFromCartItem = (data) => async (dispatch, getState) => {
-  dispatch(removeFromCart(data._id));
+// remove from cart action
+export const removeFromCartAction = (id) => (dispatch, getState) => {
+  dispatch(removeFromCart(id));
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cart));
-  return data;
 };

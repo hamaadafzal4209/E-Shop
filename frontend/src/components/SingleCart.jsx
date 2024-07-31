@@ -1,43 +1,67 @@
+// SingleCart.js
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { backend_url } from "../server";
 
-function SingleCart({ data }) {
-  const [value, setValue] = useState(1);
-  const totalPrice = data.price * value;
+function SingleCart({ data, quantityChangeHandler, removeFromCartHandler }) {
+  const [value, setValue] = useState(data.qty);
+  const totalPrice = data.discountPrice * value;
+
+  const increment = () => {
+    if (data.stock <= value) {
+      toast.error("Product stock limited!");
+    } else {
+      setValue(value + 1);
+      const updateCartData = { ...data, qty: value + 1 };
+      quantityChangeHandler(updateCartData);
+    }
+  };
+
+  const decrement = () => {
+    if (value > 1) {
+      setValue(value - 1);
+      const updateCartData = { ...data, qty: value - 1 };
+      quantityChangeHandler(updateCartData);
+    }
+  };
 
   return (
-    <div className="border-b p-4">
-      <div className="w-full flex items-center gap-4">
+    <div className="py-4 pr-2">
+      <div className="flex w-full items-center gap-2">
         <div className="flex flex-col gap-1">
           <div
-            className="bg-[#e44343] border border-[#e4434373] rounded-full w-6 h-6 flex items-center justify-center text-white cursor-pointer"
-            onClick={() => setValue(value + 1)}
+            className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-[#e4434373] bg-[#e44343] text-white"
+            onClick={increment}
           >
             <FaPlus size={16} />
           </div>
           <span className="text-center">{value}</span>
           <div
-            className="bg-[#a7abb14f] border border-[#e4434373] rounded-full w-6 h-6 flex items-center justify-center cursor-pointer"
-            onClick={() => setValue(value === 1 ? 1 : value - 1)}
+            className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-[#e4434373] bg-[#a7abb14f]"
+            onClick={decrement}
           >
             <FaMinus size={16} color="#7d879c" />
           </div>
         </div>
         <div className="">
           <img
-            src="https://media.istockphoto.com/id/488160041/photo/mens-shirt.jpg?s=612x612&w=0&k=20&c=xVZjKAUJecIpYc_fKRz_EB8HuRmXCOOPOtZ-ST6eFvQ="
-            className="w-20 h-20 object-contain"
-            alt=""
+            src={`${backend_url}/${data.images[0]}`}
+            className="h-20 w-20 object-contain"
+            alt={data.name}
           />
         </div>
-        <div>
-          <h2 className="font-semibold ">{data.name}</h2>
-          <h4 className="font-normal text-sm py-1 text-[#00000082]">
-            {data.price} * {value}
+        <div className="w-full">
+          <h2 className="font-semibold">{data.name}</h2>
+          <h4 className="py-1 text-sm font-normal text-[#00000082]">
+            ${data.discountPrice} * {value}
           </h4>
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-[#d02222]">${totalPrice}</h3>
-            <span className="text-red-600 hover:underline text-sm cursor-pointer">
+            <h3 className="font-semibold text-[#d02222]">${totalPrice.toFixed(2)}</h3>
+            <span
+              className="cursor-pointer text-sm text-red-600 hover:underline"
+              onClick={() => removeFromCartHandler(data)}
+            >
               remove
             </span>
           </div>

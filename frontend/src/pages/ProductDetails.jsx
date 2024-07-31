@@ -24,8 +24,8 @@ function ProductDetails() {
   }, [dispatch, allProducts]);
 
   // Log the productName and allProducts for debugging
-  console.log("Product Name:", productName);
-  console.log("All Products:", allProducts);
+  // console.log("Product Name:", productName);
+  // console.log("All Products:", allProducts);
 
   // Normalize product names for comparison
   const normalizeName = (name) =>
@@ -37,19 +37,19 @@ function ProductDetails() {
   const normalizedProductName = normalizeName(productName);
 
   // Log normalized names for debugging
-  allProducts.forEach((product) => {
-    console.log(
-      "Normalized Product in allProducts:",
-      normalizeName(product.name),
-    );
-  });
+  // allProducts.forEach((product) => {
+  //   console.log(
+  //     "Normalized Product in allProducts:",
+  //     normalizeName(product.name),
+  //   );
+  // });
 
   const product = allProducts.find(
     (p) => normalizeName(p.name) === normalizedProductName,
   );
 
   // Log the found product for debugging
-  console.log("Found Product:", product);
+  // console.log("Found Product:", product);
 
   if (isLoading) {
     return <h1 className="p-6 text-center"><Loader/></h1>;

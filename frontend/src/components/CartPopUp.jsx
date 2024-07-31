@@ -1,77 +1,65 @@
+// CartPopUp.js
 import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 import SingleCart from "./SingleCart";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
 
-function CartPopUp({ setOpenCart }) {
-  const cartData = [
-    {
-      name: "MacBook pro M2 chipset 256gb ssd 8gb ram",
-      description: "test",
-      price: 240,
-    },
-    {
-      name: "MacBook pro M2 chipset 256gb ssd 8gb ram",
-      description: "test",
-      price: 240,
-    },
-    {
-      name: "MacBook pro M2 chipset 256gb ssd 8gb ram",
-      description: "test",
-      price: 240,
-    },
-    {
-      name: "MacBook pro M2 chipset 256gb ssd 8gb ram",
-      description: "test",
-      price: 240,
-    },
-    {
-      name: "MacBook pro M2 chipset 256gb ssd 8gb ram",
-      description: "test",
-      price: 240,
-    },
-  ];
+const CartPopUp = ({ setOpenCart }) => {
+  const { cart } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const removeFromCartHandler = (data) => {
+    dispatch(removeFromCartAction(data._id));
+  };
+
+  const quantityChangeHandler = (data) => {
+    dispatch(addTocartAction(data));
+  };
+
+  const totalPrice = cart.reduce((acc, item) => acc + item.qty * item.discountPrice, 0);
 
   return (
-    <div className="animate-fadeIn fixed right-0 top-0 z-[300] h-full w-full bg-[#0000004b]">
-      <div className="fixed right-0 top-0 flex h-full w-full max-w-sm flex-col justify-between overflow-auto bg-white shadow-sm">
-        <div className="custom-scrollbar overflow-auto pt-[30px]">
-          {/* cross icon */}
-          <div>
-            <RxCross1
-              size={25}
-              className="absolute right-3 top-3 z-[200] cursor-pointer"
-              onClick={() => setOpenCart(false)}
-            />
-          </div>
-          {/* item length */}
-          <div className="flex items-center gap-2 p-4">
-            <IoBagHandleOutline size={25} className="inline-block" />
-            <h5 className="text-[20px] font-semibold">3 items</h5>
-          </div>
-
-          {/* cart items */}
-          <div className="w-full border-t">
-            {cartData &&
-              cartData.map((item, index) => (
-                <SingleCart key={index} data={item} />
-              ))}
-          </div>
+    <div className="fixed left-0 top-0 z-[300] flex h-screen w-full items-center justify-end bg-[#0000004b]">
+      <div className="h-full w-full max-w-sm bg-[#f5f5f5] p-4">
+        <div className="flex w-full items-center justify-end">
+          <RxCross1 size={25} className="cursor-pointer" onClick={() => setOpenCart(false)} />
         </div>
-
-        {/* checkout button */}
-        <div className="border-t bg-white px-4 py-4 text-white">
-          <Link to="/checkout">
-            <div className="flex h-11 w-full items-center justify-center rounded-md bg-[#e44343]">
-              <h1 className="font-semibold text-white">
-                Checkout Now (USD$1000)
-              </h1>
+        {cart.length === 0 ? (
+          <div className="flex h-[90vh] w-full items-center justify-center">
+            <p>Your cart is empty!</p>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center">
+              <IoBagHandleOutline size={25} />
+              <h5 className="pl-2 text-[20px] font-[500]">{cart.length} items</h5>
             </div>
-          </Link>
-        </div>
+            <div className="custom-scrollbar h-[75%] w-full overflow-y-auto">
+              {cart.map((i, index) => (
+                <SingleCart
+                  data={i}
+                  key={index}
+                  quantityChangeHandler={quantityChangeHandler}
+                  removeFromCartHandler={removeFromCartHandler}
+                />
+              ))}
+            </div>
+            <div className="border-t border-[#e1e1e1] p-5">
+              <Link to="/checkout">
+                <div className="flex h-[45px] w-[100%] items-center justify-center rounded-[5px] bg-[#e44343]">
+                  <h1 className="text-[18px] font-[600] text-white">
+                    Checkout Now (USD${totalPrice.toFixed(2)})
+                  </h1>
+                </div>
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default CartPopUp;
