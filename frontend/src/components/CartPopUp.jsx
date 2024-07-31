@@ -1,4 +1,3 @@
-// CartPopUp.js
 import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 import SingleCart from "./SingleCart";
@@ -7,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
 
 const CartPopUp = ({ setOpenCart }) => {
-  const { cart } = useSelector((state) => state.cart);
+  const { cart = [] } = useSelector((state) => state.cart); // Ensure cart is always an array
   const dispatch = useDispatch();
 
   const removeFromCartHandler = (data) => {
@@ -22,12 +21,12 @@ const CartPopUp = ({ setOpenCart }) => {
 
   return (
     <div className="fixed left-0 top-0 z-[300] flex h-screen w-full items-center justify-end bg-[#0000004b]">
-      <div className="h-full w-full max-w-sm bg-[#f5f5f5] p-4">
+      <div className="h-full w-full max-w-sm bg-[#f5f5f5] p-4 flex flex-col">
         <div className="flex w-full items-center justify-end">
           <RxCross1 size={25} className="cursor-pointer" onClick={() => setOpenCart(false)} />
         </div>
         {cart.length === 0 ? (
-          <div className="flex h-[90vh] w-full items-center justify-center">
+          <div className="flex-grow flex items-center justify-center">
             <p>Your cart is empty!</p>
           </div>
         ) : (
@@ -36,7 +35,7 @@ const CartPopUp = ({ setOpenCart }) => {
               <IoBagHandleOutline size={25} />
               <h5 className="pl-2 text-[20px] font-[500]">{cart.length} items</h5>
             </div>
-            <div className="custom-scrollbar h-[75%] w-full overflow-y-auto">
+            <div className="custom-scrollbar flex-grow h-[75%] w-full overflow-y-auto">
               {cart.map((i, index) => (
                 <SingleCart
                   data={i}
@@ -46,11 +45,11 @@ const CartPopUp = ({ setOpenCart }) => {
                 />
               ))}
             </div>
-            <div className="border-t border-[#e1e1e1] p-5">
+            <div className="border-t border-[#e1e1e1] p-5 mt-auto">
               <Link to="/checkout">
-                <div className="flex h-[45px] w-[100%] items-center justify-center rounded-[5px] bg-[#e44343]">
+                <div className="flex h-[45px] w-full items-center justify-center rounded-[5px] bg-[#e44343]">
                   <h1 className="text-[18px] font-[600] text-white">
-                    Checkout Now (USD${totalPrice.toFixed(2)})
+                    Checkout Now (USD$ {totalPrice.toFixed(2)})
                   </h1>
                 </div>
               </Link>

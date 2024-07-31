@@ -10,10 +10,10 @@ import { backend_url } from "../server";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addTocartAction } from "../redux/actions/cart";
+import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
 
 function ProductDetailsPopup({ setOpen, data }) {
-  const { cart } = useSelector((state) => state.cart);
+  const { cart = [] } = useSelector((state) => state.cart); // Ensure cart is always an array
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
   const [inCart, setInCart] = useState(false);
@@ -21,7 +21,6 @@ function ProductDetailsPopup({ setOpen, data }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Check if the product is already in the cart
     const isItemExists = cart.find((i) => i._id === data._id);
     setInCart(!!isItemExists);
   }, [cart, data._id]);
@@ -38,7 +37,8 @@ function ProductDetailsPopup({ setOpen, data }) {
 
   const handleCartButtonClick = () => {
     if (inCart) {
-      toast.info("Item is already in the cart!");
+      dispatch(removeFromCartAction(data._id));
+      setInCart(false);
     } else {
       if (data.stock < count) {
         toast.error("Product stock limited!");
@@ -46,7 +46,6 @@ function ProductDetailsPopup({ setOpen, data }) {
         const cartData = { ...data, qty: count };
         dispatch(addTocartAction(cartData));
         setInCart(true);
-        toast.success("Item added to cart successfully!");
       }
     }
   };
@@ -157,16 +156,16 @@ function ProductDetailsPopup({ setOpen, data }) {
                     )}
                   </div>
                 </div>
-                {/* add to cart button */}
+                {/* add to cart / remove from cart button */}
                 <button
-                  className={`my-4 flex items-center gap-2 rounded-md ${
+                  className={`my-4 flex items-center gap-2 rounded-md px-5 py-3 text-white ${
                     inCart
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-black"
-                  } px-5 py-3 text-white`}
+                      ? "bg-red-500 hover:bg-red-600"
+                      : "bg-black hover:bg-gray-800"
+                  }`}
                   onClick={handleCartButtonClick}
                 >
-                  {inCart ? "Already in cart" : "Add to cart"}{" "}
+                  {inCart ? "Remove from cart" : "Add to cart"}{" "}
                   <AiOutlineShoppingCart size={22} />
                 </button>
               </div>

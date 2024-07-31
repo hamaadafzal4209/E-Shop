@@ -1,21 +1,32 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AiFillHeart,
   AiOutlineHeart,
   AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-
+import { MdOutlineRemoveShoppingCart } from "react-icons/md"; // Import the remove icon
 import ProductDetailInfo from "./ProductDetailInfo";
 import { backend_url } from "../server";
 import Loader from "./Loader";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
 
 function ProductDetail({ data }) {
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
   const [select, setSelect] = useState(0);
+  const [inCart, setInCart] = useState(false);
+
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cart);
+
+  useEffect(() => {
+    const isInCart = cart.some((item) => item._id === data._id);
+    setInCart(isInCart);
+  }, [cart, data._id]);
 
   const handleMessageSubmit = () => {
     // Implement message sending functionality
@@ -29,6 +40,15 @@ function ProductDetail({ data }) {
 
   const incrementCount = () => {
     setCount(count + 1);
+  };
+
+  const handleCartClick = () => {
+    if (inCart) {
+      dispatch(removeFromCartAction(data._id));
+    } else {
+      dispatch(addTocartAction({ ...data, qty: count }));
+    }
+    setInCart(!inCart);
   };
 
   if (!data) {
@@ -141,8 +161,23 @@ function ProductDetail({ data }) {
                   </div>
                 </div>
                 {/* add to cart button */}
-                <button className="my-4 flex items-center gap-2 rounded-md bg-black px-5 py-3 text-white">
-                  Add to cart <AiOutlineShoppingCart size={22} />
+                <button
+                  className={`my-4 flex items-center gap-2 rounded-md bg-black px-5 py-3 text-white ${
+                    inCart
+                      ? "bg-red-500 hover:bg-red-600"
+                      : "bg-black hover:bg-gray-800"
+                  } `}
+                  onClick={handleCartClick}
+                >
+                  {inCart ? (
+                    <>
+                      Remove from cart <MdOutlineRemoveShoppingCart size={22} />
+                    </>
+                  ) : (
+                    <>
+                      Add to cart <AiOutlineShoppingCart size={22} />
+                    </>
+                  )}
                 </button>
                 <div className="my-8 flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-6">
                   <div className="flex items-center gap-2">
