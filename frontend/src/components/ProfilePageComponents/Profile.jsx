@@ -30,14 +30,6 @@ function Profile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password.length < 6) {
-      toast.error("Password should be at least 6 characters long");
-      return;
-    }
-    if (!/^\d+$/.test(phoneNumber)) {
-      toast.error("Phone number should contain only digits");
-      return;
-    }
     dispatch(updateUserInfomation(email, name, password, phoneNumber));
   };
 

@@ -3,9 +3,10 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Country, City } from "country-state-city";
+import { updateUserAddress } from "../../redux/actions/user";
 
 function UserAddress() {
   const [open, setOpen] = useState(false);
@@ -16,6 +17,8 @@ function UserAddress() {
   const [address2, setAddress2] = useState("");
   const [addressType, setAddressType] = useState("");
   const { user } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   const addressTypeData = [
     { name: "default" },
@@ -29,9 +32,17 @@ function UserAddress() {
     if (addressType === "" || country === "" || city === "") {
       toast.error("Please fill all the fields!");
     } else {
-      // Add address submit logic here
+      dispatch(
+        updateUserAddress(country, city, address1, address2, addressType),
+      );
       toast.success("Address added successfully!");
       setOpen(false);
+      setCountry("");
+      setCity("");
+      setAddress1();
+      setAddress2();
+      setAddressType();
+      setZipCode();
     }
   };
 
@@ -47,20 +58,28 @@ function UserAddress() {
         </button>
       </div>
       <br />
-      <div className="flex h-[70px] w-full items-center justify-between rounded-md bg-white px-3 pr-10">
-        <div className="flex items-center">
-          <h5 className="font-semibold">Default</h5>
-        </div>
-        <div className="flex items-center gap-4">
-          <h5 className="font-semibold">ABC, XYZ Street, City</h5>
-        </div>
-        <div className="flex items-center gap-4">
-          <h5 className="font-semibold">1111 2222 333 44</h5>
-        </div>
-        <div className="flex min-w-[10%] items-center justify-center pl-8">
-          <AiOutlineDelete size={25} className="cursor-pointer" />
-        </div>
-      </div>
+      {user &&
+        user.addresses.map((item, index) => (
+          <div
+            key={index}
+            className="mx-auto mb-4 flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow duration-300 ease-in-out hover:shadow-md"
+          >
+            <div className="flex-1 pr-4">
+              <h5 className="text-md font-medium text-gray-900">
+                {item?.addressType}
+              </h5>
+              <p className="text-base font-semibold text-gray-600">{item?.address1}</p>
+              <p className="text-sm text-gray-500">{user.phoneNumber}</p>
+            </div>
+            <div className="flex-shrink-0 p-4 hover:bg-red-50">
+              <AiOutlineDelete
+                size={20}
+                className="cursor-pointer text-gray-500 transition-colors duration-300 ease-in-out hover:text-red-600"
+              />
+            </div>
+          </div>
+        ))}
+
       {open && (
         <div className="fixed inset-0 flex h-screen w-full items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="relative flex w-full max-w-2xl items-center justify-center p-4">
@@ -127,7 +146,7 @@ function UserAddress() {
                       </select>
                     </div>
                   </div>
-                
+
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <label

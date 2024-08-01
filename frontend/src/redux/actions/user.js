@@ -7,6 +7,9 @@ import {
   updateUserInfoRequest,
   updateUserInfoSuccess,
   updateUserInfoFailed,
+  updateUserAddressFailed,
+  updateUserAddressRequest,
+  updateUserAddressSuccess,
 } from "../reducers/user.js";
 import {
   loadSellerFail,
@@ -60,5 +63,27 @@ export const updateUserInfomation =
       dispatch(updateUserInfoSuccess(data.user));
     } catch (error) {
       dispatch(updateUserInfoFailed(error.response.data.message));
+    }
+  };
+
+// update user address
+export const updateUserAddress =
+  (country, city, address1, address2, addressType) => async (dispatch) => {
+    try {
+      dispatch(updateUserAddressRequest());
+      const { data } = await axios.put(
+        `${server}/user/update-user-addresses`,
+        {
+          country,
+          city,
+          address1,
+          address2,
+          addressType,
+        },
+        { withCredentials: true },
+      );
+      dispatch(updateUserAddressSuccess(data.user));
+    } catch (error) {
+      dispatch(updateUserAddressFailed(error));
     }
   };

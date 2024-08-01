@@ -167,7 +167,7 @@ function Header() {
                 {isAuthenticated ? (
                   <Link to="/profile">
                     <img
-                      src={`${backend_url}/${user.avatar}`}
+                      src={`${backend_url}/${user?.avatar}`}
                       className="h-8 w-8 rounded-full object-cover object-top"
                       alt=""
                     />
@@ -328,7 +328,7 @@ function Header() {
                 {isAuthenticated ? (
                   <Link to="/profile">
                     <img
-                      src={`${backend_url}/${user.avatar}`}
+                      src={`${backend_url}/${user?.avatar}`}
                       className="h-8 w-8 rounded-full object-cover object-top"
                       alt=""
                     />
