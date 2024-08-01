@@ -7,6 +7,7 @@ import {
   Logout,
   updateUserInfo,
   updateUserAvatar,
+  updateUserAddress
 } from "../controller/userController.js";
 import multer from "multer";
 import { isAuthenticated } from "../middleware/auth.js";
@@ -34,5 +35,6 @@ userRouter.put(
   upload.single("file"),
   updateUserAvatar
 );
+userRouter.put("/update-user-addresses", isAuthenticated, updateUserAddress);
 
 export default userRouter;
