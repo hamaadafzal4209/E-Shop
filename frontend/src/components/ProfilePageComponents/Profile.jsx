@@ -1,18 +1,21 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
-import { backend_url } from "../../server";
+import { backend_url, server } from "../../server";
 import { AiOutlineCamera } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import Loader from "../Loader";
 import { updateUserInfomation } from "../../redux/actions/user";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function Profile() {
-  const { user, error } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -21,12 +24,9 @@ function Profile() {
       setName(user.name);
       setEmail(user.email);
       setPhoneNumber(user.phoneNumber || "");
-      setPassword(""); 
+      setPassword("");
     }
-    if (error) {
-      toast.error(error);
-    }
-  }, [user, error]);
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +39,29 @@ function Profile() {
       return;
     }
     dispatch(updateUserInfomation(email, name, password, phoneNumber));
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    setAvatar(file);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await axios.put(`${server}/user/update-avatar`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        toast.success("Avatar updated successfully");
+        window.location.reload();
+      }
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
   };
 
   if (!user) {
@@ -61,7 +84,15 @@ function Profile() {
             </div>
           )}
           <div className="absolute bottom-1.5 right-1.5 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-[#E3E9EE] shadow-sm">
-            <AiOutlineCamera />
+            <input
+              type="file"
+              id="avatar"
+              hidden
+              onChange={handleImageChange}
+            />
+            <label htmlFor="avatar">
+              <AiOutlineCamera />
+            </label>
           </div>
         </div>
       </div>

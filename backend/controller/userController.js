@@ -5,6 +5,7 @@ import sendMail from "../utils/sendMail.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import sendToken from "../utils/jwtToken.js";
 import fs from "fs";
+import path from "path";
 
 // register user
 export const createUser = async (req, res, next) => {
@@ -54,7 +55,6 @@ export const createUser = async (req, res, next) => {
 };
 
 // create activationtoken
-
 const createActivationToken = (user) => {
   return jwt.sign(user, process.env.ACTIVATION_SECRET, {
     expiresIn: "5m",
@@ -154,6 +154,8 @@ export const updateUserInfo = catchAsyncErrors(async (req, res, next) => {
   try {
     const { email, name, password, phoneNumber } = req.body;
 
+    console.log("Received phoneNumber:", phoneNumber);
+
     // Ensure the user exists
     const user = await userModel.findOne({ email }).select("+password");
     if (!user) {
@@ -170,6 +172,8 @@ export const updateUserInfo = catchAsyncErrors(async (req, res, next) => {
     user.name = name;
     user.email = email;
     user.phoneNumber = phoneNumber;
+
+    console.log("Updating user with phoneNumber:", user.phoneNumber);
 
     await user.save();
 
@@ -188,24 +192,25 @@ export const updateUserAvatar = catchAsyncErrors(async (req, res, next) => {
     const existUser = await userModel.findById(req.user.id);
 
     if (!existUser) {
-      return next(new ErrorHandler("User not found!", 500));
+      return next(new ErrorHandler("User not found!", 404));
     }
 
-    const existAvatarPath = `uploads/${existUser.avatar}`;
+    const existAvatarPath = path.join("uploads", existUser.avatar);
 
-    fs.unlinkSync(existAvatarPath);
+    // Remove existing avatar if it exists
+    if (fs.existsSync(existAvatarPath)) {
+      fs.unlinkSync(existAvatarPath);
+    }
 
-    const fileUrl = path.join(req.file.filename);
+    const fileUrl = req.file.filename;
 
-    const user = await userModel.findByIdAndUpdate(req.user.id, {
-      avatar: fileUrl,
+    existUser.avatar = fileUrl;
+    await existUser.save();
+
+    res.status(200).json({
+      success: true,
+      user: existUser,
     });
-
-    res.status(200) /
-      json({
-        success: true,
-        user,
-      });
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
   }
