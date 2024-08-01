@@ -33,7 +33,14 @@ function UserAddress() {
       toast.error("Please fill all the fields!");
     } else {
       dispatch(
-        updateUserAddress(country, city, address1, address2, addressType,zipCode),
+        updateUserAddress(
+          country,
+          city,
+          address1,
+          address2,
+          addressType,
+          zipCode,
+        ),
       );
       toast.success("Address added successfully!");
       setOpen(false);
@@ -80,7 +87,7 @@ function UserAddress() {
               <p className="text-sm text-gray-500">{user.phoneNumber}</p>
             </div>
             <div
-              className="flex-shrink-0 p-4 hover:bg-red-50 rounded-md transition-all duration-300 cursor-pointer"
+              className="flex-shrink-0 cursor-pointer rounded-md p-4 transition-all duration-300 hover:bg-red-50"
               onClick={() => handleDelete(item)}
             >
               <AiOutlineDelete
@@ -91,9 +98,11 @@ function UserAddress() {
           </div>
         ))}
 
-        {user && user.addresses.length === 0 && (
-          <p className="text-center p-4 text-lg text-indigo-800 font-semibold">You not have any saved address</p>
-        )}
+      {user && user.addresses.length === 0 && (
+        <p className="p-4 text-center text-lg font-semibold text-indigo-800">
+          You not have any saved address
+        </p>
+      )}
 
       {open && (
         <div className="fixed inset-0 flex h-screen w-full items-center justify-center bg-gray-800 bg-opacity-75">

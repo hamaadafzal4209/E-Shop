@@ -2,6 +2,7 @@ import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import couponsCodeModel from "../model/couponCodeModel.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 
+// create coupoun code
 export const createCoupon = catchAsyncErrors(async (req, res, next) => {
   try {
     const isCoupounCodeExists = await couponsCodeModel.findOne({
@@ -23,6 +24,7 @@ export const createCoupon = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+// get all coupons of a shop
 export const getCoupons = catchAsyncErrors(async (req, res, next) => {
   try {
     const couponCodes = await couponsCodeModel.find({ shopId: req.seller.id });
@@ -35,6 +37,7 @@ export const getCoupons = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+// delete coupoun code of a shop
 export const deleteCoupon = catchAsyncErrors(async (req, res, next) => {
   try {
     const couponCode = await couponsCodeModel.findByIdAndDelete(req.params.id);
@@ -48,5 +51,25 @@ export const deleteCoupon = catchAsyncErrors(async (req, res, next) => {
     });
   } catch (error) {
     return next(new ErrorHandler(error, 400));
+  }
+});
+
+// get coupon code value by its name
+export const getCoupnCode = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const couponCode = await couponsCodeModel.findOne({
+      name: req.params.name,
+    });
+
+    if (couponCode) {
+      return next(new ErrorHandler("Coupon Code not exists", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      couponCode,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error, 500));
   }
 });
