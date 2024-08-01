@@ -1,6 +1,6 @@
 import AllOrders from "./AllOrders";
 import AllRefundOrders from "./AllRefundOrders";
-import PaymentMethod from "./PaymentMethod";
+import ChangePassword from "./ChangePassword";
 import Profile from "./Profile";
 import TrackOrders from "./TrackOrders";
 import UserAddress from "./UserAddress";
@@ -20,8 +20,8 @@ function ProfileContent({ active }) {
       {/* track ordres */}
       {active === 5 && <TrackOrders />}
 
-      {/* payment methods */}
-      {active === 6 && <PaymentMethod />}
+      {/* change password */}
+      {active === 6 && <ChangePassword />}
 
       {/* user address */}
       {active === 7 && <UserAddress />}

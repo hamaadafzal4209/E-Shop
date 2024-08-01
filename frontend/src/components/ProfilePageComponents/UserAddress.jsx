@@ -92,7 +92,7 @@ function UserAddress() {
         ))}
 
         {user && user.addresses.length === 0 && (
-          <p className="text-center p-4 text-lg text-indigo-800 font-semibold">You do not have any saved address</p>
+          <p className="text-center p-4 text-lg text-indigo-800 font-semibold">You not have any saved address</p>
         )}
 
       {open && (
