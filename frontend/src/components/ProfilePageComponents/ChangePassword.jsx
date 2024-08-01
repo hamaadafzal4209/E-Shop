@@ -2,12 +2,16 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import { server } from "../../server";
 
 function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +23,7 @@ function ChangePassword() {
         { withCredentials: true },
       )
       .then(() => {
-        toast.success("Password updated succesfully!");
+        toast.success("Password updated successfully!");
         setOldPassword("");
         setNewPassword("");
         setConfirmPassword("");
@@ -33,7 +37,7 @@ function ChangePassword() {
     <div className="w-full px-5 py-8">
       <h1 className="mb-4 text-xl font-semibold">Change Password</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <div>
+        <div className="relative">
           <label
             htmlFor="oldPassword"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
@@ -41,7 +45,7 @@ function ChangePassword() {
             Old Password
           </label>
           <input
-            type="password"
+            type={showOldPassword ? "text" : "password"}
             name="oldPassword"
             id="oldPassword"
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
@@ -50,9 +54,15 @@ function ChangePassword() {
             onChange={(e) => setOldPassword(e.target.value)}
             required
           />
+          <div
+            className="absolute top-10 right-0 flex items-center pr-3 cursor-pointer"
+            onClick={() => setShowOldPassword((prev) => !prev)}
+          >
+            {showOldPassword ? <VscEyeClosed size={20} /> : <VscEye size={20} />}
+          </div>
         </div>
 
-        <div>
+        <div className="relative">
           <label
             htmlFor="newPassword"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
@@ -60,7 +70,7 @@ function ChangePassword() {
             New Password
           </label>
           <input
-            type="password"
+            type={showNewPassword ? "text" : "password"}
             name="newPassword"
             id="newPassword"
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
@@ -69,9 +79,15 @@ function ChangePassword() {
             onChange={(e) => setNewPassword(e.target.value)}
             required
           />
+          <div
+            className="absolute top-10 right-0 flex items-center pr-3 cursor-pointer"
+            onClick={() => setShowNewPassword((prev) => !prev)}
+          >
+            {showNewPassword ? <VscEyeClosed size={20} /> : <VscEye size={20} />}
+          </div>
         </div>
 
-        <div>
+        <div className="relative">
           <label
             htmlFor="confirmPassword"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
@@ -79,7 +95,7 @@ function ChangePassword() {
             Confirm Password
           </label>
           <input
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             name="confirmPassword"
             id="confirmPassword"
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
@@ -88,6 +104,12 @@ function ChangePassword() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          <div
+            className="absolute top-10 right-0 flex items-center pr-3 cursor-pointer"
+            onClick={() => setShowConfirmPassword((prev) => !prev)}
+          >
+            {showConfirmPassword ? <VscEyeClosed size={20} /> : <VscEye size={20} />}
+          </div>
         </div>
 
         <Button
