@@ -7,7 +7,7 @@ import {
   Logout,
   updateUserInfo,
   updateUserAvatar,
-  updateUserAddress
+  updateUserAddress,deleteUserAddress
 } from "../controller/userController.js";
 import multer from "multer";
 import { isAuthenticated } from "../middleware/auth.js";
@@ -36,5 +36,6 @@ userRouter.put(
   updateUserAvatar
 );
 userRouter.put("/update-user-addresses", isAuthenticated, updateUserAddress);
+userRouter.delete("/delete-user-address/:id", isAuthenticated, deleteUserAddress);
 
 export default userRouter;

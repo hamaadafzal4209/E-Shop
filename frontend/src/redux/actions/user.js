@@ -10,6 +10,9 @@ import {
   updateUserAddressFailed,
   updateUserAddressRequest,
   updateUserAddressSuccess,
+  deleteUserAddressRequest,
+  deleteUserAddressSuccess,
+  deleteUserAddressFailed,
 } from "../reducers/user.js";
 import {
   loadSellerFail,
@@ -73,17 +76,27 @@ export const updateUserAddress =
       dispatch(updateUserAddressRequest());
       const { data } = await axios.put(
         `${server}/user/update-user-addresses`,
-        {
-          country,
-          city,
-          address1,
-          address2,
-          addressType,
-        },
+        { country, city, address1, address2, addressType },
         { withCredentials: true },
       );
       dispatch(updateUserAddressSuccess(data.user));
     } catch (error) {
-      dispatch(updateUserAddressFailed(error));
+      dispatch(updateUserAddressFailed(error.response.data.message));
     }
   };
+
+// delete user address
+export const deleteUserAddress = (id) => async (dispatch) => {
+  try {
+    dispatch(deleteUserAddressRequest());
+    const { data } = await axios.delete(
+      `${server}/user/delete-user-address/${id}`,
+      {
+        withCredentials: true,
+      },
+    );
+    dispatch(deleteUserAddressSuccess(data.user));
+  } catch (error) {
+    dispatch(deleteUserAddressFailed(error.response.data.message));
+  }
+};

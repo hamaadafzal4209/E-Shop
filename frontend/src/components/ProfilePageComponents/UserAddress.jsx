@@ -6,7 +6,7 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Country, City } from "country-state-city";
-import { updateUserAddress } from "../../redux/actions/user";
+import { deleteUserAddress, updateUserAddress } from "../../redux/actions/user";
 
 function UserAddress() {
   const [open, setOpen] = useState(false);
@@ -35,15 +35,19 @@ function UserAddress() {
       dispatch(
         updateUserAddress(country, city, address1, address2, addressType),
       );
-      toast.success("Address added successfully!");
       setOpen(false);
       setCountry("");
       setCity("");
-      setAddress1();
-      setAddress2();
-      setAddressType();
-      setZipCode();
+      setAddress1("");
+      setAddress2("");
+      setAddressType("");
+      setZipCode("");
     }
+  };
+
+  const handleDelete = (item) => {
+    const id = item._id;
+    dispatch(deleteUserAddress(id));
   };
 
   return (
@@ -68,10 +72,15 @@ function UserAddress() {
               <h5 className="text-md font-medium text-gray-900">
                 {item?.addressType}
               </h5>
-              <p className="text-base font-semibold text-gray-600">{item?.address1}</p>
+              <p className="text-base font-semibold text-gray-600">
+                {item?.address1}
+              </p>
               <p className="text-sm text-gray-500">{user.phoneNumber}</p>
             </div>
-            <div className="flex-shrink-0 p-4 hover:bg-red-50">
+            <div
+              className="flex-shrink-0 p-4 hover:bg-red-50"
+              onClick={() => handleDelete(item)}
+            >
               <AiOutlineDelete
                 size={20}
                 className="cursor-pointer text-gray-500 transition-colors duration-300 ease-in-out hover:text-red-600"
