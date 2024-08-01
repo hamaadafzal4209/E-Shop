@@ -71,12 +71,13 @@ export const updateUserInfomation =
 
 // update user address
 export const updateUserAddress =
-  (country, city, address1, address2, addressType) => async (dispatch) => {
+  (country, city, address1, address2, addressType, zipCode) =>
+  async (dispatch) => {
     try {
       dispatch(updateUserAddressRequest());
       const { data } = await axios.put(
         `${server}/user/update-user-addresses`,
-        { country, city, address1, address2, addressType },
+        { country, city, address1, address2, addressType, zipCode },
         { withCredentials: true },
       );
       dispatch(updateUserAddressSuccess({ user: data.user }));

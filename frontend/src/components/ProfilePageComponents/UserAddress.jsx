@@ -33,7 +33,7 @@ function UserAddress() {
       toast.error("Please fill all the fields!");
     } else {
       dispatch(
-        updateUserAddress(country, city, address1, address2, addressType),
+        updateUserAddress(country, city, address1, address2, addressType,zipCode),
       );
       toast.success("Address added successfully!");
       setOpen(false);

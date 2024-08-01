@@ -1,8 +1,23 @@
+/* eslint-disable no-unused-vars */
 import { City, Country } from "country-state-city";
 
-function ShippingInfo() {
+function ShippingInfo({
+  user,
+  country,
+  setCountry,
+  city,
+  setCity,
+  userInfo,
+  setUserInfo,
+  address1,
+  setAddress1,
+  address2,
+  setAddress2,
+  zipCode,
+  setZipCode,
+}) {
   return (
-    <div className="md:mb-16 mt-4 w-full rounded-md bg-white p-6 shadow-sm md:w-3/5">
+    <div className="mt-4 w-full rounded-md bg-white p-6 shadow-sm md:w-3/5">
       <h5 className="pb-2 font-Poppins font-semibold">Shipping Address</h5>
       <form>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4">
@@ -16,6 +31,7 @@ function ShippingInfo() {
             <input
               type="text"
               name="name"
+              value={user && user.name}
               className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
@@ -29,6 +45,7 @@ function ShippingInfo() {
             <input
               type="email"
               name="email"
+              value={user && user.email}
               className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
@@ -44,6 +61,7 @@ function ShippingInfo() {
             <input
               type="number"
               name="phoneNumber"
+              value={user && user.phoneNumber}
               className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
@@ -57,6 +75,8 @@ function ShippingInfo() {
             <input
               type="number"
               name="zipCode"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
               className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
@@ -71,6 +91,8 @@ function ShippingInfo() {
             </label>
             <select
               id="selectedCountry"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select your country</option>
@@ -91,11 +113,13 @@ function ShippingInfo() {
             </label>
             <select
               id="selectedCity"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select your city</option>
               {City &&
-                City.getCitiesOfCountry().map((item) => (
+                City.getCitiesOfCountry(country).map((item) => (
                   <option key={item.name} value={item.name}>
                     {item.name}
                   </option>
@@ -114,6 +138,8 @@ function ShippingInfo() {
             <input
               type="text"
               name="address1"
+              value={address1}
+              onChange={(e) => setAddress1(e.target.value)}
               className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
@@ -127,11 +153,41 @@ function ShippingInfo() {
             <input
               type="text"
               name="address2"
+              value={address2}
+              onChange={(e) => setAddress2(e.target.value)}
               className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
         </div>
       </form>
+      <h5
+        className="mt-3 inline-block cursor-pointer"
+        onClick={() => setUserInfo(!userInfo)}
+      >
+        Choose from saved address
+      </h5>
+      {userInfo && (
+        <div>
+          {user &&
+            user.addresses.map((item, index) => (
+              <div className="flex w-full" key={index}>
+                <input
+                  type="checkbox"
+                  className="mr-1"
+                  value={item.addressType}
+                  onClick={() =>
+                    setAddress1(item.address1) ||
+                    setAddress2(item.address2) ||
+                    setZipCode(item.zipCode) ||
+                    setCountry(item.country) ||
+                    setCity(item.city)
+                  }
+                />
+                <h2 className="">{item.addressType}</h2>
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 }

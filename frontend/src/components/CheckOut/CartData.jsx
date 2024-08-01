@@ -1,6 +1,6 @@
 function CartData() {
   return (
-    <div className="mb-16 w-full rounded-md bg-white p-6 shadow-sm md:mt-4 md:w-2/5">
+    <div className="w-full rounded-md bg-white p-6 shadow-sm md:mt-4 md:w-2/5">
       <div className="space-y-4">
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm text-gray-600">subtotal</p>
