@@ -91,6 +91,10 @@ function UserAddress() {
           </div>
         ))}
 
+        {user && user.addresses.length === 0 && (
+          <p className="text-center p-4 text-lg text-indigo-800 font-semibold">You do not have any saved address</p>
+        )}
+
       {open && (
         <div className="fixed inset-0 flex h-screen w-full items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="relative flex w-full max-w-2xl items-center justify-center p-4">
