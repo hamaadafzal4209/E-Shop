@@ -79,7 +79,7 @@ export const updateUserAddress =
         { country, city, address1, address2, addressType },
         { withCredentials: true },
       );
-      dispatch(updateUserAddressSuccess(data.user));
+      dispatch(updateUserAddressSuccess({ user: data.user }));
     } catch (error) {
       dispatch(updateUserAddressFailed(error.response.data.message));
     }
@@ -91,11 +91,9 @@ export const deleteUserAddress = (id) => async (dispatch) => {
     dispatch(deleteUserAddressRequest());
     const { data } = await axios.delete(
       `${server}/user/delete-user-address/${id}`,
-      {
-        withCredentials: true,
-      },
+      { withCredentials: true },
     );
-    dispatch(deleteUserAddressSuccess(data.user));
+    dispatch(deleteUserAddressSuccess({ user: data.user }));
   } catch (error) {
     dispatch(deleteUserAddressFailed(error.response.data.message));
   }

@@ -35,19 +35,21 @@ function UserAddress() {
       dispatch(
         updateUserAddress(country, city, address1, address2, addressType),
       );
+      toast.success("Address added successfully!");
       setOpen(false);
       setCountry("");
       setCity("");
-      setAddress1("");
-      setAddress2("");
-      setAddressType("");
-      setZipCode("");
+      setAddress1();
+      setAddress2();
+      setAddressType();
+      setZipCode();
     }
   };
 
   const handleDelete = (item) => {
     const id = item._id;
     dispatch(deleteUserAddress(id));
+    toast.info("Address deleted successfully!");
   };
 
   return (
@@ -78,7 +80,7 @@ function UserAddress() {
               <p className="text-sm text-gray-500">{user.phoneNumber}</p>
             </div>
             <div
-              className="flex-shrink-0 p-4 hover:bg-red-50"
+              className="flex-shrink-0 p-4 hover:bg-red-50 rounded-md transition-all duration-300 cursor-pointer"
               onClick={() => handleDelete(item)}
             >
               <AiOutlineDelete
