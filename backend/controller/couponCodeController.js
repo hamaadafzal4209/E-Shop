@@ -61,7 +61,7 @@ export const getCoupnCode = catchAsyncErrors(async (req, res, next) => {
       name: req.params.name,
     });
 
-    if (couponCode) {
+    if (!couponCode) {
       return next(new ErrorHandler("Coupon Code not exists", 404));
     }
 
