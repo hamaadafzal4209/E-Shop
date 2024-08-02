@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import store from "./redux/store";
 import { loadSeller, loadUser } from "./redux/actions/user";
 import Login from "./pages/Login";
@@ -31,18 +32,43 @@ import ShopPreviewPage from "./pages/ShopPages/ShopPreviewPage";
 import { getAllProducts } from "./redux/actions/product";
 import { getAllEvents } from "./redux/actions/event";
 import PaymentPage from "./pages/PaymentPage";
+import axios from "axios";
+import { server } from "./server";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
+  const [stripeApiKey, setStripeApiKey] = useState("");
+  async function getStripeApiKey() {
+    const { data } = await axios.get(`${server}/payment/stripeapikey`);
+    setStripeApiKey(data.stripeApiKey);
+  }
+
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(loadSeller());
     store.dispatch(getAllProducts());
     store.dispatch(getAllEvents());
+    getStripeApiKey();
   }, []);
 
   return (
     <>
       <BrowserRouter>
+        {stripeApiKey && (
+          <Elements stripe={loadStripe(stripeApiKey)}>
+            <Routes>
+              <Route
+                path="/payment"
+                element={
+                  <ProtectedRoute>
+                    <PaymentPage />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </Elements>
+        )}
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -70,14 +96,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <CheckOutPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/payment"
-            element={
-              <ProtectedRoute>
-                <PaymentPage />
               </ProtectedRoute>
             }
           />

@@ -49,7 +49,7 @@ function CheckOut() {
         totalPrice,
         subTotalPrice,
         shipping,
-        discountPrice,
+        discountPrice: discountPrice ? discountPrice : 0,
         shippingAddress,
         user,
       };
