@@ -1,4 +1,9 @@
 /* eslint-disable no-unused-vars */
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+} from "@stripe/react-stripe-js";
 import { useState } from "react";
 
 function PaymentInfo({
@@ -11,7 +16,7 @@ function PaymentInfo({
   cashOnDeliveryHandler,
 }) {
   const [select, setSelect] = useState(1);
-  
+
   return (
     <div className="mt-4 w-full rounded-md bg-white p-6 shadow-sm md:w-3/5">
       {/* select buttons */}
@@ -41,10 +46,12 @@ function PaymentInfo({
                     htmlFor="name"
                     className="mb-1 block text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Card Number
+                    Name on card
                   </label>
                   <input
-                    type="number"
+                    type="text"
+                    placeholder={user && user.name}
+                    value={user && user.name}
                     className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
@@ -55,10 +62,25 @@ function PaymentInfo({
                   >
                     Exp Date
                   </label>
-                  <input
-                    type="date"
+                  <CardExpiryElement
                     className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                  />
+                    options={{
+                      style: {
+                        base: {
+                          fontSize: "16px",
+                          lineHeight: 1.5,
+                          color: "#444",
+                        },
+                        empty: {
+                          color: "#3a120a",
+                          backgroundColor: "transparent",
+                          "::placeholder": {
+                            color: "#444",
+                          },
+                        },
+                      },
+                    }}
+                  ></CardExpiryElement>
                 </div>
               </div>
               <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4">
@@ -67,24 +89,54 @@ function PaymentInfo({
                     htmlFor="name"
                     className="mb-1 block text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Name on card
+                    Card NUmber
                   </label>
-                  <input
-                    type="text"
+                  <CardNumberElement
                     className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                  />
+                    options={{
+                      style: {
+                        base: {
+                          fontSize: "16px",
+                          lineHeight: 1.5,
+                          color: "#444",
+                        },
+                        empty: {
+                          color: "#3a120a",
+                          backgroundColor: "transparent",
+                          "::placeholder": {
+                            color: "#444",
+                          },
+                        },
+                      },
+                    }}
+                  ></CardNumberElement>
                 </div>
                 <div>
                   <label
                     htmlFor="email"
                     className="mb-1 block text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Billing Address
+                    CVV
                   </label>
-                  <input
-                    type="text"
+                  <CardCvcElement
                     className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                  />
+                    options={{
+                      style: {
+                        base: {
+                          fontSize: "16px",
+                          lineHeight: 1.5,
+                          color: "#444",
+                        },
+                        empty: {
+                          color: "#3a120a",
+                          backgroundColor: "transparent",
+                          "::placeholder": {
+                            color: "#444",
+                          },
+                        },
+                      },
+                    }}
+                  ></CardCvcElement>
                 </div>
               </div>
               <button
