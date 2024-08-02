@@ -89,6 +89,7 @@ function PaymentInfo() {
         )}
 
         <br />
+
         <div>
           <div className="mb-2 flex w-full border-b pb-5">
             <div
@@ -107,12 +108,27 @@ function PaymentInfo() {
           {/* pay with payement */}
           {select === 2 && (
             <div>
-              <button
-                value="Pay Now"
-                className={`my-3 flex w-[150px] cursor-pointer items-center justify-center rounded-lg !bg-[#f63b60] py-2.5 text-[18px] font-[600] text-[#fff]`}
-              >
-                Pay Now
-              </button>
+              <form>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="mb-1 mt-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Paypal Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+                <button
+                  value="Pay Now"
+                  className={`my-3 flex w-[150px] cursor-pointer items-center justify-center rounded-lg !bg-[#f63b60] py-2.5 text-[18px] font-[600] text-[#fff]`}
+                >
+                  Pay Now
+                </button>
+              </form>
             </div>
           )}
         </div>

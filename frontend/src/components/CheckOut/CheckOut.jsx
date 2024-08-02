@@ -27,27 +27,36 @@ function CheckOut() {
   const paymentSubmit = (e) => {
     e.preventDefault();
 
-if (address1 === '' || address2 === '' || country === ''|| city === '' || zipCode === null ) {
-  toast.error("Please choose your delivered address") 
-}
-else{
-  const shippingAddress = () => {
-    address1, address2, zipCode, country, city;
-  };
+    if (
+      address1 === "" ||
+      address2 === "" ||
+      country === "" ||
+      city === "" ||
+      zipCode === null
+    ) {
+      toast.error("Please choose your delivered address");
+    } else {
+      const shippingAddress = {
+        address1,
+        address2,
+        zipCode,
+        country,
+        city,
+      };
 
-  const orderData = () => {
-    cart,
-      totalPrice,
-      subTotalPrice,
-      shipping,
-      discountPrice,
-      shippingAddress,
-      user;
-  };
+      const orderData = {
+        cart,
+        totalPrice,
+        subTotalPrice,
+        shipping,
+        discountPrice,
+        shippingAddress,
+        user,
+      };
 
-  localStorage.setItem("latestOrder", JSON.stringify(orderData));
-  navigate("/payment");
-}
+      localStorage.setItem("latestOrder", JSON.stringify(orderData));
+      navigate("/payment");
+    }
   };
 
   const subTotalPrice = cart.reduce(
