@@ -30,6 +30,7 @@ import ShopCoupounsCode from "./pages/ShopDashBoard/ShopCouponsCode";
 import ShopPreviewPage from "./pages/ShopPages/ShopPreviewPage";
 import { getAllProducts } from "./redux/actions/product";
 import { getAllEvents } from "./redux/actions/event";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   useEffect(() => {
@@ -69,6 +70,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <CheckOutPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <ProtectedRoute>
+                <PaymentPage />
               </ProtectedRoute>
             }
           />

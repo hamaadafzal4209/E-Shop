@@ -10,7 +10,7 @@ import { server } from "../../server";
 
 function CheckOut() {
   const { user } = useSelector((state) => state.user);
-  const { cart } = useSelector((state) => state.cart);
+  const { cart = [] } = useSelector((state) => state.cart);
 
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
@@ -24,6 +24,32 @@ function CheckOut() {
 
   const navigate = useNavigate();
 
+  const paymentSubmit = (e) => {
+    e.preventDefault();
+
+if (address1 === '' || address2 === '' || country === ''|| city === '' || zipCode === null ) {
+  toast.error("Please choose your delivered address") 
+}
+else{
+  const shippingAddress = () => {
+    address1, address2, zipCode, country, city;
+  };
+
+  const orderData = () => {
+    cart,
+      totalPrice,
+      subTotalPrice,
+      shipping,
+      discountPrice,
+      shippingAddress,
+      user;
+  };
+
+  localStorage.setItem("latestOrder", JSON.stringify(orderData));
+  navigate("/payment");
+}
+  };
+
   const subTotalPrice = cart.reduce(
     (acc, item) => acc + item.qty * item.discountPrice,
     0,
@@ -36,32 +62,34 @@ function CheckOut() {
     e.preventDefault();
     const name = couponCode;
 
-    await axios.get(`${server}/couponscode/get-coupon-value/${name}`).then((res) => {
-      const shopId = res.data.couponCode?.shopId;
-      const couponCodeValue = res.data.couponCode?.value;
-      if (res.data.couponCode !== null) {
-        const isCouponValid =
-          cart && cart.filter((item) => item.shopId === shopId);
+    await axios
+      .get(`${server}/couponscode/get-coupon-value/${name}`)
+      .then((res) => {
+        const shopId = res.data.couponCode?.shopId;
+        const couponCodeValue = res.data.couponCode?.value;
+        if (res.data.couponCode !== null) {
+          const isCouponValid =
+            cart && cart.filter((item) => item.shopId === shopId);
 
-        if (isCouponValid.length === 0) {
-          toast.error("Coupon code is not valid for this shop");
-          setCouponCode("");
-        } else {
-          const eligiblePrice = isCouponValid.reduce(
-            (acc, item) => acc + item.qty * item.discountPrice,
-            0,
-          );
-          const discountPrice = (eligiblePrice * couponCodeValue) / 100;
-          setDiscountPrice(discountPrice);
-          setCouponCodeData(res.data.couponCode);
+          if (isCouponValid.length === 0) {
+            toast.error("Coupon code is not valid for this shop");
+            setCouponCode("");
+          } else {
+            const eligiblePrice = isCouponValid.reduce(
+              (acc, item) => acc + item.qty * item.discountPrice,
+              0,
+            );
+            const discountPrice = (eligiblePrice * couponCodeValue) / 100;
+            setDiscountPrice(discountPrice);
+            setCouponCodeData(res.data.couponCode);
+            setCouponCode("");
+          }
+        }
+        if (res.data.couponCode === null) {
+          toast.error("Coupon code doesn't exists!");
           setCouponCode("");
         }
-      }
-      if (res.data.couponCode === null) {
-        toast.error("Coupon code doesn't exists!");
-        setCouponCode("");
-      }
-    });
+      });
   };
 
   const discountPercentenge = couponCodeData ? discountPrice : "";
@@ -100,7 +128,7 @@ function CheckOut() {
       </div>
       <div
         className={`mx-auto my-3 mb-10 mt-10 flex h-[50px] w-[150px] cursor-pointer items-center justify-center rounded-xl bg-black md:w-[280px]`}
-        onClick={() => navigate("/payment")}
+        onClick={paymentSubmit}
       >
         <h5 className="text-white">Go to Payment</h5>
       </div>
