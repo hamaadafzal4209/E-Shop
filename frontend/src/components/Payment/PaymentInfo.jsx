@@ -1,8 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 
-function PaymentInfo() {
+function PaymentInfo({
+  user,
+  open,
+  setOpen,
+  onApprove,
+  createOrder,
+  paymentHandler,
+  cashOnDeliveryHandler,
+}) {
   const [select, setSelect] = useState(1);
+  
   return (
     <div className="mt-4 w-full rounded-md bg-white p-6 shadow-sm md:w-3/5">
       {/* select buttons */}
