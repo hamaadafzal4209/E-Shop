@@ -11,6 +11,7 @@ import productRouter from "./routes/productRoute.js";
 import eventRouter from "./routes/eventRoute.js";
 import couponsCodeRouter from "./routes/couponsCodeRoute.js";
 import paymentRouter from "./routes/paymentRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 // config
 const app = express();
@@ -41,6 +42,7 @@ app.use("/api/product", productRouter);
 app.use("/api/event", eventRouter);
 app.use("/api/couponscode", couponsCodeRouter);
 app.use("/api/payment", paymentRouter);
+app.use("/api/order", orderRouter);
 
 // unhandled promise rejection
 process.on("unhandledRejection", (err) => {
