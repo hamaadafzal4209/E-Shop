@@ -4,7 +4,6 @@ import { backend_url } from "../server";
 import EventCountDown from "./EventCountDown";
 
 function EventCard({ data }) {
-  const productName = encodeURIComponent(data.name.replace(/\s+/g, "-"));
   return (
     <div className="items-center justify-between gap-6 rounded-lg bg-white p-8 px-6 shadow-sm md:px-12 lg:flex">
       <div className="flex w-full items-center justify-center lg:w-2/5">
@@ -33,10 +32,10 @@ function EventCard({ data }) {
         <EventCountDown data={data} />
         <div className="mb-4"></div>
         <div className="">
-          <Link to={`/product/${productName}`}>
-          <button className="inline-block cursor-pointer rounded-md bg-indigo-900 px-6 py-2 text-white">
-            See Details
-          </button>
+          <Link to={`/product/${data._id}?isEvent=true`}>
+            <button className="inline-block cursor-pointer rounded-md bg-indigo-900 px-6 py-2 text-white">
+              See Details
+            </button>
           </Link>
         </div>
       </div>
