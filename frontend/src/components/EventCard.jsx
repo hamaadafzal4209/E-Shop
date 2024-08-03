@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import { backend_url } from "../server";
 import EventCountDown from "./EventCountDown";
 
 function EventCard({ data }) {
+  const productName = encodeURIComponent(data.name.replace(/\s+/g, "-"));
   return (
-    <div className="rounded-lg bg-white p-8 px-6 shadow-sm md:px-12 lg:flex items-center justify-between gap-6">
+    <div className="items-center justify-between gap-6 rounded-lg bg-white p-8 px-6 shadow-sm md:px-12 lg:flex">
       <div className="flex w-full items-center justify-center lg:w-2/5">
         <img
-          className="w-full max-w-sm lg:w-[80%] object-contain"
+          className="w-full max-w-sm object-contain lg:w-[80%]"
           src={`${backend_url}/${data?.images[0]}`}
           alt={data?.name || "Event Image"}
         />
@@ -30,6 +32,13 @@ function EventCard({ data }) {
         </div>
         <EventCountDown data={data} />
         <div className="mb-4"></div>
+        <div className="">
+          <Link to={`/product/${productName}`}>
+          <button className="inline-block cursor-pointer rounded-md bg-indigo-900 px-6 py-2 text-white">
+            See Details
+          </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

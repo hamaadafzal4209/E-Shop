@@ -85,7 +85,7 @@ function App() {
             element={<ActivationUser />}
           />
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/product/:name" element={<ProductDetails />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/best-selling" element={<BestSelling />} />
           <Route path="/faq" element={<FAQs />} />
           <Route path="/events" element={<EventsPage />} />

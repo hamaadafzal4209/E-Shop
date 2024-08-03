@@ -48,22 +48,25 @@ function Payment() {
           "Content-Type": "application/json",
         },
       };
-  
+
+      // Request client secret from backend
       const { data } = await axios.post(
         `${server}/payment/process`,
         paymentData,
         config
       );
-  
+
       const client_secret = data.client_secret;
-  
+
       if (!stripe || !elements) return;
+
+      // Confirm the payment with Stripe
       const result = await stripe.confirmCardPayment(client_secret, {
         payment_method: {
           card: elements.getElement(CardNumberElement),
         },
       });
-  
+
       if (result.error) {
         toast.error(result.error.message);
       } else {
@@ -73,24 +76,29 @@ function Payment() {
             status: result.paymentIntent.status,
             type: "Credit Card",
           };
-  
+
+          // Create the order in the backend
           await axios.post(`${server}/order/create-order`, order, config);
+          console.log('Order created successfully');
+          
+          // Clear local storage
+          localStorage.setItem("cartItems", JSON.stringify([]));
+          localStorage.setItem("latestOrder", JSON.stringify([]));
+          console.log('Local storage cleared');
+          
           setOpen(false);
           navigate("/order/success");
           toast.success("Order successful!");
-          localStorage.setItem("cartItems", JSON.stringify([]));
-          localStorage.setItem("latestOrder", JSON.stringify([]));
-          window.location.reload();
         }
       }
     } catch (error) {
       toast.error(error.message);
     }
   };
-  
 
   const cashOnDeliveryHandler = async (e) => {
     e.preventDefault();
+    // Handle Cash on Delivery if needed
   };
 
   return (
