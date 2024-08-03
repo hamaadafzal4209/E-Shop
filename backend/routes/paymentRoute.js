@@ -1,5 +1,5 @@
 import express from "express";
-import { processPayment ,stripeApiKey} from "../controller/paymentController.js";
+import { processPayment, stripeApiKey } from "../controller/paymentController.js";
 
 const paymentRouter = express.Router();
 

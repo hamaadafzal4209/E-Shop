@@ -7,25 +7,25 @@ function PaymentCartData({ orderData }) {
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm text-gray-600">subtotal</p>
           <p className="text-base font-semibold text-gray-600">
-            ${orderData?.subTotalPrice}
+            ${orderData && orderData?.subTotalPrice}
           </p>
         </div>
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm text-gray-600">shipping</p>
           <p className="text-base font-semibold text-gray-600">
-            ${orderData?.shipping}
+            ${orderData && orderData?.shipping}
           </p>
         </div>
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm text-gray-600">Discount</p>
           <p className="text-base font-semibold text-gray-600">
-            ${orderData.discountPrice}
+            ${orderData && orderData.discountPrice}
           </p>
         </div>
         <hr />
         <div className="flex items-center justify-end gap-4">
           <p className="text-base font-semibold text-gray-600">
-            ${orderData?.totalPrice}
+            ${orderData && orderData?.totalPrice}
           </p>
         </div>
         <form>

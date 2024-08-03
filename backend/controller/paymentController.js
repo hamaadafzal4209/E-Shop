@@ -1,6 +1,10 @@
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+import ErrorHandler from "../utils/ErrorHandler.js";
+
+const stripe = new Stripe(
+  "sk_test_51Pc6H6JvBGOIHYX6E7TrQBZahracgr1gvrexjDJDJBqxy6pnqvI0W0szJIYgga0qCnbRuSDily0ZTtZeQ3XhT2nS00wThAKXSS"
+);
 
 export const processPayment = catchAsyncErrors(async (req, res, next) => {
   try {
@@ -11,13 +15,12 @@ export const processPayment = catchAsyncErrors(async (req, res, next) => {
         company: "eshop",
       },
     });
-
     res.status(200).json({
-      succees: true,
+      success: true,
       client_secret: myPayment.client_secret,
     });
   } catch (error) {
-    return next(new ErrorHandler(error, 500));
+    return next(new ErrorHandler(error.message, 500));
   }
 });
 
