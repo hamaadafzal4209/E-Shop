@@ -36,14 +36,20 @@ import axios from "axios";
 import { server } from "./server";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import OrderSuccessPage from "./pages/OrderSuccessPage";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
+ 
   async function getStripeApiKey() {
-    const { data } = await axios.get(`${server}/payment/stripeapikey`);
-    setStripeApiKey(data.stripeApiKey);
+    try {
+      const { data } = await axios.get(`${server}/payment/stripeapikey`);
+      setStripeApiKey(data.stripeApiKey);
+    } catch (error) {
+      console.error("Error fetching Stripe API key:", error);
+    }
   }
-
+  
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(loadSeller());
@@ -83,6 +89,7 @@ function App() {
           <Route path="/best-selling" element={<BestSelling />} />
           <Route path="/faq" element={<FAQs />} />
           <Route path="/events" element={<EventsPage />} />
+          <Route path="/order/success" element={<OrderSuccessPage />} />
           <Route
             path="/profile"
             element={
