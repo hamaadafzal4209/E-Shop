@@ -13,6 +13,8 @@ function UserOrderDetails() {
   const { orders, isLoading } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.user);
   const [status, setStatus] = useState();
+  const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("");
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -61,9 +63,12 @@ function UserOrderDetails() {
               </div>
               <div className="">
                 {data && data?.status === "Delivered" && (
-                  <div className="cursor-pointer whitespace-nowrap rounded-md bg-indigo-800 px-4 py-2 text-white">
+                  <button
+                    onClick={(e) => setOpen(true) || setSelectedItem(item)}
+                    className="cursor-pointer whitespace-nowrap rounded-md bg-indigo-800 px-4 py-2 text-white"
+                  >
                     Write a review
-                  </div>
+                  </button>
                 )}
               </div>
             </div>

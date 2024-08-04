@@ -99,8 +99,8 @@ function Header() {
                 ) : (
                   searchData.map((item) => (
                     <Link
-                      key={`${item.id}-${item.name}`}
-                      to={`/product/${item.name}`}
+                      key={`${item._id}-${item.name}`}
+                      to={`/product/${item._id}`}
                     >
                       <div className="flex w-full items-start py-2 hover:bg-gray-100">
                         <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center">
@@ -202,18 +202,16 @@ function Header() {
               ) : (
                 searchData.map((item) => (
                   <Link
-                    key={`${item.id}-${item.name}`}
-                    to={`/product/${item.name}`}
+                    key={`${item._id}-${item.name}`}
+                    to={`/product/${item._id}`}
                   >
                     <div className="flex w-full items-start py-2 hover:bg-gray-100">
                       <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center">
-                        {item.image_Url && item.image_Url.length > 0 && (
-                          <img
-                            src={item.image_Url[0].url}
-                            alt={item.name}
-                            className="mr-2 h-full w-full object-contain"
-                          />
-                        )}
+                        <img
+                          src={`${backend_url}/${item?.images[0]}`}
+                          alt={item.name}
+                          className="mr-2 h-full w-full object-contain"
+                        />
                       </div>
                       <h1 className="line-clamp-2">{item.name}</h1>
                     </div>
