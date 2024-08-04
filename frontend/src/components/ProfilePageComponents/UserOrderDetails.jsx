@@ -3,18 +3,21 @@ import { useEffect, useState } from "react";
 import { BsFillBagFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import {
-  getAllOrdersOfShop,
-  getAllOrdersOfUser,
-} from "../../redux/actions/order";
-import { backend_url } from "../../server";
+import { getAllOrdersOfUser } from "../../redux/actions/order";
+import { backend_url, server } from "../../server";
+import { RxCross1 } from "react-icons/rx";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function UserOrderDetails() {
   const { orders, isLoading } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.user);
   const [status, setStatus] = useState();
   const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [comment, setComment] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [rating, setRating] = useState(1);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -24,6 +27,31 @@ function UserOrderDetails() {
   }, [dispatch, user._id]);
 
   const data = orders && orders.find((item) => item._id === id);
+
+  const reviewHandler = async (e) => {
+    await axios
+      .put(
+        `${server}/product/create-new-review`,
+        {
+          user,
+          rating,
+          comment,
+          productId: selectedItem?._id,
+          orderId: id,
+        },
+        { withCredentials: true },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        dispatch(getAllOrdersOfUser(user._id));
+        setComment("");
+        setRating(null);
+        setOpen(false);
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  };
 
   return (
     <div className="section min-h-screen py-4 pb-10">
@@ -109,6 +137,94 @@ function UserOrderDetails() {
           Send Message
         </button>
       </Link>
+
+      {/* review popup */}
+      {open && (
+        <div className="fixed left-0 top-0 z-[500] flex h-screen w-full items-center justify-center bg-gray-800/50 p-6 shadow-sm">
+          <div className="custom-scrollbar max-h-[90vh] w-full max-w-3xl overflow-y-auto overflow-x-hidden rounded-md bg-[#fff] p-3 shadow">
+            <div className="flex w-full justify-end p-3">
+              <RxCross1
+                size={30}
+                onClick={() => setOpen(false)}
+                className="cursor-pointer"
+              />
+            </div>
+            <h2 className="text-center font-Poppins text-[30px] font-[500]">
+              Give a Review
+            </h2>
+            <br />
+            <div className="flex w-full">
+              <img
+                src={`${backend_url}/${selectedItem?.images[0]}`}
+                alt=""
+                className="h-[80px] w-[80px]"
+              />
+              <div>
+                <div className="line-clamp-2 pl-3 text-lg">
+                  {selectedItem?.name}
+                </div>
+                <h4 className="pl-3 text-lg">
+                  US${selectedItem?.discountPrice} x {selectedItem?.qty}
+                </h4>
+              </div>
+            </div>
+
+            <br />
+            <br />
+
+            {/* ratings */}
+            <h5 className="pl-3 text-lg font-[500]">
+              Give a Rating <span className="text-red-500">*</span>
+            </h5>
+            <div className="ml-2 flex w-full pt-1">
+              {[1, 2, 3, 4, 5].map((i) =>
+                rating >= i ? (
+                  <AiFillStar
+                    key={i}
+                    className="mr-1 cursor-pointer"
+                    color="rgb(246,186,0)"
+                    size={25}
+                    onClick={() => setRating(i)}
+                  />
+                ) : (
+                  <AiOutlineStar
+                    key={i}
+                    className="mr-1 cursor-pointer"
+                    color="rgb(246,186,0)"
+                    size={25}
+                    onClick={() => setRating(i)}
+                  />
+                ),
+              )}
+            </div>
+            <br />
+            <div className="ml-3 w-full">
+              <label className="block text-lg font-[500]">
+                Write a comment
+                <span className="ml-1 text-[16px] font-[400] text-[#00000052]">
+                  (optional)
+                </span>
+              </label>
+              <textarea
+                name="comment"
+                id=""
+                cols="20"
+                rows="5"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="How was your product? write your expresion about it!"
+                className="mt-2 w-[95%] border p-2 outline-none"
+              ></textarea>
+            </div>
+            <button
+              className={`ml-3 rounded-md bg-blue-500 px-6 py-2 text-lg text-white hover:bg-blue-600`}
+              onClick={rating > 1 ? reviewHandler : null}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
