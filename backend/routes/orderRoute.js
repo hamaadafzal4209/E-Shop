@@ -1,10 +1,17 @@
 import express from "express";
-import { createOrder,getAllUserOrders,getAllSellerOrders } from "../controller/orderController.js";
+import {
+  createOrder,
+  getAllUserOrders,
+  getAllSellerOrders,
+  updateOrderStatus,
+} from "../controller/orderController.js";
+import { isSeller } from "../middleware/auth.js";
 
 const orderRouter = express.Router();
 
 orderRouter.post("/create-order", createOrder);
 orderRouter.get("/get-all-orders/:userId", getAllUserOrders);
 orderRouter.get("/get-seller-all-orders/:shopId", getAllSellerOrders);
+orderRouter.put("/update-order-status/:id", isSeller, updateOrderStatus);
 
 export default orderRouter;

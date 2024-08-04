@@ -79,3 +79,54 @@ export const getAllSellerOrders = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 500));
   }
 });
+
+// update order status for seller
+export const updateOrderStatus = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const order = await orderModel.findById(req.params.id);
+
+    if (!order) {
+      return next(new ErrorHandler("Order not found with this id", 400));
+    }
+    if (req.body.status === "Transferred to delivery partner") {
+      order.cart.forEach(async (o) => {
+        await updateOrder(o._id, o.qty);
+      });
+    }
+
+    order.status = req.body.status;
+
+    if (req.body.status === "Delivered") {
+      order.deliveredAt = Date.now();
+      order.paymentInfo.status = "Succeeded";
+      const serviceCharge = order.totalPrice * 0.1;
+      await updateSellerInfo(order.totalPrice - serviceCharge);
+    }
+
+    await order.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      order,
+    });
+
+    async function updateOrder(id, qty) {
+      const product = await productModel.findById(id);
+
+      product.stock -= qty;
+      product.sold_out += qty;
+
+      await product.save({ validateBeforeSave: false });
+    }
+
+    async function updateSellerInfo(amount) {
+      const seller = await Shop.findById(req.seller.id);
+
+      seller.availableBalance = amount;
+
+      await seller.save();
+    }
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
