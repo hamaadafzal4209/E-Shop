@@ -3,6 +3,7 @@ import productModel from "../model/productModel.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 
+// create new order
 export const createOrder = catchAsyncErrors(async (req, res, next) => {
   try {
     const { cart, shippingAddress, user, totalPrice, paymentInfo } = req.body;
@@ -33,6 +34,24 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
     }
 
     res.status(201).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+// get all orders of user
+export const getAllUserOrders = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const orders = await orderModel
+      .find({ "user._id": req.params.userId })
+      .sort({
+        createdAt: -1,
+      });
+
+    res.status(200).json({
       success: true,
       orders,
     });

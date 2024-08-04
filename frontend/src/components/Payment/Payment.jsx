@@ -15,7 +15,6 @@ import { clearCartAction } from "../../redux/actions/cart";
 
 function Payment() {
   const { user } = useSelector((state) => state.user);
-  const { cart } = useSelector((state) => state.cart);
   const [orderData, setOrderData] = useState(null);
   const [open, setOpen] = useState(false);
 
