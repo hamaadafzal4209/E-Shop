@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   AiFillHeart,
-  AiFillStar,
   AiOutlineEye,
   AiOutlineHeart,
   AiOutlineShoppingCart,
-  AiOutlineStar,
 } from "react-icons/ai";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import ProductDetailsPopup from "./ProductDetailsPopup";
@@ -17,6 +15,7 @@ import {
   addToWishlistAction,
   removeFromWishlistAction,
 } from "../redux/actions/whishlist";
+import Ratings from "./Ratings";
 
 function ProductCard({ data }) {
   const [click, setClick] = useState(false);
@@ -83,40 +82,26 @@ function ProductCard({ data }) {
           </h5>
         </Link>
         <Link to={`/product/${productId}`}>
-          {" "}
-          {/* Update the Link to use productId */}
           <h5 className="mb-2 line-clamp-2 font-medium">{data?.name}</h5>
-          <div className="flex items-center">
-            {[...Array(4)].map((_, i) => (
-              <AiFillStar
-                key={i}
-                className="mr-1 cursor-pointer"
-                color="#F6BA00"
-                size={20}
-              />
-            ))}
-            <AiOutlineStar
-              className="mr-1 cursor-pointer"
-              color="#F6BA00"
-              size={20}
-            />
-          </div>
-          <div className="flex items-center justify-between pt-4">
-            <div className="flex items-center">
-              <h5 className="font-Roboto text-[18px] font-bold text-[#333]">
-                {data.discountPrice ? data.discountPrice : data.originalPrice}$
-              </h5>
-              {data.discountPrice && (
-                <h5 className="pl-2 text-[16px] font-[500] text-[#d55b45] line-through">
-                  {data?.originalPrice}$
-                </h5>
-              )}
-            </div>
-            <div className="text-[17px] font-normal text-[#68d284]">
-              <h5>{data?.sold_out} sold</h5>
-            </div>
-          </div>
         </Link>
+        <div className="flex">
+          <Ratings rating={data?.ratings} />
+        </div>
+        <div className="flex items-center justify-between pt-4">
+          <div className="flex items-center">
+            <h5 className="font-Roboto text-[18px] font-bold text-[#333]">
+              {data.discountPrice ? data.discountPrice : data.originalPrice}$
+            </h5>
+            {data.discountPrice && (
+              <h5 className="pl-2 text-[16px] font-[500] text-[#d55b45] line-through">
+                {data?.originalPrice}$
+              </h5>
+            )}
+          </div>
+          <div className="text-[17px] font-normal text-[#68d284]">
+            <h5>{data?.sold_out} sold</h5>
+          </div>
+        </div>
 
         {/* Side options */}
         {click ? (
