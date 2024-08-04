@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
 
 const CartPopUp = ({ setOpenCart }) => {
-  const { cart = [] } = useSelector((state) => state.cart); // Ensure cart is always an array
+  const { cart = [] } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const removeFromCartHandler = (data) => {

@@ -1,28 +1,28 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import PaymentCartData from "./PaymentCartData";
 import PaymentInfo from "./PaymentInfo";
 import {
-  CardNumberElement,
-  CardCvcElement,
-  CardExpiryElement,
   useStripe,
   useElements,
+  CardNumberElement,
 } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { server } from "../../server";
+import { clearCartAction } from "../../redux/actions/cart";
 
 function Payment() {
   const { user } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
   const [orderData, setOrderData] = useState(null);
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const orderData = JSON.parse(localStorage.getItem("latestOrder"));
@@ -53,7 +53,7 @@ function Payment() {
       const { data } = await axios.post(
         `${server}/payment/process`,
         paymentData,
-        config
+        config,
       );
 
       const client_secret = data.client_secret;
@@ -79,13 +79,14 @@ function Payment() {
 
           // Create the order in the backend
           await axios.post(`${server}/order/create-order`, order, config);
-          console.log('Order created successfully');
-          
-          // Clear local storage
+          console.log("Order created successfully");
+
+          // Clear local storage and update Redux state
           localStorage.setItem("cartItems", JSON.stringify([]));
           localStorage.setItem("latestOrder", JSON.stringify([]));
-          console.log('Local storage cleared');
-          
+          dispatch(clearCartAction());
+          console.log("Local storage cleared");
+
           setOpen(false);
           navigate("/order/success");
           toast.success("Order successful!");
@@ -98,7 +99,26 @@ function Payment() {
 
   const cashOnDeliveryHandler = async (e) => {
     e.preventDefault();
-    // Handle Cash on Delivery if needed
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    order.paymentInfo = {
+      type: "Cash On Delivery",
+    };
+
+    await axios.post(`${server}/order/create-order`, order, config).then(() => {
+      setOpen(false);
+      navigate("/order/success");
+      toast.success("Order successful!");
+      localStorage.setItem("cartItems", JSON.stringify([]));
+      localStorage.setItem("latestOrder", JSON.stringify([]));
+      dispatch(clearCartAction()); // Dispatch the clear cart action
+      window.location.reload();
+    });
   };
 
   return (

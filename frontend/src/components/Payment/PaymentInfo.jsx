@@ -215,7 +215,7 @@ function PaymentInfo({
                   type="submit"
                   className="my-3 flex w-[150px] cursor-pointer items-center justify-center rounded-lg bg-[#f63b60] py-2.5 text-[18px] font-[600] text-[#fff]"
                 >
-                  Submit
+                  Confirm
                 </button>
               </form>
             </div>

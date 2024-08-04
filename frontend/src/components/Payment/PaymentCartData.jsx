@@ -13,13 +13,13 @@ function PaymentCartData({ orderData }) {
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm text-gray-600">shipping</p>
           <p className="text-base font-semibold text-gray-600">
-            ${orderData && orderData?.shipping}
+            ${orderData && orderData?.shipping.toFixed(2)}
           </p>
         </div>
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm text-gray-600">Discount</p>
           <p className="text-base font-semibold text-gray-600">
-            ${orderData && orderData.discountPrice}
+            ${orderData && orderData.discountPrice.toFixed(2)}
           </p>
         </div>
         <hr />
