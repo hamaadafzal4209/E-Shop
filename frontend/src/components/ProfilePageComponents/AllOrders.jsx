@@ -81,10 +81,16 @@ function AllOrders() {
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        disableSelectionOnClick
-        autoHeight
-        pagination
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
       />
     </div>
   );

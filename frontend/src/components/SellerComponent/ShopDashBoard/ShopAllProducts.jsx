@@ -104,7 +104,7 @@ function ShopAllProducts() {
       name: item.name,
       price: `US$${item.discountPrice}`,
       stock: item.stock,
-      sold: 10, // This should ideally come from the product data
+      sold: 10,
     })) || [];
 
   return isLoading ? (

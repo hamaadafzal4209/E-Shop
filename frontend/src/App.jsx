@@ -37,10 +37,11 @@ import { server } from "./server";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
+import DashAllOrders from "./pages/ShopDashBoard/DashAllOrders";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
- 
+
   async function getStripeApiKey() {
     try {
       const { data } = await axios.get(`${server}/payment/stripeapikey`);
@@ -49,7 +50,7 @@ function App() {
       console.error("Error fetching Stripe API key:", error);
     }
   }
-  
+
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(loadSeller());
@@ -135,6 +136,14 @@ function App() {
             element={
               <SellerProtectedRoute>
                 <ShopCreateProduct />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard-orders"
+            element={
+              <SellerProtectedRoute>
+                <DashAllOrders />
               </SellerProtectedRoute>
             }
           />
