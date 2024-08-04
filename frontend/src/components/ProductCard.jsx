@@ -108,12 +108,12 @@ function ProductCard({ data }) {
               </h5>
               {data.discountPrice && (
                 <h5 className="pl-2 text-[16px] font-[500] text-[#d55b45] line-through">
-                  {data.originalPrice}$
+                  {data?.originalPrice}$
                 </h5>
               )}
             </div>
             <div className="text-[17px] font-normal text-[#68d284]">
-              <h5>{data.sold_out} sold</h5>
+              <h5>{data?.sold_out} sold</h5>
             </div>
           </div>
         </Link>

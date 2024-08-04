@@ -82,7 +82,7 @@ function UserOrderDetails() {
                 alt=""
               />
             </div>
-            <div className="flex flex-col items-start gap-4 md:flex-row w-full">
+            <div className="flex w-full flex-col items-start gap-4 md:flex-row">
               <div className="w-full">
                 <h5>{item?.name}</h5>
                 <h5 className="text-sm text-gray-500">

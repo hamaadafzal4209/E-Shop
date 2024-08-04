@@ -3,13 +3,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { backend_url } from "../server";
 import { useSelector } from "react-redux";
+import Ratings from "./Ratings";
 
 function ProductDetailInfo({ data }) {
   const [active, setActive] = useState(1);
   const { allProducts } = useSelector((state) => state.products);
 
   // Filter products by shop ID
-  const shopProducts = allProducts.filter((product) => product.shopId === data.shop._id);
+  const shopProducts = allProducts.filter(
+    (product) => product.shopId === data.shop._id,
+  );
 
   return (
     <div className="pb-12">
@@ -65,10 +68,36 @@ function ProductDetailInfo({ data }) {
             </div>
           )}
           {active === 2 && (
-            <div className="flex min-h-[40vh] w-full items-center justify-center">
-              <h3>No Reviews Yet?</h3>
+            <div className="min-h-[40vh] w-full">
+              {data?.reviews.length > 0 ? (
+                data.reviews.map((item, index) => (
+                  <div key={index} className="my-4 flex items-center gap-3 p-4">
+                    <img
+                      src={`${backend_url}/${item?.user?.avatar}`}
+                      alt={item.user.name}
+                      className="h-[50px] w-[50px] rounded-full object-cover"
+                    />
+                    <div className="">
+                      <div className="">
+                        <h1 className="text-lg leading-8 font-semibold text-gray-900">
+                          {item.user.name}
+                        </h1>
+                        <Ratings rating={item.rating} />
+                        <p className="text-gray-700">{item.comment}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <h5 className="text-lg font-medium text-gray-600">
+                    No reviews for this product!
+                  </h5>
+                </div>
+              )}
             </div>
           )}
+
           {active === 3 && data && data.shop && (
             <div className="block w-full p-4 md:flex">
               {/* left */}
@@ -96,16 +125,20 @@ function ProductDetailInfo({ data }) {
               <div className="mt-5 w-full flex-col items-end md:mt-0 md:flex md:w-1/2">
                 <div className="space-y-2 text-left">
                   <h5 className="font-semibold">
-                    Joined on <span className="font-medium">{data?.shop?.createdAt?.slice(0, 10)}</span>
+                    Joined on{" "}
+                    <span className="font-medium">
+                      {data?.shop?.createdAt?.slice(0, 10)}
+                    </span>
                   </h5>
                   <h5 className="font-semibold">
-                    Total Products <span className="font-medium">{shopProducts.length}</span>
+                    Total Products{" "}
+                    <span className="font-medium">{shopProducts.length}</span>
                   </h5>
                   <h5 className="font-semibold">
                     Total Reviews <span className="font-medium">131</span>
                   </h5>
                   <Link to={`/shop/preview/${data?.shop._id}`}>
-                    <button className="cursor-pointer bg-black px-10 py-2 mt-2 rounded-md text-white">
+                    <button className="mt-2 cursor-pointer rounded-md bg-black px-10 py-2 text-white">
                       Visit Shop
                     </button>
                   </Link>
