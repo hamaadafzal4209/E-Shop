@@ -38,6 +38,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import DashAllOrders from "./pages/ShopDashBoard/DashAllOrders";
+import ShopOrderDetails from "./pages/ShopPages/ShopOrderDetails";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -144,6 +145,14 @@ function App() {
             element={
               <SellerProtectedRoute>
                 <DashAllOrders />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/:id"
+            element={
+              <SellerProtectedRoute>
+                <ShopOrderDetails />
               </SellerProtectedRoute>
             }
           />
