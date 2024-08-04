@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
-import { createProduct, getAllShopProducts,deleteShopProduct, getAllProducts } from "../controller/productController.js";
-import { isSeller } from "../middleware/auth.js";
+import { createProduct, getAllShopProducts,deleteShopProduct, getAllProducts,createReview } from "../controller/productController.js";
+import { isAuthenticated, isSeller } from "../middleware/auth.js";
 
 const productRouter = express.Router();
 
@@ -19,5 +19,6 @@ productRouter.post("/create-product", upload.array("images"), createProduct);
 productRouter.get("/get-all-shop-products/:id", getAllShopProducts)
 productRouter.delete("/delete-shop-products/:id",isSeller, deleteShopProduct)
 productRouter.get("/get-all-products", getAllProducts)
+productRouter.get("/create-new-review",isAuthenticated, createReview)
 
 export default productRouter;
