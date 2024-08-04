@@ -71,20 +71,20 @@ function ProductDetailInfo({ data }) {
             <div className="min-h-[40vh] w-full">
               {data?.reviews.length > 0 ? (
                 data.reviews.map((item, index) => (
-                  <div key={index} className="my-4 flex items-center gap-3 p-4">
+                  <div key={index} className="my-4 flex items-center gap-3">
                     <img
                       src={`${backend_url}/${item?.user?.avatar}`}
                       alt={item.user.name}
                       className="h-[50px] w-[50px] rounded-full object-cover"
                     />
                     <div className="">
-                      <div className="">
-                        <h1 className="text-lg leading-8 font-semibold text-gray-900">
+                      <div className="flex items-center gap-2">
+                        <h1 className="text-lg font-semibold leading-8 text-gray-900">
                           {item.user.name}
                         </h1>
                         <Ratings rating={item.rating} />
-                        <p className="text-gray-700">{item.comment}</p>
                       </div>
+                      <p className="text-gray-700">{item.comment}</p>
                     </div>
                   </div>
                 ))
