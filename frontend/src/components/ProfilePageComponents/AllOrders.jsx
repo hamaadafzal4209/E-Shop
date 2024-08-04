@@ -2,20 +2,18 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllOrdersOfUser } from "../../redux/actions/order";
 
 function AllOrders() {
-  const orders = [
-    {
-      _id: "3872738263872y3x7nnx72362",
-      orderItems: [
-        {
-          name: "Iphone 14 pro max",
-        },
-      ],
-      totalPrice: 150,
-      orderStatus: "Processing",
-    },
-  ];
+  const { user } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.orders);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllOrdersOfUser(user._id));
+  }, [dispatch, user._id]);
 
   const columns = [
     {
@@ -56,7 +54,7 @@ function AllOrders() {
       sortable: false,
       renderCell: (params) => {
         return (
-          <Link to={`/order/${params.id}`}>
+          <Link to={`/user/order/${params.id}`}>
             <Button>
               <AiOutlineArrowRight size={20} />
             </Button>
@@ -66,21 +64,26 @@ function AllOrders() {
     },
   ];
 
-  const rows = orders.map((item) => ({
-    id: item._id,
-    itemQty: item.orderItems.length,
-    total: "USD " + item.totalPrice,
-    status: item.orderStatus,
-  }));
+  const row = [];
+
+  orders &&
+    orders.forEach((item) => {
+      row.push({
+        id: item._id,
+        itemsQty: item.cart.length,
+        total: "US$ " + item.totalPrice,
+        status: item.status,
+      });
+    });
 
   return (
-    <div className="pl-6 pt-1 font-semibold w-full">
+    <div className="w-full pl-6 pt-1 font-semibold">
       <DataGrid
-        rows={rows}
+        rows={row}
         columns={columns}
         pageSize={10}
+        disableSelectionOnClick
         autoHeight
-        disableRowSelectionOnClick
       />
     </div>
   );
