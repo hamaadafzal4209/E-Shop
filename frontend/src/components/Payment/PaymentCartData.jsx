@@ -28,17 +28,6 @@ function PaymentCartData({ orderData }) {
             ${orderData && orderData?.totalPrice}
           </p>
         </div>
-        <form>
-          <input
-            type="text"
-            name="couponCode"
-            placeholder="Coupon Code"
-            className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-          />
-          <button className="mt-4 w-full rounded-md border border-[#f63b60] bg-transparent p-2 text-center text-[#f63b60] transition-all duration-300 hover:bg-[#f63b60] hover:text-white">
-            Apply Coupon
-          </button>
-        </form>
       </div>
     </div>
   );

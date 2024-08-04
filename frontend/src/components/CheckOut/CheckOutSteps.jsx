@@ -36,7 +36,7 @@ function CheckOutSteps({ active }) {
             <div className="flex items-center">
               <div
                 className={`${
-                  active > 3
+                  active === 3
                      ? "h-[4px] bg-[#f63b60] w-[120px]"
                     : "h-[4px] bg-[#FDE1E6] w-[120px]"
                 }`}
