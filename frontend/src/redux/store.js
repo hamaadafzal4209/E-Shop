@@ -7,7 +7,8 @@ import sellerReducer from "./reducers/seller";
 import productReducer from "./reducers/product";
 import eventReducer from "./reducers/event";
 import cartReducer from "./reducers/cart";
-import whishlistReducer from "./reducers/whishlist";
+import wishlistReducer from "./reducers/whishlist";
+import orderReducer from "./reducers/order";
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   products: productReducer,
   events: eventReducer,
   cart: cartReducer,
-  wishlist: whishlistReducer,
+  wishlist: wishlistReducer,
+  orders: orderReducer,
 });
 
 const persistConfig = {
