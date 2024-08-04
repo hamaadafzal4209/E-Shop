@@ -82,7 +82,7 @@ function UserOrderDetails() {
                 alt=""
               />
             </div>
-            <div className="flex flex-col items-start gap-4 md:flex-row">
+            <div className="flex flex-col items-start gap-4 md:flex-row w-full">
               <div className="w-full">
                 <h5>{item?.name}</h5>
                 <h5 className="text-sm text-gray-500">
@@ -90,7 +90,7 @@ function UserOrderDetails() {
                 </h5>
               </div>
               <div className="">
-                {data && data?.status === "Delivered" && (
+                {!item.isReviewed && data?.status === "Delivered" && (
                   <button
                     onClick={(e) => setOpen(true) || setSelectedItem(item)}
                     className="cursor-pointer whitespace-nowrap rounded-md bg-indigo-800 px-4 py-2 text-white"
