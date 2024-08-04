@@ -13,7 +13,10 @@ import ProductDetailsPopup from "./ProductDetailsPopup";
 import { backend_url } from "../server";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
-import { addToWishlistAction, removeFromWishlistAction } from "../redux/actions/whishlist";
+import {
+  addToWishlistAction,
+  removeFromWishlistAction,
+} from "../redux/actions/whishlist";
 
 function ProductCard({ data }) {
   const [click, setClick] = useState(false);
@@ -24,7 +27,7 @@ function ProductCard({ data }) {
   const { cart = [] } = useSelector((state) => state.cart);
   const { wishlist = [] } = useSelector((state) => state.wishlist);
 
-  const productId = data._id; // Use product ID for linking
+  const productId = data._id;
 
   const removeFromWishlistHandler = (data) => {
     setClick(!click);
@@ -61,7 +64,9 @@ function ProductCard({ data }) {
   return (
     <>
       <div className="relative h-[370px] w-full cursor-pointer rounded-lg bg-white p-3 shadow-sm md:max-w-72">
-        <Link to={`/product/${productId}`}> {/* Update the Link to use productId */}
+        <Link to={`/product/${productId}`}>
+          {" "}
+          {/* Update the Link to use productId */}
           <img
             src={
               data.images && data.images.length > 0
@@ -77,13 +82,24 @@ function ProductCard({ data }) {
             {data.shop?.name || "Unknown Shop"}
           </h5>
         </Link>
-        <Link to={`/product/${productId}`}> {/* Update the Link to use productId */}
+        <Link to={`/product/${productId}`}>
+          {" "}
+          {/* Update the Link to use productId */}
           <h5 className="mb-2 line-clamp-2 font-medium">{data?.name}</h5>
           <div className="flex items-center">
             {[...Array(4)].map((_, i) => (
-              <AiFillStar key={i} className="mr-1 cursor-pointer" color="#F6BA00" size={20} />
+              <AiFillStar
+                key={i}
+                className="mr-1 cursor-pointer"
+                color="#F6BA00"
+                size={20}
+              />
             ))}
-            <AiOutlineStar className="mr-1 cursor-pointer" color="#F6BA00" size={20} />
+            <AiOutlineStar
+              className="mr-1 cursor-pointer"
+              color="#F6BA00"
+              size={20}
+            />
           </div>
           <div className="flex items-center justify-between pt-4">
             <div className="flex items-center">

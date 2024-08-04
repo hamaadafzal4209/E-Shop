@@ -32,7 +32,7 @@ function AllOrders() {
       },
     },
     {
-      field: "itemQty",
+      field: "itemsQty",
       headerName: "Item Qty",
       type: "number",
       minWidth: 130,
@@ -49,7 +49,7 @@ function AllOrders() {
       field: " ",
       flex: 1,
       minWidth: 150,
-      headerName: "",
+      headerName: "Order Detail",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -64,11 +64,11 @@ function AllOrders() {
     },
   ];
 
-  const row = [];
+  const rows = [];
 
   orders &&
     orders.forEach((item) => {
-      row.push({
+      rows.push({
         id: item._id,
         itemsQty: item.cart.length,
         total: "US$ " + item.totalPrice,
@@ -79,11 +79,12 @@ function AllOrders() {
   return (
     <div className="w-full pl-6 pt-1 font-semibold">
       <DataGrid
-        rows={row}
+        rows={rows}
         columns={columns}
-        pageSize={10}
+        pageSize={5}
         disableSelectionOnClick
         autoHeight
+        pagination
       />
     </div>
   );
