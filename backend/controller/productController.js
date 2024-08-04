@@ -1,4 +1,5 @@
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
+import orderModel from "../model/orderModel.js";
 import productModel from "../model/productModel.js";
 import shopModel from "../model/shopModel.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
@@ -132,7 +133,7 @@ export const createReview = catchAsyncErrors(async (req, res, next) => {
 
     await product.save({ validateBeforeSave: false });
 
-    await Order.findByIdAndUpdate(
+    await orderModel.findByIdAndUpdate(
       orderId,
       { $set: { "cart.$[elem].isReviewed": true } },
       { arrayFilters: [{ "elem._id": productId }], new: true }
