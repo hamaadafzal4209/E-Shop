@@ -24,7 +24,7 @@ function UserOrderDetails() {
   const data = orders && orders.find((item) => item._id === id);
 
   return (
-    <div className="section py-4">
+    <div className="section min-h-screen py-4 pb-10">
       <div className="flex items-center justify-between gap-4 py-4">
         <div className="flex items-center gap-2">
           <BsFillBagFill size={30} color="crimson" />
@@ -32,7 +32,7 @@ function UserOrderDetails() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 py-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-8">
         <h5 className="flex items-center gap-1 text-gray-600">
           Order ID: <span>#{data && data._id}</span>
         </h5>
@@ -55,7 +55,7 @@ function UserOrderDetails() {
             <div className="flex flex-col items-start gap-4 md:flex-row">
               <div className="w-full">
                 <h5>{item?.name}</h5>
-                <h5>
+                <h5 className="text-sm text-gray-500">
                   ${item?.discountPrice} * {item?.qty}
                 </h5>
               </div>
@@ -97,8 +97,13 @@ function UserOrderDetails() {
           </h4>
         </div>
       </div>
-
       <br />
+
+      <Link to="">
+        <button className="rounded-md bg-indigo-800 px-5 py-2.5 text-white">
+          Send Message
+        </button>
+      </Link>
     </div>
   );
 }

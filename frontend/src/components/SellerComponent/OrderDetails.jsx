@@ -25,7 +25,7 @@ function OrderDetails() {
   };
 
   return (
-    <div className="section py-4">
+    <div className="section min-h-screen py-4 pb-10">
       <div className="flex items-center justify-between gap-4 py-4">
         <div className="flex items-center gap-2">
           <BsFillBagFill size={30} color="crimson" />
@@ -40,7 +40,7 @@ function OrderDetails() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 py-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-8">
         <h5 className="flex items-center gap-1 text-gray-600">
           Order ID: <span>#{data && data._id}</span>
         </h5>
@@ -62,7 +62,7 @@ function OrderDetails() {
             </div>
             <div className="w-full">
               <h5>{item?.name}</h5>
-              <h5>
+              <h5 className="text-sm text-gray-500">
                 ${item?.discountPrice} * {item?.qty}
               </h5>
             </div>
@@ -131,7 +131,7 @@ function OrderDetails() {
       </select>
       <button
         onClick={handleUpdateOrder}
-        className="block my-4 rounded-md bg-[#fce1e6] px-4 py-2 font-semibold text-[#e94560]"
+        className="my-4 block rounded-md bg-[#fce1e6] px-4 py-2 font-semibold text-[#e94560]"
       >
         Update Status
       </button>
