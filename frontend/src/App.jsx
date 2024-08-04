@@ -39,6 +39,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import DashAllOrders from "./pages/ShopDashBoard/DashAllOrders";
 import ShopOrderDetails from "./pages/ShopPages/ShopOrderDetails";
+import OrderDetailPage from "./pages/OrderDetailPage";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -97,6 +98,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user/order/:id"
+            element={
+              <ProtectedRoute>
+                <OrderDetailPage />
               </ProtectedRoute>
             }
           />
