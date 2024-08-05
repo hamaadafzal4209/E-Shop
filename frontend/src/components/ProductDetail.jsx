@@ -27,6 +27,7 @@ function ProductDetail({ data }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const { wishlist = [] } = useSelector((state) => state.wishlist);
+  const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
     const isInCart = cart.some((item) => item._id === data._id);
@@ -86,6 +87,22 @@ function ProductDetail({ data }) {
   if (!images || images.length === 0) {
     console.log("No images available for this product.");
   }
+
+  const productReviewsLength =
+  products &&
+  products.reduce((acc, product) => acc + product.reviews.length, 0);
+
+const totalRatings =
+  products &&
+  products.reduce(
+    (acc, product) =>
+      acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+    0,
+  );
+
+const avg = totalRatings / productReviewsLength || 0;
+
+const averageRating = avg.toFixed(1);
 
   return (
     <div className="bg-white">
@@ -219,7 +236,7 @@ function ProductDetail({ data }) {
                         </h3>
                       </Link>
                       <h5 className="text-[15px]">
-                        {shop?.ratings || "No ratings"}
+                        {averageRating} Ratings
                       </h5>
                     </div>
                   </div>
