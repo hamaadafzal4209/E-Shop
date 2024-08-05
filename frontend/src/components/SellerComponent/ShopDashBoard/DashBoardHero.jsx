@@ -20,7 +20,7 @@ const DashBoardHero = () => {
     dispatch(getAllShopProducts(seller._id));
   }, [dispatch, seller._id]);
 
-  const availableBalance = seller?.availableBalance;
+//   const availableBalance = seller?.availableBalance;
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
@@ -57,7 +57,7 @@ const DashBoardHero = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/dashboard/order/${params.id}`}>
+            <Link to={`/order/${params.id}`}>
               <Button variant="contained" color="primary">
                 <AiOutlineArrowRight size={20} />
               </Button>
@@ -93,7 +93,7 @@ const DashBoardHero = () => {
               Account Balance
             </h3>
           </div>
-          <h5 className="text-[22px] font-semibold">${availableBalance}</h5>
+          <h5 className="text-[22px] font-semibold">$120.00</h5>
           <Link
             to="/dashboard-withdraw-money"
             className="mt-4 inline-block text-blue-500"
