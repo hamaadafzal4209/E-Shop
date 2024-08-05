@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { addToCart, removeFromCart, clearCart } from "../reducers/cart";
 
 // Add to cart action
@@ -14,7 +13,7 @@ export const removeFromCartAction = (id) => (dispatch, getState) => {
 };
 
 // Clear cart action
-export const clearCartAction = () => (dispatch, getState) => {
+export const clearCartAction = () => (dispatch) => {
   dispatch(clearCart());
   localStorage.setItem("cartItems", JSON.stringify([]));
 };

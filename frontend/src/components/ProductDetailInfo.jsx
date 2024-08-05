@@ -7,12 +7,16 @@ import Ratings from "./Ratings";
 
 function ProductDetailInfo({ data }) {
   const [active, setActive] = useState(1);
-  const { allProducts } = useSelector((state) => state.products);
+  const { allProducts, products } = useSelector((state) => state.products);
 
   // Filter products by shop ID
   const shopProducts = allProducts.filter(
     (product) => product.shopId === data.shop._id,
   );
+
+  const productReviewsLength =
+    products &&
+    products.reduce((acc, product) => acc + product.reviews.length, 0);
 
   return (
     <div className="pb-12">
@@ -75,7 +79,7 @@ function ProductDetailInfo({ data }) {
                     <img
                       src={`${backend_url}/${item?.user?.avatar}`}
                       alt={item.user.name}
-                      className="h-[50px] w-[50px] rounded-full object-cover"
+                      className="h-[50px] w-[50px] flex-shrink-0 rounded-full object-cover"
                     />
                     <div className="">
                       <div className="flex items-center gap-2">
@@ -135,7 +139,7 @@ function ProductDetailInfo({ data }) {
                     <span className="font-medium">{shopProducts.length}</span>
                   </h5>
                   <h5 className="font-semibold">
-                    Total Reviews <span className="font-medium">131</span>
+                    Total Reviews <span className="font-medium">{productReviewsLength}</span>
                   </h5>
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <button className="mt-2 cursor-pointer rounded-md bg-black px-10 py-2 text-white">

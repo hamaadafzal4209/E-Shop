@@ -8,7 +8,9 @@ function Bestdeals() {
 
   useEffect(() => {
     if (allProducts && allProducts.length > 0) {
-      const productdata = [...allProducts].sort((a, b) => b.total_sell - a.total_sell);
+      const productdata = [...allProducts].sort(
+        (a, b) => b.total_sell - a.total_sell,
+      );
       const firstFive = productdata.slice(0, 5);
       setData(firstFive);
     }

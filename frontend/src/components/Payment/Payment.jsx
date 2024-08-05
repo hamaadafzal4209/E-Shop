@@ -52,7 +52,7 @@ function Payment() {
       const { data } = await axios.post(
         `${server}/payment/process`,
         paymentData,
-        config,
+        config
       );
 
       const client_secret = data.client_secret;
@@ -110,12 +110,12 @@ function Payment() {
     };
 
     await axios.post(`${server}/order/create-order`, order, config).then(() => {
+      localStorage.setItem("cartItems", JSON.stringify([]));
+      localStorage.setItem("latestOrder", JSON.stringify([]));
+      dispatch(clearCartAction());
       setOpen(false);
       navigate("/order/success");
       toast.success("Order successful!");
-      localStorage.setItem("cartItems", JSON.stringify([]));
-      localStorage.setItem("latestOrder", JSON.stringify([]));
-      dispatch(clearCartAction()); // Dispatch the clear cart action
       window.location.reload();
     });
   };

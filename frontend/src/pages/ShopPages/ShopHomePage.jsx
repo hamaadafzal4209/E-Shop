@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import ShopInfo from "../../components/SellerComponent/ShopInfo";
 import ShopProfileData from "../../components/SellerComponent/ShopProfileData";
 
 function ShopHomePage() {
+  useEffect(() => {
+    window.scrollTo(0,0);
+  })
   return (
     <div className="section bg-gray-100 py-10">
       <div className="flex flex-col gap-6 lg:flex-row">

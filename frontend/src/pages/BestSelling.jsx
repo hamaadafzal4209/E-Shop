@@ -27,8 +27,15 @@ function BestSelling() {
         allProducts && allProducts.filter((i) => i.category === categoryData);
       setData(filteredData);
     }
+
+    // Sort data by highest sold_out
+    if (data.length > 0) {
+      const sortedData = [...data].sort((a, b) => b.sold_out - a.sold_out);
+      setData(sortedData);
+    }
+
     window.scrollTo(0, 0);
-  }, [allProducts, categoryData]);
+  }, [allProducts, categoryData,data]);
 
   return (
     <>
