@@ -33,7 +33,9 @@ const DashAllRefundOrders = () => {
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
-        return params.row.status === "Refund Success" ? "greenColor" : "redColor";
+        return params.row.status === "Refund Success"
+          ? "greenColor"
+          : "redColor";
       },
     },
     {
@@ -58,6 +60,7 @@ const DashAllRefundOrders = () => {
       minWidth: 150,
       headerName: "",
       sortable: false,
+      type: "Number",
       renderCell: (params) => {
         return (
           <Link to={`/order/${params.row.id}`}>
@@ -70,12 +73,13 @@ const DashAllRefundOrders = () => {
     },
   ];
 
-  const rows = refundOrders?.map((item) => ({
-    id: item._id,
-    itemsQty: item.cart.length,
-    total: `US$ ${item.totalPrice}`,
-    status: item.status,
-  })) || [];
+  const rows =
+    refundOrders?.map((item) => ({
+      id: item._id,
+      itemsQty: item.cart.length,
+      total: `US$ ${item.totalPrice}`,
+      status: item.status,
+    })) || [];
 
   return (
     <>
