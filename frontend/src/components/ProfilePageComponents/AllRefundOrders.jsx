@@ -2,28 +2,25 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllOrdersOfUser } from "../../redux/actions/order";
+import Loader from "../Loader";
 
 function AllRefundOrders() {
-  const orders = [
-    {
-      _id: "3872738263872y3x7nnx72362",
-      orderItems: [
-        {
-          name: "Iphone 14 pro max",
-        },
-      ],
-      totalPrice: 150,
-      orderStatus: "Processing",
-    },
-  ];
+  const { orders, isLoading } = useSelector((state) => state.orders);
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllOrdersOfUser(user._id));
+  }, [dispatch, user._id]);
+
+  const eligibleOrders =
+    orders && orders.filter((item) => item.status === "Processing refund");
 
   const columns = [
-    {
-      field: "id",
-      headerName: "Order ID",
-      minWidth: 150,
-      flex: 0.7,
-    },
+    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
     {
       field: "status",
       headerName: "Status",
@@ -34,8 +31,8 @@ function AllRefundOrders() {
       },
     },
     {
-      field: "itemQty",
-      headerName: "Item Qty",
+      field: "itemsQty",
+      headerName: "Items Qty",
       type: "number",
       minWidth: 130,
       flex: 0.7,
@@ -45,18 +42,17 @@ function AllRefundOrders() {
       headerName: "Total",
       type: "number",
       minWidth: 130,
-      flex: 0.7,
+      flex: 0.8,
     },
     {
       field: " ",
       flex: 1,
       minWidth: 150,
       headerName: "",
-      type: "number",
       sortable: false,
       renderCell: (params) => {
         return (
-          <Link to={`/order/${params.id}`}>
+          <Link to={`/user/order/${params.id}`}>
             <Button>
               <AiOutlineArrowRight size={20} />
             </Button>
@@ -66,23 +62,36 @@ function AllRefundOrders() {
     },
   ];
 
-  const rows = orders.map((item) => ({
+  const rows = eligibleOrders.map((item) => ({
     id: item._id,
-    itemQty: item.orderItems.length,
-    total: "USD " + item.totalPrice,
-    status: item.orderStatus,
+    itemsQty: item.cart.length,
+    total: "US$ " + item.totalPrice,
+    status: item.status,
   }));
 
   return (
-    <div className="pl-6 pt-1 font-semibold">
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={10}
-        autoHeight
-        disableRowSelectionOnClick
-      />
-    </div>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="w-full pl-6 pt-1 font-semibold">
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            pageSizeOptions={[5]}
+            checkboxSelection
+            disableRowSelectionOnClick
+          />
+        </div>
+      )}
+    </>
   );
 }
 
