@@ -1,4 +1,5 @@
 import DashBoardHeader from "../../components/SellerComponent/ShopDashBoard/DashBoardHeader";
+import DashBoardHero from "../../components/SellerComponent/ShopDashBoard/DashBoardHero";
 import DashSidebar from "../../components/SellerComponent/ShopDashBoard/DashSidebar";
 
 function ShopDashBoard() {
@@ -10,6 +11,7 @@ function ShopDashBoard() {
         <div>
           <DashSidebar active={1} />
         </div>
+        <DashBoardHero/>
       </div>
     </div>
   );
