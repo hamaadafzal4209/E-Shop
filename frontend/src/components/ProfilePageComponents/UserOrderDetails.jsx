@@ -53,6 +53,20 @@ function UserOrderDetails() {
       });
   };
 
+  const refundHandler = async () => {
+    await axios
+      .put(`${server}/order/order-refund/${id}`, {
+        status: "Processing refund",
+      })
+      .then((res) => {
+        toast.success(res.data.message);
+        dispatch(getAllOrdersOfUser(user._id));
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
+  };
+
   return (
     <div className="section min-h-screen py-4 pb-10">
       <div className="flex items-center justify-between gap-4 py-4">
@@ -128,6 +142,14 @@ function UserOrderDetails() {
             Status:{" "}
             {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Not Paid"}
           </h4>
+          {data?.status === "Delivered" && (
+            <button
+              onClick={refundHandler}
+              className="my-4 rounded-md bg-indigo-800 px-5 py-2.5 text-white"
+            >
+              Give a Refund
+            </button>
+          )}
         </div>
       </div>
       <br />
