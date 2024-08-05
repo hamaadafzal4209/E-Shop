@@ -41,6 +41,7 @@ import DashAllOrders from "./pages/ShopDashBoard/DashAllOrders";
 import ShopOrderDetails from "./pages/ShopPages/ShopOrderDetails";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import TrackOrderPage from "./pages/TrackOrderPage";
+import DashAllRefunds from "./pages/ShopDashBoard/DashAllRefunds";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -174,6 +175,14 @@ function App() {
               </SellerProtectedRoute>
             }
           />
+           <Route
+          path="/dashboard-refunds"
+          element={
+            <SellerProtectedRoute>
+              <DashAllRefunds />
+            </SellerProtectedRoute>
+          }
+        />
           <Route
             path="/dashboard-products"
             element={
