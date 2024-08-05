@@ -18,12 +18,12 @@ function ProductDetailInfo({ data }) {
     products &&
     products.reduce((acc, product) => acc + product.reviews.length, 0);
 
-    const totalRatings =
+  const totalRatings =
     products &&
     products.reduce(
       (acc, product) =>
         acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
-      0
+      0,
     );
 
   const avg = totalRatings / productReviewsLength || 0;
@@ -151,7 +151,8 @@ function ProductDetailInfo({ data }) {
                     <span className="font-medium">{shopProducts.length}</span>
                   </h5>
                   <h5 className="font-semibold">
-                    Total Reviews <span className="font-medium">{productReviewsLength}</span>
+                    Total Reviews{" "}
+                    <span className="font-medium">{productReviewsLength}</span>
                   </h5>
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <button className="mt-2 cursor-pointer rounded-md bg-black px-10 py-2 text-white">
