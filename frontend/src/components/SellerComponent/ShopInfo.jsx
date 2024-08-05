@@ -3,7 +3,7 @@ import { backend_url, server } from "../../server";
 import { CgProfile } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllShopProducts } from "../../redux/actions/product";
 import Loader from "../Loader";
@@ -82,15 +82,17 @@ function ShopInfo({ isOwner }) {
           </div>
           <div className="flex justify-between text-gray-700">
             <span className="font-semibold">Joined On:</span>
-            <span>{data.createdAt ? data.createdAt.slice(0, 10) : ''}</span>
+            <span>{data.createdAt ? data.createdAt.slice(0, 10) : ""}</span>
           </div>
         </div>
       </div>
       {isOwner && (
         <div className="mt-6 flex flex-col gap-4">
-          <button className="rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
+          <Link to="/settings">
+          <button className="rounded-lg w-full bg-blue-600 py-3 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
             Edit Shop
           </button>
+          </Link>
           <button
             onClick={handleLogout}
             className="rounded-lg bg-red-600 py-3 font-semibold text-white shadow-lg transition duration-300 hover:bg-red-700"

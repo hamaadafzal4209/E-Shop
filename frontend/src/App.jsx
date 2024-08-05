@@ -42,6 +42,7 @@ import ShopOrderDetails from "./pages/ShopPages/ShopOrderDetails";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import TrackOrderPage from "./pages/TrackOrderPage";
 import DashAllRefunds from "./pages/ShopDashBoard/DashAllRefunds";
+import ShopSettingPage from "./pages/ShopPages/ShopSettingPage";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -139,6 +140,14 @@ function App() {
             element={
               <SellerProtectedRoute>
                 <ShopHomePage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <SellerProtectedRoute>
+                <ShopSettingPage />
               </SellerProtectedRoute>
             }
           />

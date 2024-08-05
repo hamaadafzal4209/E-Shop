@@ -119,7 +119,7 @@ function Header() {
             )}
           </div>
           {/* seller button */}
-          <div className="flex h-[50px] cursor-pointer items-center justify-center rounded-xl bg-black px-4">
+          <div className="my-3 flex items-center gap-2 rounded-md bg-indigo-800 px-5 py-3 text-white">
             <Link to={isSeller ? "/dashboard" : "/shop-create"}>
               <div className="flex items-center justify-center text-[#fff]">
                 <h1>{isSeller ? "DashBoard" : " Become Seller"}</h1>
@@ -240,8 +240,8 @@ function Header() {
                     className={({ isActive }) =>
                       `font-semibold transition-colors duration-200 ${
                         isActive
-                          ? "text-blue-600"
-                          : "text-black hover:text-blue-600"
+                          ? "text-indigo-800"
+                          : "text-black hover:text-indigo-900"
                       }`
                     }
                   >
@@ -250,9 +250,9 @@ function Header() {
                 </li>
               ))}
             </ul>
-            <div className="flex cursor-pointer items-center">
+            <div className="flex cursor-pointer items-center w-full justify-center">
               <Link to={isSeller ? "/dashboard" : "/shop-create"}>
-                <div className="mx-6 my-6 flex items-center justify-center rounded-md bg-black px-8 py-3 text-[#fff]">
+                <div className="my-3 flex items-center gap-2 rounded-md bg-indigo-800 px-9 py-3 text-white">
                   <h1>{isSeller ? "Shop DashBoard" : " Become Seller"}</h1>
                   {!isSeller && <IoIosArrowForward className="ml-1" />}
                 </div>
