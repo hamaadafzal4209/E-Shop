@@ -34,7 +34,6 @@ function BestSelling() {
       setData(sortedData);
     }
 
-    window.scrollTo(0, 0);
   }, [allProducts, categoryData,data]);
 
   return (
