@@ -40,6 +40,7 @@ import OrderSuccessPage from "./pages/OrderSuccessPage";
 import DashAllOrders from "./pages/ShopDashBoard/DashAllOrders";
 import ShopOrderDetails from "./pages/ShopPages/ShopOrderDetails";
 import OrderDetailPage from "./pages/OrderDetailPage";
+import TrackOrderPage from "./pages/TrackOrderPage";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -109,6 +110,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+            <Route
+          path="/user/track/order/:id"
+          element={
+            <ProtectedRoute>
+              <TrackOrderPage />
+            </ProtectedRoute>
+          }
+        />
           <Route
             path="/checkout"
             element={
