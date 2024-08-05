@@ -18,6 +18,18 @@ function ProductDetailInfo({ data }) {
     products &&
     products.reduce((acc, product) => acc + product.reviews.length, 0);
 
+    const totalRatings =
+    products &&
+    products.reduce(
+      (acc, product) =>
+        acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+      0
+    );
+
+  const avg = totalRatings / productReviewsLength || 0;
+
+  const averageRating = avg.toFixed(1);
+
   return (
     <div className="pb-12">
       <div className="rounded-md bg-[#f5f6fb] px-4 py-2 pb-6 md:px-10">
@@ -120,7 +132,7 @@ function ProductDetailInfo({ data }) {
                         {data?.shop?.name || "Unknown Shop"}
                       </h3>
                     </Link>
-                    <h5 className="text-[15px]">4/5 Ratings</h5>
+                    <h5 className="text-[15px]">{averageRating} Ratings</h5>
                   </div>
                 </div>
                 <p className="pt-6">{data?.shop?.description}</p>
