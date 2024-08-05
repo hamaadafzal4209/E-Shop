@@ -4,7 +4,7 @@ import {
   getAllUserOrders,
   getAllSellerOrders,
   updateOrderStatus,
-  orderRefund
+  orderRefund,shopRefundOrders
 } from "../controller/orderController.js";
 import { isSeller } from "../middleware/auth.js";
 
@@ -15,5 +15,6 @@ orderRouter.get("/get-all-orders/:userId", getAllUserOrders);
 orderRouter.get("/get-seller-all-orders/:shopId", getAllSellerOrders);
 orderRouter.put("/update-order-status/:id", isSeller, updateOrderStatus);
 orderRouter.put("/order-refund/:id", orderRefund);
+orderRouter.put("/order-refund-success/:id", isSeller,shopRefundOrders);
 
 export default orderRouter;
