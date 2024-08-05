@@ -89,20 +89,20 @@ function ProductDetail({ data }) {
   }
 
   const productReviewsLength =
-  products &&
-  products.reduce((acc, product) => acc + product.reviews.length, 0);
+    products &&
+    products.reduce((acc, product) => acc + product.reviews.length, 0);
 
-const totalRatings =
-  products &&
-  products.reduce(
-    (acc, product) =>
-      acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
-    0,
-  );
+  const totalRatings =
+    products &&
+    products.reduce(
+      (acc, product) =>
+        acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+      0,
+    );
 
-const avg = totalRatings / productReviewsLength || 0;
+  const avg = totalRatings / productReviewsLength || 0;
 
-const averageRating = avg.toFixed(1);
+  const averageRating = avg.toFixed(1);
 
   return (
     <div className="bg-white">
@@ -235,9 +235,7 @@ const averageRating = avg.toFixed(1);
                           {shop?.name || "Unknown Shop"}
                         </h3>
                       </Link>
-                      <h5 className="text-[15px]">
-                        {averageRating} Ratings
-                      </h5>
+                      <h5 className="text-[15px]">{averageRating} Ratings</h5>
                     </div>
                   </div>
                   {/* send message button */}
