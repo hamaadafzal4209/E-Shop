@@ -4,7 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllShopProducts } from "../../redux/actions/product";
 import Ratings from "../Ratings";
-import { backend_url } from "../../server";
+import moment from "moment";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+// import { backend_url } from "../../server";
+
+const REVIEWS_PER_PAGE = 5;
 
 function ShopProfileData({ isOwner }) {
   const { products } = useSelector((state) => state.products);
@@ -12,6 +16,7 @@ function ShopProfileData({ isOwner }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [active, setActive] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,6 +25,22 @@ function ShopProfileData({ isOwner }) {
 
   const allReviews =
     products && products.map((product) => product.reviews).flat();
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+  };
+
+  const paginatedReviews = allReviews
+    ? allReviews.slice(
+        (currentPage - 1) * REVIEWS_PER_PAGE,
+        currentPage * REVIEWS_PER_PAGE,
+      )
+    : [];
+
+  const totalPages = allReviews
+    ? Math.ceil(allReviews.length / REVIEWS_PER_PAGE)
+    : 0;
 
   return (
     <div className="w-full">
@@ -47,12 +68,11 @@ function ShopProfileData({ isOwner }) {
             </h5>
           </div>
         </div>
-        {isOwner && (
+        {isOwner ? (
           <button className="inline-block rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
             <Link to="/dashboard">Go to dashboard</Link>
           </button>
-        )}
-        {!isOwner && (
+        ) : (
           <button className="inline-block rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
             <Link to="/">Go to Home</Link>
           </button>
@@ -96,21 +116,27 @@ function ShopProfileData({ isOwner }) {
 
       {active === 3 && (
         <div className="w-full">
-          {allReviews &&
-            allReviews.map((item, index) => (
-              <div key={index} className="my-4 flex w-full">
+          {paginatedReviews &&
+            paginatedReviews.map((item, index) => (
+              <div key={index} className="my-4 flex w-full border-b pb-4">
                 <img
-                  src={`${backend_url}/${item?.user?.avatar}`}
-                  className="h-[50px] w-[50px] rounded-full"
-                  alt=""
+                  src={
+                    "https://cdn-icons-png.flaticon.com/128/9131/9131529.png"
+                  }
+                  className="h-10 w-10 rounded-full"
+                  alt="User Avatar"
                 />
-                <div className="pl-2">
+                <div className="pl-4">
                   <div className="flex w-full items-center">
                     <h1 className="pr-2 font-[600]">{item.user.name}</h1>
                     <Ratings rating={item.rating} />
                   </div>
-                  <p className="font-[400] text-[#000000a7]">{item?.comment}</p>
-                  <p className="text-[14px] text-[#000000a7]">{"2days ago"}</p>
+                  <p className="mt-1 font-[400] text-[#000000a7]">
+                    {item.comment}
+                  </p>
+                  <p className="mt-1 text-[14px] text-[#000000a7]">
+                    {moment(item.createdAt).fromNow()}
+                  </p>
                 </div>
               </div>
             ))}
@@ -118,6 +144,37 @@ function ShopProfileData({ isOwner }) {
             <h5 className="w-full py-5 text-center text-[18px]">
               No Reviews have for this shop!
             </h5>
+          )}
+          {totalPages > 1 && (
+            <div className="mt-8 flex justify-center">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="mx-2 rounded bg-gray-200 px-2 py-1 text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <FaArrowLeft />
+              </button>
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`mx-1 px-2 py-1 ${
+                    currentPage === index + 1
+                      ? "bg-red-600 text-white"
+                      : "bg-gray-200 text-gray-800"
+                  } rounded`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="mx-2 rounded bg-gray-200 px-2 py-1 text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <FaArrowRight />
+              </button>
+            </div>
           )}
         </div>
       )}

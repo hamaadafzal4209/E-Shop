@@ -66,7 +66,7 @@ function ShopAllEvents() {
       sortable: false,
       renderCell: (params) => {
         return (
-          <Link to={`/product/${params.id}`}>
+          <Link to={`/product/${params.id}?isEvent=true`}>
             <Button>
               <AiOutlineEye size={20} />
             </Button>
