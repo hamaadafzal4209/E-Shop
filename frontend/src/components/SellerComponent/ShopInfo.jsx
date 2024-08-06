@@ -45,6 +45,22 @@ function ShopInfo({ isOwner }) {
     }
   };
 
+  const productReviewsLength =
+    products &&
+    products.reduce((acc, product) => acc + product.reviews.length, 0);
+
+  const totalRatings =
+    products &&
+    products.reduce(
+      (acc, product) =>
+        acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+      0,
+    );
+
+  const avg = totalRatings / productReviewsLength || 0;
+
+  const averageRating = avg.toFixed(1);
+
   return isLoading ? (
     <Loader />
   ) : (
@@ -74,11 +90,11 @@ function ShopInfo({ isOwner }) {
           </div>
           <div className="flex justify-between text-gray-700">
             <span className="font-semibold">Total Products:</span>
-            <span>{products.length}</span>
+            <span>{products && products.length}</span>
           </div>
           <div className="flex justify-between text-gray-700">
-            <span className="font-semibold">Shop Rating:</span>
-            <span>4/5</span>
+            <span className="font-semibold">Shop Rating: </span>
+            <span>{averageRating}</span>
           </div>
           <div className="flex justify-between text-gray-700">
             <span className="font-semibold">Joined On:</span>
@@ -89,9 +105,9 @@ function ShopInfo({ isOwner }) {
       {isOwner && (
         <div className="mt-6 flex flex-col gap-4">
           <Link to="/settings">
-          <button className="rounded-lg w-full bg-blue-600 py-3 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
-            Edit Shop
-          </button>
+            <button className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700">
+              Edit Shop
+            </button>
           </Link>
           <button
             onClick={handleLogout}
