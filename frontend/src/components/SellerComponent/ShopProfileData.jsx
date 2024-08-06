@@ -3,17 +3,22 @@ import ProductCard from "../ProductCard";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllShopProducts } from "../../redux/actions/product";
+import Ratings from "../Ratings";
 
 function ShopProfileData({ isOwner }) {
   const { products } = useSelector((state) => state.products);
+  const { events } = useSelector((state) => state.events);
   const { id } = useParams();
   const dispatch = useDispatch();
   const [active, setActive] = useState(1);
 
   useEffect(() => {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     dispatch(getAllShopProducts(id));
   }, [id, dispatch]);
+
+  const allReviews =
+    products && products.map((product) => product.reviews).flat();
 
   return (
     <div className="w-full">
@@ -63,6 +68,55 @@ function ShopProfileData({ isOwner }) {
             <div className="text-center text-gray-600">
               No products available.
             </div>
+          )}
+        </div>
+      )}
+
+      {active === 2 && (
+        <div className="w-full">
+          <div className="product-grid-container my-5">
+            {events &&
+              events.map((i, index) => (
+                <ProductCard
+                  data={i}
+                  key={index}
+                  isShop={true}
+                  isEvent={true}
+                />
+              ))}
+          </div>
+          {events && events.length === 0 && (
+            <h5 className="w-full py-5 text-center text-[18px]">
+              No Events have for this shop!
+            </h5>
+          )}
+        </div>
+      )}
+
+      {active === 3 && (
+        <div className="w-full">
+          {allReviews &&
+            allReviews.map((item, index) => (
+              <div key={index} className="my-4 flex w-full">
+                <img
+                  src={`${item.user.avatar?.url}`}
+                  className="h-[50px] w-[50px] rounded-full"
+                  alt=""
+                />
+                <div className="pl-2">
+                  <div className="flex w-full items-center">
+                    <h1 className="pr-2 font-[600]">{item.user.name}</h1>
+                    <Ratings rating={item.rating} />
+                  </div>
+                  <p className="font-[400] text-[#000000a7]">{item?.comment}</p>
+                  <p className="text-[14px] text-[#000000a7]">{"2days ago"}</p>
+                </div>
+              </div>
+            ))}
+          {allReviews && allReviews.length === 0 && (
+            <h5 className="w-full py-5 text-center text-[18px]">
+              No Reviews have for this shop!
+            </h5>
           )}
         </div>
       )}
