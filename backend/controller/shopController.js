@@ -5,7 +5,7 @@ import sendMail from "../utils/sendMail.js";
 import jwt from "jsonwebtoken";
 import sendShopToken from "../utils/ShopToken.js";
 import path from "path";
-import fs from 'fs';
+import fs from "fs";
 
 export const createShop = async (req, res, next) => {
   try {
@@ -193,6 +193,34 @@ export const updateShopAvatar = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
       success: true,
       seller: existSeller,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+// update seller info
+export const updateSellerInfo = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const { name, description, address, phoneNumber, zipCode } = req.body;
+
+    const shop = await shopModel.findOne(req.seller._id);
+
+    if (!shop) {
+      return next(new ErrorHandler("User not found", 400));
+    }
+
+    shop.name = name;
+    shop.description = description;
+    shop.address = address;
+    shop.phoneNumber = phoneNumber;
+    shop.zipCode = zipCode;
+
+    await shop.save();
+
+    res.status(201).json({
+      success: true,
+      shop,
     });
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));

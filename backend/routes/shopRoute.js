@@ -8,6 +8,7 @@ import {
   shopLogin,
   getShopInfo,
   updateShopAvatar,
+  updateSellerInfo
 } from "../controller/shopController.js";
 import { isSeller } from "../middleware/auth.js";
 
@@ -35,5 +36,6 @@ shopRouter.put(
   upload.single("file"),
   updateShopAvatar
 );
+shopRouter.get("/update-seller-info",isSeller, updateSellerInfo);
 
 export default shopRouter;
