@@ -44,6 +44,7 @@ import TrackOrderPage from "./pages/TrackOrderPage";
 import DashAllRefunds from "./pages/ShopDashBoard/DashAllRefunds";
 import ShopSettingPage from "./pages/ShopPages/ShopSettingPage";
 import DashWithDrawMoney from "./pages/ShopDashBoard/DashWithDrawMoney";
+import ShopInboxPage from "./pages/ShopDashBoard/ShopInboxPage";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -198,6 +199,14 @@ function App() {
             element={
               <SellerProtectedRoute>
                 <DashWithDrawMoney />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard-messages"
+            element={
+              <SellerProtectedRoute>
+                <ShopInboxPage />
               </SellerProtectedRoute>
             }
           />
