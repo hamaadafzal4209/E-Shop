@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineArrowRight, AiOutlineMoneyCollect } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { MdBorderClear } from "react-icons/md";
@@ -14,13 +14,23 @@ const DashBoardHero = () => {
   const { orders, isLoading } = useSelector((state) => state.orders);
   const { seller } = useSelector((state) => state.seller);
   const { products } = useSelector((state) => state.products);
+  const [deliveredOrder, setDeliveredOrder] = useState(null);
 
   useEffect(() => {
     dispatch(getAllOrdersOfShop(seller._id));
     dispatch(getAllShopProducts(seller._id));
-  }, [dispatch, seller._id]);
 
-  //   const availableBalance = seller?.availableBalance;
+    const orderData =
+      orders && orders.filter((item) => item.state === "Delivered");
+    setDeliveredOrder(orderData);
+  }, [dispatch, seller._id, orders]);
+
+  const totalEarningWithoutTax =
+    deliveredOrder &&
+    deliveredOrder.reduce((acc, item) => acc + item.totalPrice, 0);
+
+  const serviceCharge = totalEarningWithoutTax * 0.1;
+  const availableBalance = (totalEarningWithoutTax - serviceCharge).toFixed(2);
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
@@ -93,7 +103,7 @@ const DashBoardHero = () => {
               Account Balance
             </h3>
           </div>
-          <h5 className="text-[22px] font-semibold">$120.00</h5>
+          <h5 className="text-[22px] font-semibold">${availableBalance}</h5>
           <Link
             to="/dashboard-withdraw-money"
             className="mt-4 inline-block text-blue-500"

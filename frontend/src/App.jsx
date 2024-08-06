@@ -43,6 +43,7 @@ import OrderDetailPage from "./pages/OrderDetailPage";
 import TrackOrderPage from "./pages/TrackOrderPage";
 import DashAllRefunds from "./pages/ShopDashBoard/DashAllRefunds";
 import ShopSettingPage from "./pages/ShopPages/ShopSettingPage";
+import DashWithDrawMoney from "./pages/ShopDashBoard/DashWithDrawMoney";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -112,14 +113,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-            <Route
-          path="/user/track/order/:id"
-          element={
-            <ProtectedRoute>
-              <TrackOrderPage />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/user/track/order/:id"
+            element={
+              <ProtectedRoute>
+                <TrackOrderPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/checkout"
             element={
@@ -184,14 +185,22 @@ function App() {
               </SellerProtectedRoute>
             }
           />
-           <Route
-          path="/dashboard-refunds"
-          element={
-            <SellerProtectedRoute>
-              <DashAllRefunds />
-            </SellerProtectedRoute>
-          }
-        />
+          <Route
+            path="/dashboard-refunds"
+            element={
+              <SellerProtectedRoute>
+                <DashAllRefunds />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard-withdraw-money"
+            element={
+              <SellerProtectedRoute>
+                <DashWithDrawMoney />
+              </SellerProtectedRoute>
+            }
+          />
           <Route
             path="/dashboard-products"
             element={
