@@ -36,6 +36,6 @@ shopRouter.put(
   upload.single("file"),
   updateShopAvatar
 );
-shopRouter.get("/update-seller-info",isSeller, updateSellerInfo);
+shopRouter.put("/update-seller-info",isSeller, updateSellerInfo);
 
 export default shopRouter;

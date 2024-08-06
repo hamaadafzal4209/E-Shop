@@ -114,12 +114,12 @@ const ShopSetting = () => {
             <label className="mb-1 block text-sm font-medium text-gray-700">
               Shop Description
             </label>
-            <input
-              type="text"
+            <textarea
+              rows={4}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
+            ></textarea>
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -138,7 +138,7 @@ const ShopSetting = () => {
               Shop Phone Number
             </label>
             <input
-              type="text"
+              type="Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
