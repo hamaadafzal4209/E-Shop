@@ -166,3 +166,33 @@ export const getShopInfo = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 500));
   }
 });
+
+// update shop avatar
+export const updateShopAvatar = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const existSeller = await shopModel.findById(req.seller._id);
+
+    if (!existSeller) {
+      return next(new ErrorHandler("User not found!", 404));
+    }
+
+    const existAvatarPath = path.join("uploads", existSeller.avatar);
+
+    // Remove existing avatar if it exists
+    if (fs.existsSync(existAvatarPath)) {
+      fs.unlinkSync(existAvatarPath);
+    }
+
+    const fileUrl = req.file.filename;
+
+    existSeller.avatar = fileUrl;
+    await existSeller.save();
+
+    res.status(200).json({
+      success: true,
+      seller: existSeller,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});

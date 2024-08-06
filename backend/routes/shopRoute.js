@@ -7,7 +7,7 @@ import {
   loadShop,
   logout,
   shopLogin,
-  getShopInfo
+  getShopInfo,updateShopAvatar
 } from "../controller/shopController.js";
 import { isSeller } from "../middleware/auth.js"; 
 const shopRouter = express.Router();
@@ -28,5 +28,11 @@ shopRouter.post("/login-shop", shopLogin);
 shopRouter.get("/getSeller", isSeller, loadShop);
 shopRouter.get("/logout", isSeller, logout);
 shopRouter.get("/get-shop-info/:id", getShopInfo);
+shopRouter.put(
+  "/update-shop-avatar",
+  isSeller,
+  upload.single("file"),
+  updateShopAvatar
+);
 
 export default shopRouter;
