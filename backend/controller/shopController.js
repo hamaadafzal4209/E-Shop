@@ -4,6 +4,8 @@ import ErrorHandler from "../utils/ErrorHandler.js";
 import sendMail from "../utils/sendMail.js";
 import jwt from "jsonwebtoken";
 import sendShopToken from "../utils/ShopToken.js";
+import path from "path";
+import fs from 'fs';
 
 export const createShop = async (req, res, next) => {
   try {

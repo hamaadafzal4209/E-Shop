@@ -1,4 +1,3 @@
-// shopRoute.js
 import express from "express";
 import multer from "multer";
 import {
@@ -7,12 +6,14 @@ import {
   loadShop,
   logout,
   shopLogin,
-  getShopInfo,updateShopAvatar
+  getShopInfo,
+  updateShopAvatar,
 } from "../controller/shopController.js";
-import { isSeller } from "../middleware/auth.js"; 
+import { isSeller } from "../middleware/auth.js";
+
 const shopRouter = express.Router();
 
-// image upload engine
+// Image upload engine
 const storage = multer.diskStorage({
   destination: "uploads",
   filename: (req, file, cb) => {
