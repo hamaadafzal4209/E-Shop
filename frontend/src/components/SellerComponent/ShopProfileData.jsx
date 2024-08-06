@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllShopProducts } from "../../redux/actions/product";
 import Ratings from "../Ratings";
+import { backend_url } from "../../server";
 
 function ShopProfileData({ isOwner }) {
   const { products } = useSelector((state) => state.products);
@@ -99,7 +100,7 @@ function ShopProfileData({ isOwner }) {
             allReviews.map((item, index) => (
               <div key={index} className="my-4 flex w-full">
                 <img
-                  src={`${item.user.avatar?.url}`}
+                  src={`${backend_url}/${item?.user?.avatar}`}
                   className="h-[50px] w-[50px] rounded-full"
                   alt=""
                 />
