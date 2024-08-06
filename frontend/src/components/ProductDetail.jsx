@@ -6,17 +6,19 @@ import {
   AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { MdOutlineRemoveShoppingCart } from "react-icons/md"; // Import the remove icon
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import ProductDetailInfo from "./ProductDetailInfo";
-import { backend_url } from "../server";
+import { backend_url, server } from "../server";
 import Loader from "./Loader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocartAction, removeFromCartAction } from "../redux/actions/cart";
 import {
   addToWishlistAction,
   removeFromWishlistAction,
 } from "../redux/actions/whishlist";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function ProductDetail({ data }) {
   const [count, setCount] = useState(1);
@@ -25,7 +27,9 @@ function ProductDetail({ data }) {
   const [inCart, setInCart] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart.cart);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const { wishlist = [] } = useSelector((state) => state.wishlist);
   const { products } = useSelector((state) => state.products);
 
@@ -49,8 +53,26 @@ function ProductDetail({ data }) {
     dispatch(addToWishlistAction(data));
   };
 
-  const handleMessageSubmit = () => {
-    // Implement message sending functionality
+  const handleMessageSubmit = async () => {
+    if (isAuthenticated) {
+      const groupTitle = data._id + user._id;
+      const userId = user._id;
+      const sellerId = data.shop._id;
+      await axios
+        .post(`${server}/conversation/create-new-conversation`, {
+          groupTitle,
+          userId,
+          sellerId,
+        })
+        .then((res) => {
+          navigate(`/conversation/${res.data.conversation._id}`);
+                })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
+    } else {
+      toast.error("Please login to create a conversation");
+    }
   };
 
   const decrementCount = () => {
