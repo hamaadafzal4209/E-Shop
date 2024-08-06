@@ -60,9 +60,9 @@ function CreateProduct() {
     newForm.append("originalPrice", originalPrice);
     newForm.append("discountPrice", discountPrice);
     newForm.append("stock", stock);
-    newForm.append("shopId", seller._id); // Ensure seller._id is valid
+    newForm.append("shopId", seller._id);
 
-    dispatch(createProduct(newForm)); // Dispatch the FormData object directly
+    dispatch(createProduct(newForm));
   };
 
   return (

@@ -5,7 +5,7 @@ import { AiOutlineCamera } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import Loader from "../Loader";
-import { updateUserInfomation } from "../../redux/actions/user";
+import { loadUser, updateUserInfomation } from "../../redux/actions/user";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -49,7 +49,7 @@ function Profile() {
       });
       if (res.data.success) {
         toast.success("Avatar updated successfully");
-        window.location.reload();
+        dispatch(loadUser());
       }
     } catch (err) {
       toast.error(err.response.data.message);
