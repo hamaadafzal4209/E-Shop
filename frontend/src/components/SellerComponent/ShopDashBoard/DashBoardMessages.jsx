@@ -5,6 +5,7 @@ import { server } from "../../../server";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineSend } from "react-icons/ai";
+import { IoImagesOutline } from "react-icons/io5";
 
 function DashBoardMessages() {
   const { seller } = useSelector((state) => state.seller);
@@ -115,18 +116,19 @@ const SellerInbox = ({ setOpen }) => {
             className="h-12 w-12 rounded-full"
           />
           <div className="h-max w-max rounded bg-green-500 px-3 py-2 text-white">
-            Hello guys!
+            Hello there!
           </div>
         </div>
         <div className="flex justify-end gap-4">
           <div className="h-max w-max rounded bg-green-500 px-3 py-2 text-white">
-            Hello guys!
+            Hi
           </div>
         </div>
       </div>
 
       {/* send message input */}
-      <form className="relative flex items-center justify-between p-4">
+      <form className="relative flex items-center justify-between gap-3 p-4">
+      <IoImagesOutline size={24} />
         <input
           type="text"
           placeholder="Enter your message..."
