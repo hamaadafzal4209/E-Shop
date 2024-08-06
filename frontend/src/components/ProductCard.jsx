@@ -17,7 +17,7 @@ import {
 } from "../redux/actions/whishlist";
 import Ratings from "./Ratings";
 
-function ProductCard({ data }) {
+function ProductCard({ data,isEvent }) {
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
   const [inCart, setInCart] = useState(false);
@@ -63,7 +63,11 @@ function ProductCard({ data }) {
   return (
     <>
       <div className="relative h-[370px] w-full cursor-pointer rounded-lg bg-white p-3 shadow-sm md:max-w-72">
-        <Link to={`/product/${productId}`}>
+        <Link to={
+           isEvent === true
+           ? `/product/${data._id}?isEvent=true`
+           : `/product/${data._id}`
+        }>
           {" "}
           {/* Update the Link to use productId */}
           <img
