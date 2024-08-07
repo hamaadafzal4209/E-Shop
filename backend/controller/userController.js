@@ -272,13 +272,11 @@ export const deleteUserAddress = catchAsyncErrors(async (req, res, next) => {
 });
 
 // update user password
-export const updateUserPassword = catchAsyncErrors(async(req,res,next) => {
+export const updateUserPassword = catchAsyncErrors(async (req, res, next) => {
   try {
     const user = await userModel.findById(req.user.id).select("+password");
 
-    const isPasswordMatched = await user.comparePassword(
-      req.body.oldPassword
-    );
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
     if (!isPasswordMatched) {
       return next(new ErrorHandler("Old password is incorrect!", 400));
@@ -300,4 +298,18 @@ export const updateUserPassword = catchAsyncErrors(async(req,res,next) => {
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
   }
-})
+});
+
+// find user infoormation with the userId
+export const getUserInfo = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = await userModel.findById(req.params.id);
+
+    res.status(201).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});

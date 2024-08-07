@@ -229,11 +229,13 @@ const MessageList = ({
       className={`flex w-full cursor-pointer p-2 px-3 ${
         active === index ? "bg-gray-300" : "bg-transparent"
       }`}
-      onClick={() => setActive(index) ||
+      onClick={() =>
+        setActive(index) ||
         handleClick(data._id) ||
         setCurrentChat(data) ||
         setUserData(user) ||
-        setActiveStatus(online)}
+        setActiveStatus(online)
+      }
     >
       <div className="relative">
         <img
@@ -315,7 +317,8 @@ const SellerInbox = ({
           className="w-full rounded-md border border-gray-300 p-2"
         />
         <button
-          type="submit"
+          onClick={sendMessageHandler}
+          type="button"
           className="absolute right-4 cursor-pointer bg-green-600 px-4 py-3 text-white"
         >
           <AiOutlineSend />
