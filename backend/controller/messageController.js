@@ -35,6 +35,7 @@ export const createNewMessage = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+// get all messages with conversation id
 export const getAllMessages = catchAsyncErrors(async (req, res, next) => {
   try {
     const messages = await messageModel.find({
