@@ -1,5 +1,5 @@
 import express from "express";
-import { createNewMessage } from "../controller/messageController.js";
+import { createNewMessage,getAllMessages } from "../controller/messageController.js";
 import multer from "multer";
 
 // image upload engine
@@ -19,5 +19,6 @@ messageRouter.post(
   upload.array("images"),
   createNewMessage
 );
+messageRouter.get("/get-all-messages/:id",getAllMessages);
 
 export default messageRouter;
