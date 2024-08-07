@@ -1,22 +1,24 @@
-import { Server as socketIO } from "socket.io";
-import http from "http";
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-
+const socketIO = require("socket.io");
+const http = require("http");
+const express = require("express");
+const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
-const io = new socketIO(server);
+const io = socketIO(server);
+
+require("dotenv").config({
+  path: "./.env",
+});
 
 app.use(cors());
 app.use(express.json());
-dotenv.config("./.env");
 
 app.get("/", (req, res) => {
-  res.send("Server is running");
+  res.send("Hello world from socket server!");
 });
 
 let users = [];
+let messages = {}; // Object to track messages sent to each user
 
 const addUser = (userId, socketId) => {
   !users.some((user) => user.userId === userId) &&
@@ -27,12 +29,13 @@ const removeUser = (socketId) => {
   users = users.filter((user) => user.socketId !== socketId);
 };
 
-const getUser = (receiverId) => {
-  return users.find((user) => user.userId === receiverId);
+const getUser = (userId) => {
+  return users.find((user) => user.userId === userId);
 };
 
 // Define a message object with a seen property
 const createMessage = ({ senderId, receiverId, text, images }) => ({
+  id: Date.now(), // Unique ID for the message
   senderId,
   receiverId,
   text,
@@ -41,47 +44,40 @@ const createMessage = ({ senderId, receiverId, text, images }) => ({
 });
 
 io.on("connection", (socket) => {
-  // when connect
-  console.log(`a user is connected`);
+  console.log(`A user is connected`);
 
-  // take userId and socketId from user
   socket.on("addUser", (userId) => {
     addUser(userId, socket.id);
     io.emit("getUsers", users);
   });
 
-  // send and get message
-  const messages = {}; // Object to track messages sent to each user
-
   socket.on("sendMessage", ({ senderId, receiverId, text, images }) => {
     const message = createMessage({ senderId, receiverId, text, images });
-
     const user = getUser(receiverId);
 
-    // Store the messages in the `messages` object
+    if (!messages[senderId]) {
+      messages[senderId] = [];
+    }
     if (!messages[receiverId]) {
-      messages[receiverId] = [message];
-    } else {
-      messages[receiverId].push(message);
+      messages[receiverId] = [];
     }
 
-    // send the message to the recevier
+    messages[senderId].push(message);
+    messages[receiverId].push(message);
+
     io.to(user?.socketId).emit("getMessage", message);
   });
 
   socket.on("messageSeen", ({ senderId, receiverId, messageId }) => {
     const user = getUser(senderId);
 
-    // update the seen flag for the message
     if (messages[senderId]) {
       const message = messages[senderId].find(
-        (message) =>
-          message.receiverId === receiverId && message.id === messageId
+        (message) => message.receiverId === receiverId && message.id === messageId
       );
       if (message) {
         message.seen = true;
 
-        // send a message seen event to the sender
         io.to(user?.socketId).emit("messageSeen", {
           senderId,
           receiverId,
@@ -91,22 +87,20 @@ io.on("connection", (socket) => {
     }
   });
 
-  // update and get last message
-  socket.on("updateLastMessage", ({ lastMessage, lastMessagesId }) => {
+  socket.on("updateLastMessage", ({ lastMessage, lastMessageId }) => {
     io.emit("getLastMessage", {
       lastMessage,
-      lastMessagesId,
+      lastMessageId,
     });
   });
 
-  //when disconnect
   socket.on("disconnect", () => {
-    console.log(`a user disconnected!`);
+    console.log(`A user disconnected!`);
     removeUser(socket.id);
     io.emit("getUsers", users);
   });
 });
 
-server.listen(process.env.PORT || 6000, () => {
-  console.log(`Server is running on localhost:${process.env.PORT || 6000}`);
+server.listen(process.env.PORT || 4000, () => {
+  console.log(`Server is running on port ${process.env.PORT || 4000}`);
 });

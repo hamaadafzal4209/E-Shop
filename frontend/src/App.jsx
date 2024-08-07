@@ -45,6 +45,7 @@ import DashAllRefunds from "./pages/ShopDashBoard/DashAllRefunds";
 import ShopSettingPage from "./pages/ShopPages/ShopSettingPage";
 import DashWithDrawMoney from "./pages/ShopDashBoard/DashWithDrawMoney";
 import ShopInboxPage from "./pages/ShopDashBoard/ShopInboxPage";
+import UserInbox from "./components/ProfilePageComponents/UserInbox";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -119,6 +120,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <TrackOrderPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/inbox"
+            element={
+              <ProtectedRoute>
+                <UserInbox />
               </ProtectedRoute>
             }
           />

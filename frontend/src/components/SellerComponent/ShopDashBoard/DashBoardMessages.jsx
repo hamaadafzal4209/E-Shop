@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { server } from "../../../server";
+import { backend_url, server } from "../../../server";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineSend } from "react-icons/ai";
@@ -44,16 +44,16 @@ function DashBoardMessages() {
   useEffect(() => {
     const getConversation = async () => {
       try {
-        const resonse = await axios.get(
+        const response = await axios.get(
           `${server}/conversation/get-all-conversation-seller/${seller?._id}`,
           {
             withCredentials: true,
           },
         );
 
-        setConversation(resonse.data.conversations);
+        setConversation(response.data.conversations);
       } catch (error) {
-        // console.log(error);
+        console.log(error);
       }
     };
     getConversation();
@@ -102,7 +102,7 @@ function DashBoardMessages() {
     };
 
     const receiverId = currentChat.members.find(
-      (member) => member.id !== seller._id,
+      (member) => member !== seller._id,
     );
 
     socketId.emit("sendMessage", {
@@ -233,7 +233,6 @@ const MessageList = ({
         setActive(index) ||
         handleClick(data._id) ||
         setCurrentChat(data) ||
-        setUserData(user) ||
         setActiveStatus(online)
       }
     >
@@ -270,7 +269,7 @@ const SellerInbox = ({
       <div className="flex w-full items-center justify-between bg-slate-200 p-4">
         <div className="flex items-center">
           <img
-            src="http://localhost:8000/1722916535316images%20(2).jpeg"
+            src={`${backend_url}${userData?.avatar}`}
             className="h-12 w-12 rounded-full"
             alt="User Avatar"
           />
@@ -292,7 +291,7 @@ const SellerInbox = ({
       <div className="no-scrollbar h-[55vh] overflow-y-scroll p-4">
         <div className="flex items-center gap-2">
           <img
-            src="http://localhost:8000/1722916535316images%20(2).jpeg"
+            src={`${backend_url}${userData?.avatar}`}
             alt=""
             className="h-12 w-12 rounded-full"
           />
@@ -300,30 +299,76 @@ const SellerInbox = ({
             Hello there!
           </div>
         </div>
-        <div className="flex justify-end gap-4">
+
+        <div className="my-2 flex items-center gap-2">
+          <img
+            src={`${backend_url}${userData?.avatar}`}
+            alt=""
+            className="h-12 w-12 rounded-full"
+          />
           <div className="h-max w-max rounded bg-green-500 px-3 py-2 text-white">
-            Hi
+            How can I help you?
           </div>
         </div>
+
+        <div className="my-2 flex items-center gap-2">
+          <img
+            src={`${backend_url}${userData?.avatar}`}
+            alt=""
+            className="h-12 w-12 rounded-full"
+          />
+          <div className="h-max w-max rounded bg-green-500 px-3 py-2 text-white">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+            posuere erat a ante.
+          </div>
+        </div>
+
+        {messages &&
+          messages.map((item, index) => (
+            <div
+              className={`flex w-full ${
+                item.sender === sellerId ? "justify-end" : "justify-start"
+              }`}
+              key={index}
+            >
+              {item.sender !== sellerId && (
+                <img
+                  src={`${backend_url}${userData?.avatar}`}
+                  className="h-8 w-8 rounded-full"
+                  alt=""
+                />
+              )}
+              <div
+                className={`mx-2 mt-2 flex h-min max-w-[40%] flex-col items-start rounded p-2 px-3 text-[#fff] ${
+                  item.sender === sellerId ? "bg-[#38c776]" : "bg-[#38bdf8]"
+                }`}
+              >
+                <p>{item.text}</p>
+              </div>
+            </div>
+          ))}
+
+        <div ref={scrollRef} />
       </div>
 
       {/* send message input */}
-      <form className="relative flex items-center justify-between gap-3 p-4">
-        <IoImagesOutline size={24} />
-        <input
-          type="text"
-          placeholder="Enter your message..."
-          required
-          className="w-full rounded-md border border-gray-300 p-2"
-        />
-        <button
-          onClick={sendMessageHandler}
-          type="button"
-          className="absolute right-4 cursor-pointer bg-green-600 px-4 py-3 text-white"
-        >
-          <AiOutlineSend />
-        </button>
-      </form>
+      <div className="flex w-full items-center justify-between border-t border-gray-300 p-3">
+        <div className="w-[30px]">
+          <IoImagesOutline size={25} className="cursor-pointer" />
+        </div>
+        <div className="relative w-full">
+          <input
+            type="text"
+            placeholder="Enter your message..."
+            className="w-full rounded-lg border border-[#38bdf8] bg-[#f5f5f5] p-3"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+          />
+        </div>
+        <div className="ml-1 flex cursor-pointer items-center justify-center rounded-full bg-[#38bdf8] p-2">
+          <AiOutlineSend size={20} className="text-white" onClick={sendMessageHandler} />
+        </div>
+      </div>
     </div>
   );
 };
