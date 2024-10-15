@@ -9,7 +9,7 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
   try {
     const { cart, shippingAddress, user, totalPrice, paymentInfo } = req.body;
 
-    //   group cart items by shopId
+    // group cart items by shopId
     const shopItemsMap = new Map();
 
     for (const item of cart) {
