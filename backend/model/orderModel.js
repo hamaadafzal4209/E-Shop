@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema({
   },
   shippingAddress: {
     type: Object,
-    required: true,
+    required: true, 
   },
   user: {
     type: Object,
