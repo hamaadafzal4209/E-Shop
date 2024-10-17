@@ -250,7 +250,7 @@ function Header() {
                 </li>
               ))}
             </ul>
-            <div className="flex cursor-pointer items-center w-full justify-center">
+            <div className="flex w-full cursor-pointer items-center justify-center">
               <Link to={isSeller ? "/dashboard" : "/shop-create"}>
                 <div className="my-3 flex items-center gap-2 rounded-md bg-indigo-800 px-9 py-3 text-white">
                   <h1>{isSeller ? "Shop DashBoard" : " Become Seller"}</h1>
